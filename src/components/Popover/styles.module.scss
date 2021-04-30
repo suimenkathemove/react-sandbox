@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.childrenWrapper {
+  position: absolute;
+  margin-top: 4px;
+  background-color: white;
+
+  &.left {
+    left: 0;
+  }
+
+  &.right {
+    right: 0;
+  }
+}
