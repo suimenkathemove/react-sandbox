@@ -1,0 +1,30 @@
+$length: 50px;
+
+.base {
+  width: calc(#{$length} * 7);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.day {
+  display: inline-block;
+  width: $length;
+  text-align: center;
+}
+
+.date {
+  display: inline-block;
+  width: $length;
+  height: $length;
+  line-height: $length;
+  text-align: center;
+  cursor: pointer;
+}
+
+.today {
+  background-color: red;
+}
