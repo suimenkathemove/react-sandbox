@@ -26,6 +26,8 @@
     "lint:style": "stylelint 'src/**/*.{css,less,sass,scss}'",
     "lint:style:fix": "stylelint --fix 'src/**/*.{css,less,sass,scss}'",
     "tsc": "npx tsc --noEmit",
+    "tsm": "tsm src",
+    "tsm:watch": "tsm src -w --ignoreInitial -u",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "preinstall": "typesync || :"
@@ -77,6 +79,7 @@
     "stylelint-config-recess-order": "^2.4.0",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-order": "^4.1.0",
+    "typed-scss-modules": "^4.1.1",
     "typesync": "^0.8.0"
   }
 }
