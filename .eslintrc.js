@@ -74,6 +74,7 @@ module.exports = {
         },
       },
     ],
+    "import/no-unresolved": "off",
     "react/jsx-filename-extension": [
       "error",
       {

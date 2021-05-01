@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { dateString } from '../../utils/date/dateString';
-import { isSameDate } from '../../utils/date/isSameDate';
-import { useShow } from '../../utils/useShow';
-import { Calendar } from '../Calendar';
-import { Popover } from '../Popover';
-import styles from './styles.module.scss';
+import { Calendar } from "@/components/Calendar";
+import { Popover } from "@/components/Popover";
+import { dateString } from "@/utils/date/dateString";
+import { isSameDate } from "@/utils/date/isSameDate";
+import { useShow } from "@/utils/useShow";
+import { useState } from "react";
+import styles from "./styles.module.scss";
 
 type Props = {
   selectedDate: Date | null;
-  setSelectedDate: (date: NonNullable<Props['selectedDate']>) => void;
+  setSelectedDate: (date: NonNullable<Props["selectedDate"]>) => void;
 };
 
 export const DatePicker: React.VFC<Props> = (props) => {
   const [selectedDate, setSelectedDate] = useState(props.selectedDate);
 
   const value =
-    props.selectedDate != null ? dateString(props.selectedDate) : '';
+    props.selectedDate != null ? dateString(props.selectedDate) : "";
 
   const { isShown, show, hide } = useShow();
 
@@ -61,4 +61,5 @@ export const DatePicker: React.VFC<Props> = (props) => {
         <button onClick={onClickSubmit}>決定</button>
       </Popover>
     </div>
-  );};
+  );
+};

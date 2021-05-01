@@ -1,9 +1,9 @@
-import { Story, Meta } from '@storybook/react/types-6-0';
-import { useState } from 'react';
-import { DateRangePicker } from '.';
+import { Story, Meta } from "@storybook/react/types-6-0";
+import { useState } from "react";
+import { DateRangePicker } from "./";
 
 const meta: Meta = {
-  title: 'DateRangePicker',
+  title: "DateRangePicker",
   component: DateRangePicker,
 };
 export default meta;
