@@ -1,8 +1,8 @@
-import clsx from 'clsx';
-import { useMemo, useState } from 'react';
-import { isSameDate } from '../../utils/date/isSameDate';
-import { createDateGrid } from './logic/createDateGrid';
-import styles from './styles.module.scss';
+import { isSameDate } from "@/utils/date/isSameDate";
+import clsx from "clsx";
+import { useMemo, useState } from "react";
+import { createDateGrid } from "./logic/createDateGrid";
+import styles from "./styles.module.scss";
 
 type Props = {
   onClickDate: (date: Date) => void;
@@ -37,13 +37,13 @@ export const Calendar: React.VFC<Props> = (props) => {
   return (
     <div className={styles.base}>
       <div className={styles.header}>
-        <button onClick={onClickPrevMonth}>{'<'}</button>
+        <button onClick={onClickPrevMonth}>{"<"}</button>
         <div>{`${currentYear}年 ${currentMonth + 1}月`}</div>
-        <button onClick={onClickNextMonth}>{'>'}</button>
+        <button onClick={onClickNextMonth}>{">"}</button>
       </div>
 
       <div>
-        {['日', '月', '火', '水', '木', '金', '土'].map((day) => (
+        {["日", "月", "火", "水", "木", "金", "土"].map((day) => (
           <div key={day} className={styles.day}>
             {day}
           </div>

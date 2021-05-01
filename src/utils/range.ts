@@ -7,7 +7,7 @@ export const range = (
   const [start = 0, end, step = start < end ? 1 : -1]: [
     number,
     number,
-    number
+    number,
   ] = args.length === 1 ? [void 0, ...args] : args;
 
   let i = start;
