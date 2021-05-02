@@ -1,4 +1,5 @@
 import { isSameDate } from "@/utils/date/isSameDate";
+import { jaDays } from "@/utils/date/jaDays";
 import clsx from "clsx";
 import { useMemo, useState } from "react";
 import { createDateGrid } from "./logic/createDateGrid";
@@ -43,7 +44,7 @@ export const Calendar: React.VFC<Props> = (props) => {
       </div>
 
       <div>
-        {["日", "月", "火", "水", "木", "金", "土"].map((day) => (
+        {jaDays.map((day) => (
           <div key={day} className={styles.day}>
             {day}
           </div>
