@@ -1,4 +1,5 @@
 import { addDate } from "@/utils/date/addDate";
+import { addMinutes } from "@/utils/date/addMinutes";
 import { isSameDate } from "@/utils/date/isSameDate";
 import { jaDays } from "@/utils/date/jaDays";
 import { setTime } from "@/utils/date/setTime";
@@ -34,17 +35,12 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   };
 
   const [events, setEvents] = useState(props.events);
-
   const currentEventIdRef = useRef((events?.[events.length - 1]?.id ?? 0) + 1);
-
-  const isDraggingRef = useRef(false);
-
+  const mouseDownDateRef = useRef<Date | null>(null);
   const onMouseDown = (
     mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
     date: Date,
   ) => {
-    isDraggingRef.current = true;
-
     const mouseY = getMouseYFromElementTop(mouseEvent);
     const { hours, minutes } = getTimeFromMouseY(mouseY, HEIGHT);
     const startDate = setTime(date, hours, minutes);
@@ -58,25 +54,45 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
       },
     ];
     setEvents(newEvents);
+
+    mouseDownDateRef.current = startDate;
   };
   const onMouseMove = (
     mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
     date: Date,
   ) => {
-    if (!isDraggingRef.current) {
+    if (mouseDownDateRef.current == null) {
       return;
     }
 
     const mouseY = getMouseYFromElementTop(mouseEvent);
     const { hours, minutes } = getTimeFromMouseY(mouseY, HEIGHT);
-    const endDate = setTime(date, hours, minutes + 15);
+    const mouseDate = setTime(date, hours, minutes);
+    const event = events.find(
+      (event) => event.id === currentEventIdRef.current,
+    )!;
+    const newEvent = ((): Event => {
+      if (mouseDate < mouseDownDateRef.current) {
+        return {
+          ...event,
+          startDate: mouseDate,
+          endDate: addMinutes(mouseDownDateRef.current, 15),
+        };
+      } else {
+        return {
+          ...event,
+          startDate: mouseDownDateRef.current,
+          endDate: setTime(date, hours, minutes + 15),
+        };
+      }
+    })();
     const newEvents = events.map((event) =>
-      event.id === currentEventIdRef.current ? { ...event, endDate } : event,
+      event.id === currentEventIdRef.current ? newEvent : event,
     );
     setEvents(newEvents);
   };
   const onMouseUp = () => {
-    isDraggingRef.current = false;
+    mouseDownDateRef.current = null;
 
     currentEventIdRef.current++;
   };
