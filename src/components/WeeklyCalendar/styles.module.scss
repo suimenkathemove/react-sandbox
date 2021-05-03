@@ -23,8 +23,13 @@ $date-width: 100px;
 .hours {
   width: $hours-width;
 
-  & > * {
-    border-top: black 1px solid;
+  .numBorderContainer {
+    position: absolute;
+
+    .border {
+      width: calc(#{$hours-width} + #{$date-width} * 7);
+      border-top: black 1px solid;
+    }
   }
 }
 

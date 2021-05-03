@@ -106,7 +106,10 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
                 height: HEIGHT,
               }}
             >
-              {hour}
+              <div className={styles.numBorderContainer}>
+                <div className={styles.border} />
+                <div>{hour}</div>
+              </div>
             </div>
           ))}
         </div>
