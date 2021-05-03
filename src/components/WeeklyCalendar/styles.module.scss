@@ -1,0 +1,39 @@
+$hours-width: 50px;
+$date-width: 100px;
+
+.header {
+  display: inline-flex;
+  align-items: center;
+}
+
+.days {
+  display: flex;
+  margin-left: $hours-width;
+
+  .day {
+    width: $date-width;
+    text-align: center;
+  }
+}
+
+.container {
+  display: flex;
+}
+
+.hours {
+  width: $hours-width;
+
+  & > * {
+    border-top: black 1px solid;
+  }
+}
+
+.dates {
+  display: flex;
+
+  .date {
+    position: relative;
+    width: $date-width;
+    border-left: black 1px solid;
+  }
+}
