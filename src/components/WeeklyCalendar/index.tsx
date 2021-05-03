@@ -40,12 +40,12 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   const isDraggingRef = useRef(false);
 
   const onMouseDown = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
     date: Date,
   ) => {
     isDraggingRef.current = true;
 
-    const mouseY = getMouseYFromElementTop(event);
+    const mouseY = getMouseYFromElementTop(mouseEvent);
     const { hours, minutes } = getTimeFromMouseY(mouseY, HEIGHT);
     const startDate = setTime(date, hours, minutes);
     const endDate = setTime(date, hours, minutes + 15);
@@ -60,14 +60,14 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     setEvents(newEvents);
   };
   const onMouseMove = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
     date: Date,
   ) => {
     if (!isDraggingRef.current) {
       return;
     }
 
-    const mouseY = getMouseYFromElementTop(event);
+    const mouseY = getMouseYFromElementTop(mouseEvent);
     const { hours, minutes } = getTimeFromMouseY(mouseY, HEIGHT);
     const endDate = setTime(date, hours, minutes + 15);
     const newEvents = events.map((event) =>
