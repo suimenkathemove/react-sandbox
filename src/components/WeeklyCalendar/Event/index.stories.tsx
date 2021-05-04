@@ -18,5 +18,4 @@ Default.args = {
     startDate: setTime(now, 0, 0),
     endDate: setTime(now, 0, 15),
   },
-  height: 50,
 };

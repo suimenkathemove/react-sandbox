@@ -1,94 +1,95 @@
-import { addDate } from "@/utils/date/addDate";
-import { addMinutes } from "@/utils/date/addMinutes";
 import { isSameDate } from "@/utils/date/isSameDate";
 import { jaDays } from "@/utils/date/jaDays";
-import { setTime } from "@/utils/date/setTime";
-import { getMouseYFromElementTop } from "@/utils/getMouseYFromElementTop";
 import { range } from "@/utils/range";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Event } from "./Event";
-import { getTimeFromMouseY } from "./logic/getTimeFromMouseY";
 import styles from "./styles.module.scss";
+import { dateByMouseEvent } from "./utils/dateByMouseEvent";
+import { HEIGHT } from "./utils/height";
+import { useEvent } from "./utils/useEvent";
 import { useWeek } from "./utils/useWeek";
+
+export type Mode =
+  | "normal"
+  | "resizeNew"
+  | "resizeStart"
+  | "resizeEnd"
+  | "move";
 
 type Props = {
   events: Event[];
 };
 
-const HEIGHT = 50;
-
 export const WeeklyCalendar: React.VFC<Props> = (props) => {
-  const { currentWeek, yearMonth, prevWeek, nextWeek } = useWeek();
+  const week = useWeek();
 
-  const [events, setEvents] = useState(props.events);
-  const currentEventIdRef = useRef((events?.[events.length - 1]?.id ?? 0) + 1);
+  const event = useEvent(props.events);
+
   const mouseDownDateRef = useRef<Date | null>(null);
+  const mouseMoveDateRef = useRef<Date | null>(null);
+
+  const modeRef = useRef<Mode>("normal");
+
+  const editedEventRef = useRef<Event | null>(null);
+
   const onMouseDown = (
     mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
     date: Date,
   ) => {
-    const mouseY = getMouseYFromElementTop(mouseEvent);
-    const { hours, minutes } = getTimeFromMouseY(mouseY, HEIGHT);
-    const startDate = setTime(date, hours, minutes);
-    const endDate = setTime(date, hours, minutes + 15);
-    const newEvents = [
-      ...events,
-      {
-        id: currentEventIdRef.current,
-        startDate,
-        endDate,
-      },
-    ];
-    setEvents(newEvents);
+    mouseDownDateRef.current = dateByMouseEvent(mouseEvent, date);
 
-    mouseDownDateRef.current = startDate;
+    if (modeRef.current === "normal") {
+      event.createEvent(mouseDownDateRef.current);
+
+      modeRef.current = "resizeNew";
+    }
   };
+
   const onMouseMove = (
     mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
     date: Date,
   ) => {
-    if (mouseDownDateRef.current == null) {
-      return;
-    }
+    mouseMoveDateRef.current = dateByMouseEvent(mouseEvent, date);
 
-    const mouseY = getMouseYFromElementTop(mouseEvent);
-    const { hours, minutes } = getTimeFromMouseY(mouseY, HEIGHT);
-    const mouseDate = setTime(date, hours, minutes);
-    const event = events.find(
-      (event) => event.id === currentEventIdRef.current,
-    )!;
-    const newEvent = ((): Event => {
-      if (mouseDate < mouseDownDateRef.current) {
-        return {
-          ...event,
-          startDate: mouseDate,
-          endDate: addMinutes(mouseDownDateRef.current, 15),
-        };
-      } else {
-        return {
-          ...event,
-          startDate: mouseDownDateRef.current,
-          endDate: setTime(date, hours, minutes + 15),
-        };
-      }
-    })();
-    const newEvents = events.map((event) =>
-      event.id === currentEventIdRef.current ? newEvent : event,
-    );
-    setEvents(newEvents);
+    switch (modeRef.current) {
+      case "resizeNew":
+        if (mouseDownDateRef.current != null) {
+          event.resizeNewEvent(
+            mouseMoveDateRef.current,
+            mouseDownDateRef.current,
+          );
+        }
+        break;
+      case "resizeStart":
+      case "resizeEnd":
+        if (editedEventRef.current != null) {
+          event[modeRef.current](
+            editedEventRef.current,
+            mouseMoveDateRef.current,
+          );
+        }
+        break;
+    }
   };
+
   const onMouseUp = () => {
     mouseDownDateRef.current = null;
 
-    currentEventIdRef.current++;
+    modeRef.current = "normal";
+  };
+
+  const onMouseDownEvent = (event: Event, mode: Mode) => {
+    editedEventRef.current = event;
+
+    modeRef.current = mode;
   };
 
   return (
     <div>
       <div className={styles.header}>
-        <button onClick={prevWeek}>{"<"}</button>
-        <button onClick={nextWeek}>{">"}</button>
-        <div>{yearMonth}</div>
+        <button onClick={week.prevWeek}>{"<"}</button>
+        <button onClick={week.nextWeek}>{">"}</button>
+        <div>{week.yearMonth}</div>
       </div>
 
       <div className={styles.days}>
@@ -117,22 +118,27 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
         </div>
 
         <div className={styles.dates}>
-          {currentWeek.map((date) => (
+          {week.currentWeek.map((date) => (
             <div
               key={date.getDay()}
-              onMouseDown={(event) => {
-                onMouseDown(event, date);
+              onMouseDown={(mouseEvent) => {
+                onMouseDown(mouseEvent, date);
               }}
-              onMouseMove={(event) => {
-                onMouseMove(event, date);
+              onMouseMove={(mouseEvent) => {
+                onMouseMove(mouseEvent, date);
               }}
               onMouseUp={onMouseUp}
               className={styles.date}
             >
               <div>{date.getDate()}</div>
-              {events.map((event) =>
+              {event.events.map((event) =>
                 isSameDate(event.startDate, date) ? (
-                  <Event key={event.id} event={event} height={HEIGHT} />
+                  <Event
+                    key={event.id}
+                    event={event}
+                    mode={modeRef.current}
+                    onMouseDown={onMouseDownEvent}
+                  />
                 ) : null,
               )}
             </div>
