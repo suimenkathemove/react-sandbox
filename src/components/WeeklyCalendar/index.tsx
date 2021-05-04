@@ -39,7 +39,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     mouseDownDateRef.current = dateByMouseEvent(mouseEvent, date);
 
     if (modeRef.current === "normal") {
-      event.createEvent(mouseDownDateRef.current);
+      event.create(mouseDownDateRef.current);
 
       modeRef.current = "resizeNew";
     }
@@ -54,10 +54,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     switch (modeRef.current) {
       case "resizeNew":
         if (mouseDownDateRef.current != null) {
-          event.resizeNewEvent(
-            mouseMoveDateRef.current,
-            mouseDownDateRef.current,
-          );
+          event.resizeNew(mouseMoveDateRef.current, mouseDownDateRef.current);
         }
         break;
       case "resizeStart":
@@ -131,7 +128,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
               className={styles.date}
             >
               <div>{date.getDate()}</div>
-              {event.events.map((event) =>
+              {event.list.map((event) =>
                 isSameDate(event.startDate, date) ? (
                   <Event
                     key={event.id}

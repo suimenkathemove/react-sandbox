@@ -11,7 +11,7 @@ export const useEvent = (baseEvents: Event[]) => {
     setEvents(_events);
   };
 
-  const createEvent = (date: Date) => {
+  const create = (date: Date) => {
     const newEvent: Event = {
       id: (events?.[events.length - 1]?.id ?? 0) + 1,
       startDate: date,
@@ -21,7 +21,7 @@ export const useEvent = (baseEvents: Event[]) => {
     setEvents(_events);
   };
 
-  const resizeNewEvent = (startPointDate: Date, endPointDate: Date) => {
+  const resizeNew = (startPointDate: Date, endPointDate: Date) => {
     const newEvent = events[events.length - 1];
 
     const [date1, date2] =
@@ -56,9 +56,9 @@ export const useEvent = (baseEvents: Event[]) => {
   };
 
   return {
-    events,
-    createEvent,
-    resizeNewEvent,
+    list: events,
+    create,
+    resizeNew,
     resizeStart,
     resizeEnd,
   };
