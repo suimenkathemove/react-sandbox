@@ -2,8 +2,8 @@ import { isSameDate } from "@/utils/date/isSameDate";
 import { jaDays } from "@/utils/date/jaDays";
 import clsx from "clsx";
 import { useMemo, useState } from "react";
-import { createDateGrid } from "./logic/createDateGrid";
 import styles from "./styles.module.scss";
+import { createDateGrid } from "./utils/createDateGrid";
 
 type Props = {
   onClickDate: (date: Date) => void;
