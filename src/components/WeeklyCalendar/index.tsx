@@ -9,6 +9,7 @@ import { useRef, useState } from "react";
 import { Event } from "./Event";
 import { getTimeFromMouseY } from "./logic/getTimeFromMouseY";
 import styles from "./styles.module.scss";
+import { useWeek } from "./utils/useWeek";
 
 type Props = {
   events: Event[];
@@ -17,22 +18,7 @@ type Props = {
 const HEIGHT = 50;
 
 export const WeeklyCalendar: React.VFC<Props> = (props) => {
-  const now = new Date();
-  const [currentWeekFirstDate, setCurrentWeekFirstDate] = useState(
-    addDate(now, -now.getDay()),
-  );
-  const currentWeek = range(7).map((day) => addDate(currentWeekFirstDate, day));
-  const jaYearMonth = `${currentWeekFirstDate.getFullYear()}年 ${
-    currentWeekFirstDate.getMonth() + 1
-  }月`;
-  const onClickPrevWeek = () => {
-    const prevWeekFirstDate = addDate(currentWeekFirstDate, -7);
-    setCurrentWeekFirstDate(prevWeekFirstDate);
-  };
-  const onClickNextWeek = () => {
-    const nextWeekFirstDate = addDate(currentWeekFirstDate, 7);
-    setCurrentWeekFirstDate(nextWeekFirstDate);
-  };
+  const { currentWeek, yearMonth, prevWeek, nextWeek } = useWeek();
 
   const [events, setEvents] = useState(props.events);
   const currentEventIdRef = useRef((events?.[events.length - 1]?.id ?? 0) + 1);
@@ -100,9 +86,9 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   return (
     <div>
       <div className={styles.header}>
-        <button onClick={onClickPrevWeek}>{"<"}</button>
-        <button onClick={onClickNextWeek}>{">"}</button>
-        <div>{jaYearMonth}</div>
+        <button onClick={prevWeek}>{"<"}</button>
+        <button onClick={nextWeek}>{">"}</button>
+        <div>{yearMonth}</div>
       </div>
 
       <div className={styles.days}>
