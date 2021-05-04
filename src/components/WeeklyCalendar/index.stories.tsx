@@ -16,8 +16,8 @@ Default.args = {
   events: [
     {
       id: 1,
-      startDate: setTime(now, 0, 0),
-      endDate: setTime(now, 0, 15),
+      startDate: setTime(now, 12, 0),
+      endDate: setTime(now, 13, 0),
     },
   ],
 };
