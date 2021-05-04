@@ -66,6 +66,18 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
           );
         }
         break;
+      case "move":
+        if (
+          editedEventRef.current != null &&
+          mouseDownDateRef.current != null
+        ) {
+          event.move(
+            editedEventRef.current,
+            mouseDownDateRef.current,
+            mouseMoveDateRef.current,
+          );
+        }
+        break;
     }
   };
 

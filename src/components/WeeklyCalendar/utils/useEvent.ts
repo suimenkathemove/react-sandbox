@@ -1,5 +1,6 @@
 import { addMinutes } from "@/utils/date/addMinutes";
 import { compareDate } from "@/utils/date/compareDate";
+import { setTime } from "@/utils/date/setTime";
 import { useState } from "react";
 import { Event } from "../Event";
 
@@ -7,8 +8,7 @@ export const useEvent = (baseEvents: Event[]) => {
   const [events, setEvents] = useState(baseEvents);
 
   const updateEvents = (event: Event) => {
-    const _events = events.map((e) => (e.id === event.id ? event : e));
-    setEvents(_events);
+    setEvents((events) => events.map((e) => (e.id === event.id ? event : e)));
   };
 
   const create = (date: Date) => {
@@ -55,11 +55,39 @@ export const useEvent = (baseEvents: Event[]) => {
     updateEvents(_event);
   };
 
+  const move = (event: Event, startPointDate: Date, endPointDate: Date) => {
+    const horizontalStartDate = setTime(
+      endPointDate,
+      event.startDate.getHours(),
+      event.startDate.getMinutes(),
+    );
+    const horizontalEndDate = setTime(
+      endPointDate,
+      event.endDate.getHours(),
+      event.endDate.getMinutes(),
+    );
+
+    const diffHours = endPointDate.getHours() - startPointDate.getHours();
+    const diffMinutes = endPointDate.getMinutes() - startPointDate.getMinutes();
+    const diffSumMinutes = 60 * diffHours + diffMinutes;
+
+    const startDate = addMinutes(horizontalStartDate, diffSumMinutes);
+    const endDate = addMinutes(horizontalEndDate, diffSumMinutes);
+
+    const _event = {
+      ...event,
+      startDate,
+      endDate,
+    };
+    updateEvents(_event);
+  };
+
   return {
     list: events,
     create,
     resizeNew,
     resizeStart,
     resizeEnd,
+    move,
   };
 };
