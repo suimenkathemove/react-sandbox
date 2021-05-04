@@ -1,6 +1,6 @@
 import { addMinutes } from "@/utils/date/addMinutes";
 import { compareDate } from "@/utils/date/compareDate";
-import { setTime } from "@/utils/date/setTime";
+import { diffMinutes } from "@/utils/date/diffMinutes";
 import { useState } from "react";
 import { Event } from "../Event";
 
@@ -56,28 +56,11 @@ export const useEvent = (baseEvents: Event[]) => {
   };
 
   const move = (event: Event, startPointDate: Date, endPointDate: Date) => {
-    const horizontalStartDate = setTime(
-      endPointDate,
-      event.startDate.getHours(),
-      event.startDate.getMinutes(),
-    );
-    const horizontalEndDate = setTime(
-      endPointDate,
-      event.endDate.getHours(),
-      event.endDate.getMinutes(),
-    );
-
-    const diffHours = endPointDate.getHours() - startPointDate.getHours();
-    const diffMinutes = endPointDate.getMinutes() - startPointDate.getMinutes();
-    const diffSumMinutes = 60 * diffHours + diffMinutes;
-
-    const startDate = addMinutes(horizontalStartDate, diffSumMinutes);
-    const endDate = addMinutes(horizontalEndDate, diffSumMinutes);
-
+    const minutes = diffMinutes(endPointDate, startPointDate);
     const _event = {
       ...event,
-      startDate,
-      endDate,
+      startDate: addMinutes(event.startDate, minutes),
+      endDate: addMinutes(event.endDate, minutes),
     };
     updateEvents(_event);
   };
