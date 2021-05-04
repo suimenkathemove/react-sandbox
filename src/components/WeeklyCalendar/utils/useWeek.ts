@@ -8,25 +8,25 @@ export const useWeek = () => {
     addDate(now, -now.getDay()),
   );
 
-  const currentWeek = range(7).map((day) => addDate(currentWeekFirstDate, day));
+  const current = range(7).map((day) => addDate(currentWeekFirstDate, day));
 
   const yearMonth = `${currentWeekFirstDate.getFullYear()}/${
     currentWeekFirstDate.getMonth() + 1
   }`;
 
-  const prevWeek = () => {
+  const prev = () => {
     const prevWeekFirstDate = addDate(currentWeekFirstDate, -7);
     setCurrentWeekFirstDate(prevWeekFirstDate);
   };
-  const nextWeek = () => {
+  const next = () => {
     const nextWeekFirstDate = addDate(currentWeekFirstDate, 7);
     setCurrentWeekFirstDate(nextWeekFirstDate);
   };
 
   return {
-    currentWeek,
+    current,
     yearMonth,
-    prevWeek,
-    nextWeek,
+    prev,
+    next,
   };
 };
