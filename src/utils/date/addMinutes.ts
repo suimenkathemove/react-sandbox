@@ -5,4 +5,6 @@ export const addMinutes = (date: Date, minutes: number) =>
     date.getDate(),
     date.getHours(),
     date.getMinutes() + minutes,
+    date.getSeconds(),
+    date.getMilliseconds(),
   );
