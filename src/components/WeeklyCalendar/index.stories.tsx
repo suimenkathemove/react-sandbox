@@ -16,6 +16,7 @@ Default.args = {
   events: [
     {
       id: 1,
+      title: "shopping",
       startDate: setTime(now, 12, 0),
       endDate: setTime(now, 13, 0),
     },

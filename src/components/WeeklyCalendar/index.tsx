@@ -83,6 +83,17 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
 
     editedEventRef.current = null;
 
+    if (modeRef.current === "resizeNew") {
+      const title = window.prompt("title");
+      const newEvent = event.list[event.list.length - 1];
+
+      if (title != null) {
+        event.inputTitle(newEvent, title);
+      } else {
+        event.remove(newEvent.id);
+      }
+    }
+
     modeRef.current = "create";
   };
 
