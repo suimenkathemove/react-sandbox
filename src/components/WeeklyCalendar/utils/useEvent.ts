@@ -24,31 +24,32 @@ export const useEvent = (baseEvents: Event[]) => {
   const resizeNew = (startPointDate: Date, endPointDate: Date) => {
     const newEvent = events[events.length - 1];
 
-    const [date1, date2] =
+    const [beforeDate, afterDate] =
       startPointDate < endPointDate
         ? [startPointDate, endPointDate]
         : [endPointDate, startPointDate];
+
     const _event = {
       ...newEvent,
-      startDate: date1,
-      endDate: addMinutes(date2, 15),
+      startDate: beforeDate,
+      endDate: addMinutes(afterDate, 15),
     };
     updateEvents(_event);
   };
 
-  const resizeStart = (event: Event, date: Date) => {
+  const resizeStart = (event: Event, endPointDate: Date) => {
     const _event = {
       ...event,
-      startDate: compareDate.min(date, addMinutes(event.endDate, -15)),
+      startDate: compareDate.min(endPointDate, addMinutes(event.endDate, -15)),
     };
     updateEvents(_event);
   };
 
-  const resizeEnd = (event: Event, date: Date) => {
+  const resizeEnd = (event: Event, endPointDate: Date) => {
     const _event = {
       ...event,
       endDate: compareDate.max(
-        addMinutes(date, 15),
+        addMinutes(endPointDate, 15),
         addMinutes(event.startDate, 15),
       ),
     };
