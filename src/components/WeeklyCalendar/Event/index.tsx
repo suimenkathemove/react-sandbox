@@ -16,7 +16,6 @@ type Props = {
   dateRage: DateRange;
   mode: Mode;
   onMouseDown: (event: Event, mode: Mode) => void;
-  onClick: (event: Event) => void;
 };
 
 export const Event: React.VFC<Props> = (props) => {
@@ -36,13 +35,9 @@ export const Event: React.VFC<Props> = (props) => {
         return "resizeEnd";
       }
 
-      return "move";
+      return "moveOrEdit";
     })();
     props.onMouseDown(props.event, newMode);
-  };
-
-  const onClick = () => {
-    props.onClick(props.event);
   };
 
   const top =
@@ -56,7 +51,6 @@ export const Event: React.VFC<Props> = (props) => {
   return (
     <div
       onMouseDown={onMouseDown}
-      onClick={onClick}
       className={styles.base}
       style={{
         top,

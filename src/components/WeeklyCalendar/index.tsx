@@ -15,6 +15,7 @@ export type Mode =
   | "resizeNew"
   | "resizeStart"
   | "resizeEnd"
+  | "moveOrEdit"
   | "move";
 
 type Props = {
@@ -31,6 +32,14 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   const mouseDownDateRef = useRef<Date | null>(null);
 
   const editedEventRef = useRef<Event | null>(null);
+
+  const cleanup = () => {
+    mouseDownDateRef.current = null;
+
+    editedEventRef.current = null;
+
+    modeRef.current = "normal";
+  };
 
   const onMouseDown = (
     mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -63,38 +72,52 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
           useEventObj[modeRef.current](editedEventRef.current, mouseMoveDate);
         }
         break;
+      case "moveOrEdit":
       case "move":
         if (
           editedEventRef.current != null &&
           mouseDownDateRef.current != null
         ) {
-          useEventObj[modeRef.current](
+          useEventObj.move(
             editedEventRef.current,
             mouseDownDateRef.current,
             mouseMoveDate,
           );
+
+          if (modeRef.current === "moveOrEdit") {
+            modeRef.current = "move";
+          }
         }
         break;
     }
   };
 
   const onMouseUp = () => {
-    mouseDownDateRef.current = null;
+    switch (modeRef.current) {
+      case "resizeNew":
+        {
+          const title = window.prompt("title");
+          const newEvent = useEventObj.list[useEventObj.list.length - 1];
 
-    editedEventRef.current = null;
-
-    if (modeRef.current === "resizeNew") {
-      const title = window.prompt("title");
-      const newEvent = useEventObj.list[useEventObj.list.length - 1];
-
-      if (title != null) {
-        useEventObj.inputTitle(newEvent, title);
-      } else {
-        useEventObj.remove(newEvent.id);
+          if (title != null) {
+            useEventObj.inputTitle(newEvent, title);
+          } else {
+            useEventObj.remove(newEvent.id);
+          }
+        }
+        break;
+      case "moveOrEdit": {
+        if (editedEventRef.current != null) {
+          const title = window.prompt("title");
+          if (title != null) {
+            useEventObj.inputTitle(editedEventRef.current, title);
+          }
+        }
+        break;
       }
     }
 
-    modeRef.current = "normal";
+    cleanup();
   };
 
   type EventProps = React.ComponentProps<typeof Event>;
@@ -103,13 +126,6 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     editedEventRef.current = event;
 
     modeRef.current = mode;
-  };
-
-  const onClickEvent: EventProps["onClick"] = (event) => {
-    const title = window.prompt("title");
-    if (title != null) {
-      useEventObj.inputTitle(event, title);
-    }
   };
 
   return (
@@ -172,7 +188,6 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
                         dateRage={dateRange}
                         mode={modeRef.current}
                         onMouseDown={onMouseDownEvent}
-                        onClick={onClickEvent}
                       />
                     ),
                 ),
