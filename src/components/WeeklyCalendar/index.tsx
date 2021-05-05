@@ -26,10 +26,9 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
 
   const event = useEvent(props.events);
 
-  const mouseDownDateRef = useRef<Date | null>(null);
-  const mouseMoveDateRef = useRef<Date | null>(null);
-
   const modeRef = useRef<Mode>("create");
+
+  const mouseDownDateRef = useRef<Date | null>(null);
 
   const editedEventRef = useRef<Event | null>(null);
 
@@ -50,24 +49,18 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
     date: Date,
   ) => {
-    mouseMoveDateRef.current = dateByMouseEvent(mouseEvent, date);
+    const mouseMoveDate = dateByMouseEvent(mouseEvent, date);
 
     switch (modeRef.current) {
       case "resizeNew":
         if (mouseDownDateRef.current != null) {
-          event[modeRef.current](
-            mouseMoveDateRef.current,
-            mouseDownDateRef.current,
-          );
+          event[modeRef.current](mouseMoveDate, mouseDownDateRef.current);
         }
         break;
       case "resizeStart":
       case "resizeEnd":
         if (editedEventRef.current != null) {
-          event[modeRef.current](
-            editedEventRef.current,
-            mouseMoveDateRef.current,
-          );
+          event[modeRef.current](editedEventRef.current, mouseMoveDate);
         }
         break;
       case "move":
@@ -78,7 +71,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
           event[modeRef.current](
             editedEventRef.current,
             mouseDownDateRef.current,
-            mouseMoveDateRef.current,
+            mouseMoveDate,
           );
         }
         break;
@@ -87,6 +80,8 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
 
   const onMouseUp = () => {
     mouseDownDateRef.current = null;
+
+    editedEventRef.current = null;
 
     modeRef.current = "create";
   };
@@ -122,7 +117,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
                 height: HOUR_HEIGHT,
               }}
             >
-              <div className={styles.numBorderContainer}>
+              <div className={styles.borderAndNumContainer}>
                 <div className={styles.border} />
                 <div>{hour}</div>
               </div>
