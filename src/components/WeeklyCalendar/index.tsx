@@ -1,5 +1,6 @@
 import { isSameDate } from "@/utils/date/isSameDate";
 import { jaDays } from "@/utils/date/jaDays";
+import { splitDateRange } from "@/utils/date/splitDateRange";
 import { range } from "@/utils/range";
 import { useRef } from "react";
 import { Event } from "./Event";
@@ -141,14 +142,21 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
             >
               <div>{date.getDate()}</div>
               {event.list.map((event) =>
-                isSameDate(event.startDate, date) ? (
-                  <Event
-                    key={event.id}
-                    event={event}
-                    mode={modeRef.current}
-                    onMouseDown={onMouseDownEvent}
-                  />
-                ) : null,
+                splitDateRange({
+                  startDate: event.startDate,
+                  endDate: event.endDate,
+                }).map(
+                  (dateRange) =>
+                    isSameDate(dateRange.startDate, date) && (
+                      <Event
+                        key={`${event.id}-${dateRange.startDate.getDate()}`}
+                        event={event}
+                        dateRage={dateRange}
+                        mode={modeRef.current}
+                        onMouseDown={onMouseDownEvent}
+                      />
+                    ),
+                ),
               )}
             </div>
           ))}

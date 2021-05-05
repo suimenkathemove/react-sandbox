@@ -12,6 +12,7 @@ export type Event = {
 
 type Props = {
   event: Event;
+  dateRage: DateRange;
   mode: Mode;
   onMouseDown: (event: Event, mode: Mode) => void;
 };
@@ -40,11 +41,11 @@ export const Event: React.VFC<Props> = (props) => {
 
   const height =
     HOUR_HEIGHT *
-    (diffMinutes(props.event.endDate, props.event.startDate) / 60);
+    (diffMinutes(props.dateRage.endDate, props.dateRage.startDate) / 60);
 
   const top =
-    HOUR_HEIGHT * props.event.startDate.getHours() +
-    HOUR_HEIGHT * (props.event.startDate.getMinutes() / 60);
+    HOUR_HEIGHT * props.dateRage.startDate.getHours() +
+    HOUR_HEIGHT * (props.dateRage.startDate.getMinutes() / 60);
 
   return (
     <div
