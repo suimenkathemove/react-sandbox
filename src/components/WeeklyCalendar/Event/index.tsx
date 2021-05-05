@@ -1,3 +1,4 @@
+import { DateRange } from "@/types/date";
 import { diffMinutes } from "@/utils/date/diffMinutes";
 import { mouseCoordinate } from "@/utils/mouseCoordinate";
 import { Mode } from "../";
@@ -7,9 +8,7 @@ import { RESIZE_HEIGHT } from "./utils/resizeHeight";
 
 export type Event = {
   id: number;
-  startDate: Date;
-  endDate: Date;
-};
+} & DateRange;
 
 type Props = {
   event: Event;
