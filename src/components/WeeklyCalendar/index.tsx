@@ -24,7 +24,7 @@ type Props = {
 export const WeeklyCalendar: React.VFC<Props> = (props) => {
   const week = useWeek();
 
-  const event = useEvent(props.events);
+  const useEventObj = useEvent(props.events);
 
   const modeRef = useRef<Mode>("create");
 
@@ -39,7 +39,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     mouseDownDateRef.current = dateByMouseEvent(mouseEvent, date);
 
     if (modeRef.current === "create") {
-      event[modeRef.current](mouseDownDateRef.current);
+      useEventObj[modeRef.current](mouseDownDateRef.current);
 
       modeRef.current = "resizeNew";
     }
@@ -54,13 +54,13 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     switch (modeRef.current) {
       case "resizeNew":
         if (mouseDownDateRef.current != null) {
-          event[modeRef.current](mouseMoveDate, mouseDownDateRef.current);
+          useEventObj[modeRef.current](mouseMoveDate, mouseDownDateRef.current);
         }
         break;
       case "resizeStart":
       case "resizeEnd":
         if (editedEventRef.current != null) {
-          event[modeRef.current](editedEventRef.current, mouseMoveDate);
+          useEventObj[modeRef.current](editedEventRef.current, mouseMoveDate);
         }
         break;
       case "move":
@@ -68,7 +68,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
           editedEventRef.current != null &&
           mouseDownDateRef.current != null
         ) {
-          event[modeRef.current](
+          useEventObj[modeRef.current](
             editedEventRef.current,
             mouseDownDateRef.current,
             mouseMoveDate,
@@ -85,12 +85,12 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
 
     if (modeRef.current === "resizeNew") {
       const title = window.prompt("title");
-      const newEvent = event.list[event.list.length - 1];
+      const newEvent = useEventObj.list[useEventObj.list.length - 1];
 
       if (title != null) {
-        event.inputTitle(newEvent, title);
+        useEventObj.inputTitle(newEvent, title);
       } else {
-        event.remove(newEvent.id);
+        useEventObj.remove(newEvent.id);
       }
     }
 
@@ -105,10 +105,10 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     modeRef.current = mode;
   };
 
-  const onClickEvent: EventProps["onClick"] = (e) => {
+  const onClickEvent: EventProps["onClick"] = (event) => {
     const title = window.prompt("title");
     if (title != null) {
-      event.inputTitle(e, title);
+      useEventObj.inputTitle(event, title);
     }
   };
 
@@ -159,7 +159,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
               className={styles.date}
             >
               <div>{date.getDate()}</div>
-              {event.list.map((event) =>
+              {useEventObj.list.map((event) =>
                 splitDateRange({
                   startDate: event.startDate,
                   endDate: event.endDate,
