@@ -11,7 +11,7 @@ import { useEvent } from "./utils/useEvent";
 import { useWeek } from "./utils/useWeek";
 
 export type Mode =
-  | "normal"
+  | "create"
   | "resizeNew"
   | "resizeStart"
   | "resizeEnd"
@@ -29,7 +29,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   const mouseDownDateRef = useRef<Date | null>(null);
   const mouseMoveDateRef = useRef<Date | null>(null);
 
-  const modeRef = useRef<Mode>("normal");
+  const modeRef = useRef<Mode>("create");
 
   const editedEventRef = useRef<Event | null>(null);
 
@@ -39,8 +39,8 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   ) => {
     mouseDownDateRef.current = dateByMouseEvent(mouseEvent, date);
 
-    if (modeRef.current === "normal") {
-      event.create(mouseDownDateRef.current);
+    if (modeRef.current === "create") {
+      event[modeRef.current](mouseDownDateRef.current);
 
       modeRef.current = "resizeNew";
     }
@@ -55,7 +55,10 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     switch (modeRef.current) {
       case "resizeNew":
         if (mouseDownDateRef.current != null) {
-          event.resizeNew(mouseMoveDateRef.current, mouseDownDateRef.current);
+          event[modeRef.current](
+            mouseMoveDateRef.current,
+            mouseDownDateRef.current,
+          );
         }
         break;
       case "resizeStart":
@@ -72,7 +75,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
           editedEventRef.current != null &&
           mouseDownDateRef.current != null
         ) {
-          event.move(
+          event[modeRef.current](
             editedEventRef.current,
             mouseDownDateRef.current,
             mouseMoveDateRef.current,
@@ -85,7 +88,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   const onMouseUp = () => {
     mouseDownDateRef.current = null;
 
-    modeRef.current = "normal";
+    modeRef.current = "create";
   };
 
   const onMouseDownEvent = (event: Event, mode: Mode) => {
