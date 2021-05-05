@@ -96,11 +96,11 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     switch (modeRef.current) {
       case "resizeNew":
         {
-          const title = window.prompt("title");
+          const input = window.prompt("タイトルを入力してください");
           const newEvent = useEventObj.list[useEventObj.list.length - 1];
 
-          if (title != null) {
-            useEventObj.inputTitle(newEvent, title);
+          if (input != null) {
+            useEventObj.inputTitle(newEvent, input);
           } else {
             useEventObj.remove(newEvent.id);
           }
@@ -108,9 +108,13 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
         break;
       case "moveOrEdit": {
         if (editedEventRef.current != null) {
-          const title = window.prompt("title");
-          if (title != null) {
-            useEventObj.inputTitle(editedEventRef.current, title);
+          const input = window.prompt(
+            "タイトルを変更するか、削除したい場合は「delete」と入力してください",
+          );
+          if (input === "delete") {
+            useEventObj.remove(editedEventRef.current.id);
+          } else if (input != null) {
+            useEventObj.inputTitle(editedEventRef.current, input);
           }
         }
         break;
