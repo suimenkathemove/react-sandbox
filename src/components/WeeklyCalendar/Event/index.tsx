@@ -21,7 +21,7 @@ export const Event: React.VFC<Props> = (props) => {
   const onMouseDown = (
     mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
-    const newMode = (() => {
+    const newMode = ((): Mode => {
       const mouseYFromElementTop = mouseCoordinate.yFromElementTop(mouseEvent);
       if (mouseYFromElementTop < RESIZE_HEIGHT) {
         return "resizeStart";
@@ -39,21 +39,21 @@ export const Event: React.VFC<Props> = (props) => {
     props.onMouseDown(props.event, newMode);
   };
 
-  const height =
-    HOUR_HEIGHT *
-    (diffMinutes(props.dateRage.endDate, props.dateRage.startDate) / 60);
-
   const top =
     HOUR_HEIGHT * props.dateRage.startDate.getHours() +
     HOUR_HEIGHT * (props.dateRage.startDate.getMinutes() / 60);
+
+  const height =
+    HOUR_HEIGHT *
+    (diffMinutes(props.dateRage.endDate, props.dateRage.startDate) / 60);
 
   return (
     <div
       onMouseDown={onMouseDown}
       className={styles.base}
       style={{
-        height,
         top,
+        height,
       }}
     ></div>
   );
