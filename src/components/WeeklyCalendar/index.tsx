@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { Event } from "./Event";
 import styles from "./styles.module.scss";
 import { dateByMouseEvent } from "./utils/dateByMouseEvent";
-import { HEIGHT } from "./utils/height";
+import { HOUR_HEIGHT } from "./utils/hourHeight";
 import { useEvent } from "./utils/useEvent";
 import { useWeek } from "./utils/useWeek";
 
@@ -115,7 +115,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
             <div
               key={hour}
               style={{
-                height: HEIGHT,
+                height: HOUR_HEIGHT,
               }}
             >
               <div className={styles.numBorderContainer}>

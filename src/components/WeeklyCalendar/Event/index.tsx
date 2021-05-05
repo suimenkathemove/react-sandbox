@@ -1,7 +1,7 @@
 import { diffMinutes } from "@/utils/date/diffMinutes";
 import { mouseCoordinate } from "@/utils/mouseCoordinate";
 import { Mode } from "../";
-import { HEIGHT } from "../utils/height";
+import { HOUR_HEIGHT } from "../utils/hourHeight";
 import styles from "./styles.module.scss";
 import { RESIZE_HEIGHT } from "./utils/resizeHeight";
 
@@ -40,11 +40,12 @@ export const Event: React.VFC<Props> = (props) => {
   };
 
   const height =
-    HEIGHT * (diffMinutes(props.event.endDate, props.event.startDate) / 60);
+    HOUR_HEIGHT *
+    (diffMinutes(props.event.endDate, props.event.startDate) / 60);
 
   const top =
-    HEIGHT * props.event.startDate.getHours() +
-    HEIGHT * (props.event.startDate.getMinutes() / 60);
+    HOUR_HEIGHT * props.event.startDate.getHours() +
+    HOUR_HEIGHT * (props.event.startDate.getMinutes() / 60);
 
   return (
     <div
