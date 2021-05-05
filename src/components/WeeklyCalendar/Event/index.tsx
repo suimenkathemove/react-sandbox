@@ -8,6 +8,7 @@ import { RESIZE_HEIGHT } from "./utils/resizeHeight";
 
 export type Event = {
   id: number;
+  title: string;
 } & DateRange;
 
 type Props = {
@@ -34,7 +35,7 @@ export const Event: React.VFC<Props> = (props) => {
         return "resizeEnd";
       }
 
-      return "move";
+      return "moveOrEdit";
     })();
     props.onMouseDown(props.event, newMode);
   };
@@ -55,6 +56,8 @@ export const Event: React.VFC<Props> = (props) => {
         top,
         height,
       }}
-    ></div>
+    >
+      {props.event.title}
+    </div>
   );
 };

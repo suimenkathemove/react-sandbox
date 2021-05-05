@@ -11,10 +11,11 @@ import { useEvent } from "./utils/useEvent";
 import { useWeek } from "./utils/useWeek";
 
 export type Mode =
-  | "create"
+  | "normal"
   | "resizeNew"
   | "resizeStart"
   | "resizeEnd"
+  | "moveOrEdit"
   | "move";
 
 type Props = {
@@ -22,15 +23,23 @@ type Props = {
 };
 
 export const WeeklyCalendar: React.VFC<Props> = (props) => {
-  const week = useWeek();
+  const useWeekObj = useWeek();
 
-  const event = useEvent(props.events);
+  const useEventObj = useEvent(props.events);
 
-  const modeRef = useRef<Mode>("create");
+  const modeRef = useRef<Mode>("normal");
 
   const mouseDownDateRef = useRef<Date | null>(null);
 
   const editedEventRef = useRef<Event | null>(null);
+
+  const cleanup = () => {
+    mouseDownDateRef.current = null;
+
+    editedEventRef.current = null;
+
+    modeRef.current = "normal";
+  };
 
   const onMouseDown = (
     mouseEvent: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -38,8 +47,8 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   ) => {
     mouseDownDateRef.current = dateByMouseEvent(mouseEvent, date);
 
-    if (modeRef.current === "create") {
-      event[modeRef.current](mouseDownDateRef.current);
+    if (modeRef.current === "normal") {
+      useEventObj.create(mouseDownDateRef.current);
 
       modeRef.current = "resizeNew";
     }
@@ -54,39 +63,70 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     switch (modeRef.current) {
       case "resizeNew":
         if (mouseDownDateRef.current != null) {
-          event[modeRef.current](mouseMoveDate, mouseDownDateRef.current);
+          useEventObj[modeRef.current](mouseMoveDate, mouseDownDateRef.current);
         }
         break;
       case "resizeStart":
       case "resizeEnd":
         if (editedEventRef.current != null) {
-          event[modeRef.current](editedEventRef.current, mouseMoveDate);
+          useEventObj[modeRef.current](editedEventRef.current, mouseMoveDate);
         }
         break;
+      case "moveOrEdit":
       case "move":
         if (
           editedEventRef.current != null &&
           mouseDownDateRef.current != null
         ) {
-          event[modeRef.current](
+          useEventObj.move(
             editedEventRef.current,
             mouseDownDateRef.current,
             mouseMoveDate,
           );
+
+          if (modeRef.current === "moveOrEdit") {
+            modeRef.current = "move";
+          }
         }
         break;
     }
   };
 
   const onMouseUp = () => {
-    mouseDownDateRef.current = null;
+    switch (modeRef.current) {
+      case "resizeNew":
+        {
+          const input = window.prompt("タイトルを入力してください");
+          const newEvent = useEventObj.list[useEventObj.list.length - 1];
 
-    editedEventRef.current = null;
+          if (input != null) {
+            useEventObj.inputTitle(newEvent, input);
+          } else {
+            useEventObj.remove(newEvent.id);
+          }
+        }
+        break;
+      case "moveOrEdit": {
+        if (editedEventRef.current != null) {
+          const input = window.prompt(
+            "タイトルを変更するか、削除したい場合は「delete」と入力してください",
+          );
+          if (input === "delete") {
+            useEventObj.remove(editedEventRef.current.id);
+          } else if (input != null) {
+            useEventObj.inputTitle(editedEventRef.current, input);
+          }
+        }
+        break;
+      }
+    }
 
-    modeRef.current = "create";
+    cleanup();
   };
 
-  const onMouseDownEvent = (event: Event, mode: Mode) => {
+  type EventProps = React.ComponentProps<typeof Event>;
+
+  const onMouseDownEvent: EventProps["onMouseDown"] = (event, mode) => {
     editedEventRef.current = event;
 
     modeRef.current = mode;
@@ -95,9 +135,9 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   return (
     <div>
       <div className={styles.header}>
-        <button onClick={week.prev}>{"<"}</button>
-        <button onClick={week.next}>{">"}</button>
-        <div>{week.yearMonth}</div>
+        <button onClick={useWeekObj.prev}>{"<"}</button>
+        <button onClick={useWeekObj.next}>{">"}</button>
+        <div>{useWeekObj.yearMonth}</div>
       </div>
 
       <div className={styles.days}>
@@ -126,7 +166,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
         </div>
 
         <div className={styles.dates}>
-          {week.current.map((date) => (
+          {useWeekObj.current.map((date) => (
             <div
               key={date.getDay()}
               onMouseDown={(mouseEvent) => {
@@ -139,7 +179,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
               className={styles.date}
             >
               <div>{date.getDate()}</div>
-              {event.list.map((event) =>
+              {useEventObj.list.map((event) =>
                 splitDateRange({
                   startDate: event.startDate,
                   endDate: event.endDate,

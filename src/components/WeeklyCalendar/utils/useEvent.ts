@@ -14,6 +14,7 @@ export const useEvent = (baseEvents: Event[]) => {
   const create = (date: Date) => {
     const newEvent: Event = {
       id: (events?.[events.length - 1]?.id ?? 0) + 1,
+      title: "",
       startDate: date,
       endDate: addMinutes(date, 15),
     };
@@ -66,6 +67,18 @@ export const useEvent = (baseEvents: Event[]) => {
     updateEvents(_event);
   };
 
+  const inputTitle = (event: Event, title: string) => {
+    const _event = {
+      ...event,
+      title,
+    };
+    updateEvents(_event);
+  };
+
+  const remove = (id: number) => {
+    setEvents((events) => events.filter((e) => e.id !== id));
+  };
+
   return {
     list: events,
     create,
@@ -73,5 +86,7 @@ export const useEvent = (baseEvents: Event[]) => {
     resizeStart,
     resizeEnd,
     move,
+    inputTitle,
+    remove,
   };
 };
