@@ -15,6 +15,7 @@ export const Default = Template.bind({});
 Default.args = {
   event: {
     id: 1,
+    title: "shopping",
     startDate: setTime(now, 0, 0),
     endDate: setTime(now, 0, 15),
   },
