@@ -22,7 +22,7 @@ type Props = {
 };
 
 export const WeeklyCalendar: React.VFC<Props> = (props) => {
-  const week = useWeek();
+  const useWeekObj = useWeek();
 
   const useEventObj = useEvent(props.events);
 
@@ -115,9 +115,9 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   return (
     <div>
       <div className={styles.header}>
-        <button onClick={week.prev}>{"<"}</button>
-        <button onClick={week.next}>{">"}</button>
-        <div>{week.yearMonth}</div>
+        <button onClick={useWeekObj.prev}>{"<"}</button>
+        <button onClick={useWeekObj.next}>{">"}</button>
+        <div>{useWeekObj.yearMonth}</div>
       </div>
 
       <div className={styles.days}>
@@ -146,7 +146,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
         </div>
 
         <div className={styles.dates}>
-          {week.current.map((date) => (
+          {useWeekObj.current.map((date) => (
             <div
               key={date.getDay()}
               onMouseDown={(mouseEvent) => {
