@@ -11,7 +11,7 @@ import { useEvent } from "./utils/useEvent";
 import { useWeek } from "./utils/useWeek";
 
 export type Mode =
-  | "create"
+  | "normal"
   | "resizeNew"
   | "resizeStart"
   | "resizeEnd"
@@ -26,7 +26,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
 
   const useEventObj = useEvent(props.events);
 
-  const modeRef = useRef<Mode>("create");
+  const modeRef = useRef<Mode>("normal");
 
   const mouseDownDateRef = useRef<Date | null>(null);
 
@@ -38,8 +38,8 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   ) => {
     mouseDownDateRef.current = dateByMouseEvent(mouseEvent, date);
 
-    if (modeRef.current === "create") {
-      useEventObj[modeRef.current](mouseDownDateRef.current);
+    if (modeRef.current === "normal") {
+      useEventObj.create(mouseDownDateRef.current);
 
       modeRef.current = "resizeNew";
     }
@@ -94,7 +94,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
       }
     }
 
-    modeRef.current = "create";
+    modeRef.current = "normal";
   };
 
   type EventProps = React.ComponentProps<typeof Event>;
