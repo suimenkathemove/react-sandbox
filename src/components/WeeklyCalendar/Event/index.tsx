@@ -16,6 +16,7 @@ type Props = {
   dateRage: DateRange;
   mode: Mode;
   onMouseDown: (event: Event, mode: Mode) => void;
+  onClick: (event: Event) => void;
 };
 
 export const Event: React.VFC<Props> = (props) => {
@@ -40,6 +41,10 @@ export const Event: React.VFC<Props> = (props) => {
     props.onMouseDown(props.event, newMode);
   };
 
+  const onClick = () => {
+    props.onClick(props.event);
+  };
+
   const top =
     HOUR_HEIGHT * props.dateRage.startDate.getHours() +
     HOUR_HEIGHT * (props.dateRage.startDate.getMinutes() / 60);
@@ -51,6 +56,7 @@ export const Event: React.VFC<Props> = (props) => {
   return (
     <div
       onMouseDown={onMouseDown}
+      onClick={onClick}
       className={styles.base}
       style={{
         top,

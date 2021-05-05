@@ -97,10 +97,19 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     modeRef.current = "create";
   };
 
-  const onMouseDownEvent = (event: Event, mode: Mode) => {
+  type EventProps = React.ComponentProps<typeof Event>;
+
+  const onMouseDownEvent: EventProps["onMouseDown"] = (event, mode) => {
     editedEventRef.current = event;
 
     modeRef.current = mode;
+  };
+
+  const onClickEvent: EventProps["onClick"] = (e) => {
+    const title = window.prompt("title");
+    if (title != null) {
+      event.inputTitle(e, title);
+    }
   };
 
   return (
@@ -163,6 +172,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
                         dateRage={dateRange}
                         mode={modeRef.current}
                         onMouseDown={onMouseDownEvent}
+                        onClick={onClickEvent}
                       />
                     ),
                 ),
