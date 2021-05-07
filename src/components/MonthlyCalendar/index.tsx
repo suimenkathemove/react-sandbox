@@ -1,7 +1,7 @@
 import { isSameDate } from "@/utils/date/isSameDate";
 import { jaDays } from "@/utils/date/jaDays";
 import clsx from "clsx";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import styles from "./styles.module.scss";
 import { createDateGrid } from "./utils/createDateGrid";
 
@@ -10,36 +10,43 @@ type Props = {
   dateClassNames?: ((date: Date) => string | false)[];
 };
 
-export const Calendar: React.VFC<Props> = (props) => {
+export const MonthlyCalendar: React.VFC<Props> = (props) => {
   const now = new Date();
 
-  const [currentYear, setCurrentYear] = useState(now.getFullYear());
-  const [currentMonth, setCurrentMonth] = useState(now.getMonth());
+  const [currentMonthFirstDate, setCurrentMonthFirstDate] = useState(
+    new Date(now.getFullYear(), now.getMonth()),
+  );
 
   const onClickPrevMonth = (): void => {
-    const prevMonthLastDate = new Date(currentYear, currentMonth, 0);
-
-    setCurrentYear(prevMonthLastDate.getFullYear());
-    setCurrentMonth(prevMonthLastDate.getMonth());
+    setCurrentMonthFirstDate(
+      (currentMonthFirstDate) =>
+        new Date(
+          currentMonthFirstDate.getFullYear(),
+          currentMonthFirstDate.getMonth(),
+          0,
+        ),
+    );
   };
 
   const onClickNextMonth = (): void => {
-    const nextMonthFirstDate = new Date(currentYear, currentMonth + 1);
-
-    setCurrentYear(nextMonthFirstDate.getFullYear());
-    setCurrentMonth(nextMonthFirstDate.getMonth());
+    setCurrentMonthFirstDate(
+      (currentMonthFirstDate) =>
+        new Date(
+          currentMonthFirstDate.getFullYear(),
+          currentMonthFirstDate.getMonth() + 1,
+        ),
+    );
   };
 
-  const dateGrid = useMemo(() => createDateGrid(currentYear, currentMonth), [
-    currentMonth,
-    currentYear,
-  ]);
+  const dateGrid = createDateGrid(currentMonthFirstDate);
 
   return (
     <div className={styles.base}>
       <div className={styles.header}>
         <button onClick={onClickPrevMonth}>{"<"}</button>
-        <div>{`${currentYear}年 ${currentMonth + 1}月`}</div>
+        <div>{`${currentMonthFirstDate.getFullYear()}年 ${
+          currentMonthFirstDate.getMonth() + 1
+        }月`}</div>
         <button onClick={onClickNextMonth}>{">"}</button>
       </div>
 

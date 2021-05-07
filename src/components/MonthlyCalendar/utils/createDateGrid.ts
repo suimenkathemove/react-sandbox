@@ -1,6 +1,9 @@
 import { range } from "@/utils/range";
 
-export const createDateGrid = (year: number, month: number): Date[][] => {
+export const createDateGrid = (date: Date): Date[][] => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+
   const currentMonthFirstDate = new Date(year, month);
   const currentMonthLastDate = new Date(year, month + 1, 0);
 
@@ -22,12 +25,7 @@ export const createDateGrid = (year: number, month: number): Date[][] => {
       ),
   );
 
-  const nextMonthFirstDate: Date = (() => {
-    const date = new Date(currentMonthLastDate);
-    date.setDate(currentMonthLastDate.getDate() + 1);
-
-    return date;
-  })();
+  const nextMonthFirstDate = new Date(year, month + 1);
   const nextMonthDates: Date[] = range(
     1,
     6 - currentMonthLastDate.getDay() + 1,
