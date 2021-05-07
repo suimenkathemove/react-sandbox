@@ -1,6 +1,5 @@
 import { MonthlyCalendar } from "@/components/MonthlyCalendar";
 import { Popover } from "@/components/Popover";
-import { dateString } from "@/utils/date/dateString";
 import { isSameDate } from "@/utils/date/isSameDate";
 import { useShow } from "@/utils/useShow";
 import { useState } from "react";
@@ -15,7 +14,7 @@ export const DatePicker: React.VFC<Props> = (props) => {
   const [selectedDate, setSelectedDate] = useState(props.selectedDate);
 
   const value =
-    props.selectedDate != null ? dateString(props.selectedDate) : "";
+    props.selectedDate != null ? props.selectedDate.toLocaleDateString() : "";
 
   const { isShown, show, hide } = useShow();
 

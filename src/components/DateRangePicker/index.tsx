@@ -1,6 +1,5 @@
 import { MonthlyCalendar } from "@/components/MonthlyCalendar";
 import { Popover } from "@/components/Popover";
-import { dateString } from "@/utils/date/dateString";
 import { isSameDate } from "@/utils/date/isSameDate";
 import { useShow } from "@/utils/useShow";
 import { useState } from "react";
@@ -22,9 +21,9 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
   const endDate = dateRange[1];
 
   const startDateValue =
-    props.dateRange[0] != null ? dateString(props.dateRange[0]) : "";
+    props.dateRange[0] != null ? props.dateRange[0].toLocaleDateString() : "";
   const endDateValue =
-    props.dateRange[1] != null ? dateString(props.dateRange[1]) : "";
+    props.dateRange[1] != null ? props.dateRange[1].toLocaleDateString() : "";
 
   const { isShown, show, hide } = useShow();
 
