@@ -25,12 +25,7 @@ export const createDateGrid = (date: Date): Date[][] => {
       ),
   );
 
-  const nextMonthFirstDate: Date = (() => {
-    const date = new Date(currentMonthLastDate);
-    date.setDate(currentMonthLastDate.getDate() + 1);
-
-    return date;
-  })();
+  const nextMonthFirstDate = new Date(year, month + 1);
   const nextMonthDates: Date[] = range(
     1,
     6 - currentMonthLastDate.getDay() + 1,
