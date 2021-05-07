@@ -10,7 +10,7 @@ type Props = {
   dateClassNames?: ((date: Date) => string | false)[];
 };
 
-export const Calendar: React.VFC<Props> = (props) => {
+export const MonthlyCalendar: React.VFC<Props> = (props) => {
   const now = new Date();
 
   const [currentYear, setCurrentYear] = useState(now.getFullYear());

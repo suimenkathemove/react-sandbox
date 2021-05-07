@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/Calendar";
+import { MonthlyCalendar } from "@/components/MonthlyCalendar";
 import { Popover } from "@/components/Popover";
 import { dateString } from "@/utils/date/dateString";
 import { isSameDate } from "@/utils/date/isSameDate";
@@ -48,7 +48,7 @@ export const DatePicker: React.VFC<Props> = (props) => {
         isShown={isShown}
         hide={hide}
       >
-        <Calendar
+        <MonthlyCalendar
           onClickDate={setSelectedDate}
           dateClassNames={[
             (date) =>
