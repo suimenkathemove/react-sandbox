@@ -1,4 +1,6 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 type Datum = { id: number; parentId: number };
 type Node = Datum & { children: Node[] };
@@ -36,10 +38,12 @@ export const Tree: React.VFC<Props> = (props) => {
     setNode(rootNode);
   }, [props.data]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const renderTree = (node: Node, level = 1) => (
-    <div key={node.id} style={{ marginTop: level * 4, marginLeft: level * 4 }}>
-      <div>{`${node.parentId}-${node.id}`}</div>
+  const renderTree = (node: Node, level = 0) => (
+    <div
+      key={node.id}
+      className={clsx(styles.node, level >= 2 && styles.child)}
+    >
+      {level >= 1 && <div>{`${node.parentId}-${node.id}`}</div>}
 
       {Array.isArray(node.children) &&
         node.children.map((node) => renderTree(node, level + 1))}

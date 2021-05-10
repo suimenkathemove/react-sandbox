@@ -1,0 +1,12 @@
+$margin-top: 20px;
+
+.node {
+  & + & {
+    margin-top: $margin-top;
+  }
+}
+
+.child {
+  margin-top: $margin-top;
+  margin-left: 20px;
+}
