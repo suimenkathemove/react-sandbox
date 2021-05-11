@@ -10,13 +10,16 @@ const Template: Story<React.ComponentProps<typeof Event>> = (args) => (
 );
 
 const now = new Date();
+const startDate = setTime(now, 0, 0);
+const endDate = setTime(now, 0, 15);
 
 export const Default = Template.bind({});
 Default.args = {
   event: {
     id: 1,
     title: "shopping",
-    startDate: setTime(now, 0, 0),
-    endDate: setTime(now, 0, 15),
+    startDate,
+    endDate,
   },
+  dateRage: { startDate, endDate },
 };
