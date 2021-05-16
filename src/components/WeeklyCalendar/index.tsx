@@ -133,7 +133,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   };
 
   return (
-    <div>
+    <div className={styles.base}>
       <div className={styles.header}>
         <button onClick={useWeekObj.prev}>{"<"}</button>
         <button onClick={useWeekObj.next}>{">"}</button>

@@ -1,6 +1,10 @@
 $hours-width: 50px;
 $date-width: 100px;
 
+.base {
+  user-select: none;
+}
+
 .header {
   display: inline-flex;
   align-items: center;

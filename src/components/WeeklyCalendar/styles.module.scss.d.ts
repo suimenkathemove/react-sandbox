@@ -1,3 +1,4 @@
+export const base: string;
 export const border: string;
 export const borderAndNumContainer: string;
 export const container: string;
