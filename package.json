@@ -11,6 +11,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
+    "dev": "npm run tsm:watch & npm run storybook",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
