@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+.base {
+  height: 100%;
+  white-space: nowrap;
+
+  .listWrapper {
+    display: inline-block;
+    height: 100%;
+    margin-right: 16px;
+  }
+}
