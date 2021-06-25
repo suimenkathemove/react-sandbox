@@ -6,3 +6,4 @@ public/
 *.config.js
 .*lintrc.js
 config-overrides.js
+wasm/pkg
