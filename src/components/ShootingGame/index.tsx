@@ -21,8 +21,18 @@ export const ShootingGame: React.VFC = () => {
 
   const viperPosition = useRef<{ x: number; y: number }>({
     x: (CANVAS_WIDTH - VIPER_WIDTH) / 2,
-    y: (CANVAS_HEIGHT - VIPER_HEIGHT) / 2,
+    y: CANVAS_HEIGHT,
   });
+
+  const sceneRef = useRef<"appearance" | "play">("appearance");
+
+  const appearing = () => {
+    viperPosition.current.y -= 1;
+
+    if (viperPosition.current.y <= CANVAS_HEIGHT - 100) {
+      sceneRef.current = "play";
+    }
+  };
 
   useEffect(() => {
     viperImageRef.current.src = viperImageSrc;
@@ -34,6 +44,10 @@ export const ShootingGame: React.VFC = () => {
 
   useEffect(() => {
     window.addEventListener("keydown", (event) => {
+      if (sceneRef.current !== "play") {
+        return;
+      }
+
       switch (event.key) {
         case "ArrowUp":
           viperPosition.current.y -= VIPER_ONE_STEP;
@@ -60,6 +74,10 @@ export const ShootingGame: React.VFC = () => {
       context()!.fillStyle = "#000000";
       // NOTE: 直前の描画結果をクリアする
       context()!.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+      if (sceneRef.current === "appearance") {
+        appearing();
+      }
 
       context()!.drawImage(
         viperImage.data,
