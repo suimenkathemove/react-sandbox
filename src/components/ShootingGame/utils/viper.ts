@@ -5,7 +5,7 @@ export class Viper extends Character {
   static readonly WIDTH = 64;
   static readonly HEIGHT = 64;
 
-  static readonly ONE_STEP = 10;
+  speed = 10;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -21,16 +21,16 @@ export class Viper extends Character {
 
       switch (event.key) {
         case "ArrowUp":
-          this.position.y -= Viper.ONE_STEP;
+          this.position.y -= this.speed;
           break;
         case "ArrowDown":
-          this.position.y += Viper.ONE_STEP;
+          this.position.y += this.speed;
           break;
         case "ArrowLeft":
-          this.position.x -= Viper.ONE_STEP;
+          this.position.x -= this.speed;
           break;
         case "ArrowRight":
-          this.position.x += Viper.ONE_STEP;
+          this.position.x += this.speed;
           break;
       }
 
