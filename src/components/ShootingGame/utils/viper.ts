@@ -29,10 +29,6 @@ export class Viper extends Character {
 
   appearing() {
     this.position.y -= 1;
-
-    if (this.position.y <= Character.CANVAS_HEIGHT - 100) {
-      Character.scene = "play";
-    }
   }
 
   moving() {

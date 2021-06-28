@@ -72,6 +72,10 @@ export const ShootingGame: React.VFC = () => {
         Character.CANVAS_HEIGHT,
       );
 
+      if (viperRef.current!.position.y <= Character.CANVAS_HEIGHT - 100) {
+        Character.scene = "play";
+      }
+
       switch (Character.scene) {
         case "appearance":
           viperRef.current!.appearing();
