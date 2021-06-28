@@ -27,7 +27,7 @@ export const ShootingGame: React.VFC = () => {
       context()!,
       viperImageRef.current,
       new Position(
-        (Character.CANVAS_WIDTH - Viper.WIDTH) / 2,
+        Character.CANVAS_WIDTH / 2 - Viper.WIDTH / 2,
         Character.CANVAS_HEIGHT,
       ),
     );
@@ -40,7 +40,7 @@ export const ShootingGame: React.VFC = () => {
 
     const render = () => {
       context()!.fillStyle = "#000000";
-      // NOTE: 直前の描画結果をクリアする
+      // 直前の描画結果をクリアする
       context()!.fillRect(
         0,
         0,
