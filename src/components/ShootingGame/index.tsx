@@ -76,18 +76,7 @@ export const ShootingGame: React.VFC = () => {
         Character.scene = "play";
       }
 
-      switch (Character.scene) {
-        case "appearance":
-          viperRef.current!.appearing();
-          break;
-        case "play":
-          viperRef.current!.moving();
-          break;
-        default:
-          assertNever(Character.scene);
-      }
-
-      viperRef.current!.draw();
+      viperRef.current!.update();
 
       requestAnimationFrame(render);
     };

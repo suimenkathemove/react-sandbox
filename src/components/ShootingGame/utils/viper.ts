@@ -5,6 +5,8 @@ export class Viper extends Character {
   static readonly WIDTH = 64;
   static readonly HEIGHT = 64;
 
+  life = 1;
+
   speed = 10;
 
   constructor(
@@ -46,5 +48,24 @@ export class Viper extends Character {
     }
 
     this.fitInFrame();
+  }
+
+  update() {
+    if (this.life <= 0) {
+      return;
+    }
+
+    switch (Character.scene) {
+      case "appearance":
+        this.appearing();
+        break;
+      case "play":
+        this.moving();
+        break;
+      default:
+        assertNever(Character.scene);
+    }
+
+    this.draw();
   }
 }
