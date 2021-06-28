@@ -33,6 +33,16 @@ export class Viper extends Character {
           this.position.x += Viper.ONE_STEP;
           break;
       }
+
+      const x = Math.min(
+        Math.max(this.position.x, 0),
+        Character.CANVAS_WIDTH - Viper.WIDTH,
+      );
+      const y = Math.min(
+        Math.max(this.position.y, 0),
+        Character.CANVAS_HEIGHT - Viper.HEIGHT,
+      );
+      this.position.set(x, y);
     });
   }
 
