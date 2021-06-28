@@ -1,3 +1,4 @@
+import { includes } from "@/utils/includes";
 import { useUpdateEffect } from "@/utils/useUpdateEffect";
 import { useEffect, useRef, useState } from "react";
 import viperImageSrc from "./images/viper.png";
@@ -33,6 +34,29 @@ export const ShootingGame: React.VFC = () => {
     );
   }, []);
 
+  useEffect(() => {
+    const onKeyDownOrUp = (event: KeyboardEvent, isDown: boolean) => {
+      const { key } = event;
+      if (includes(Character.pressedKeyCandidates, key)) {
+        Character.pressedKey[key] = isDown;
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      onKeyDownOrUp(event, true);
+    };
+    const onKeyUp = (event: KeyboardEvent) => {
+      onKeyDownOrUp(event, false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+    };
+  }, []);
+
   useUpdateEffect(() => {
     if (!isViperImageLoaded) {
       return;
@@ -48,8 +72,13 @@ export const ShootingGame: React.VFC = () => {
         Character.CANVAS_HEIGHT,
       );
 
-      if (Character.scene === "appearance") {
-        viperRef.current!.appearing();
+      switch (Character.scene) {
+        case "appearance":
+          viperRef.current!.appearing();
+          break;
+        case "play":
+          viperRef.current!.moving();
+          break;
       }
 
       viperRef.current!.draw();

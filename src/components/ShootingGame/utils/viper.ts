@@ -13,37 +13,18 @@ export class Viper extends Character {
     position: Position,
   ) {
     super(ctx, image, position);
+  }
 
-    window.addEventListener("keydown", (event) => {
-      if (Character.scene !== "play") {
-        return;
-      }
-
-      switch (event.key) {
-        case "ArrowUp":
-          this.position.y -= this.speed;
-          break;
-        case "ArrowDown":
-          this.position.y += this.speed;
-          break;
-        case "ArrowLeft":
-          this.position.x -= this.speed;
-          break;
-        case "ArrowRight":
-          this.position.x += this.speed;
-          break;
-      }
-
-      const x = Math.min(
-        Math.max(this.position.x, 0),
-        Character.CANVAS_WIDTH - Viper.WIDTH,
-      );
-      const y = Math.min(
-        Math.max(this.position.y, 0),
-        Character.CANVAS_HEIGHT - Viper.HEIGHT,
-      );
-      this.position.set(x, y);
-    });
+  private fitInFrame() {
+    const x = Math.min(
+      Math.max(this.position.x, 0),
+      Character.CANVAS_WIDTH - Viper.WIDTH,
+    );
+    const y = Math.min(
+      Math.max(this.position.y, 0),
+      Character.CANVAS_HEIGHT - Viper.HEIGHT,
+    );
+    this.position.set(x, y);
   }
 
   appearing() {
@@ -52,5 +33,22 @@ export class Viper extends Character {
     if (this.position.y <= Character.CANVAS_HEIGHT - 100) {
       Character.scene = "play";
     }
+  }
+
+  moving() {
+    if (Character.pressedKey.ArrowUp) {
+      this.position.y -= this.speed;
+    }
+    if (Character.pressedKey.ArrowDown) {
+      this.position.y += this.speed;
+    }
+    if (Character.pressedKey.ArrowLeft) {
+      this.position.x -= this.speed;
+    }
+    if (Character.pressedKey.ArrowRight) {
+      this.position.x += this.speed;
+    }
+
+    this.fitInFrame();
   }
 }
