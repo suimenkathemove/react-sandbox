@@ -79,6 +79,8 @@ export const ShootingGame: React.VFC = () => {
         case "play":
           viperRef.current!.moving();
           break;
+        default:
+          assertNever(Character.scene);
       }
 
       viperRef.current!.draw();

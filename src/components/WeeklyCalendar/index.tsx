@@ -61,6 +61,8 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     const mouseMoveDate = dateByMouseEvent(mouseEvent, date);
 
     switch (modeRef.current) {
+      case "normal":
+        break;
       case "resizeNew":
         if (mouseDownDateRef.current != null) {
           useEventObj[modeRef.current](mouseMoveDate, mouseDownDateRef.current);
@@ -89,6 +91,8 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
           }
         }
         break;
+      default:
+        assertNever(modeRef.current);
     }
   };
 
