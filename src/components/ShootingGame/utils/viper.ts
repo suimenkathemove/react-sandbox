@@ -29,11 +29,11 @@ export class Viper extends Character {
     this.position.set(x, y);
   }
 
-  appearing() {
+  private appearing() {
     this.position.y -= 1;
   }
 
-  moving() {
+  private moving() {
     if (Character.pressedKey.ArrowUp) {
       this.position.y -= this.speed;
     }
