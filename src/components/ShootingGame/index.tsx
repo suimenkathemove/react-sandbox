@@ -1,3 +1,4 @@
+import { assert } from "@/utils/assert";
 import { includes } from "@/utils/includes";
 import { useUpdateEffect } from "@/utils/useUpdateEffect";
 import { useEffect, useRef } from "react";
@@ -10,10 +11,9 @@ import { Viper } from "./utils/viper";
 
 export const ShootingGame: React.VFC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const context = () => canvasRef.current?.getContext("2d");
+  const getContext = () => canvasRef.current?.getContext("2d");
 
   const [viperImageRef, isViperImageLoaded] = useIsImageLoaded(viperImageSrc);
-
   const [viperShotImageRef, isViperShotImageLoaded] = useIsImageLoaded(
     viperShotImageSrc,
   );
@@ -21,8 +21,11 @@ export const ShootingGame: React.VFC = () => {
   const viperRef = useRef<Viper | null>(null);
 
   useEffect(() => {
+    const ctx = getContext();
+    assert<NonNullable<typeof ctx>>(ctx);
+
     viperRef.current = new Viper(
-      context()!,
+      ctx,
       viperImageRef.current,
       viperShotImageRef.current,
       new Position(
@@ -61,21 +64,22 @@ export const ShootingGame: React.VFC = () => {
       return;
     }
 
-    const render = () => {
-      context()!.fillStyle = "#000000";
-      // 直前の描画結果をクリアする
-      context()!.fillRect(
-        0,
-        0,
-        Character.CANVAS_WIDTH,
-        Character.CANVAS_HEIGHT,
-      );
+    const ctx = getContext();
+    assert<NonNullable<typeof ctx>>(ctx);
 
-      if (viperRef.current!.position.y <= Character.CANVAS_HEIGHT - 100) {
+    const viper = viperRef.current;
+    assert<NonNullable<typeof viper>>(viper);
+
+    const render = () => {
+      ctx.fillStyle = "#000000";
+      // 直前の描画結果をクリアする
+      ctx.fillRect(0, 0, Character.CANVAS_WIDTH, Character.CANVAS_HEIGHT);
+
+      if (viper.position.y <= Character.CANVAS_HEIGHT - 100) {
         Character.scene = "play";
       }
 
-      viperRef.current!.update();
+      viper.update();
 
       requestAnimationFrame(render);
     };
