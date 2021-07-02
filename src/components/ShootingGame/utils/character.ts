@@ -1,4 +1,5 @@
 import { Position } from "./position";
+import { Size } from "./size";
 
 export abstract class Character {
   static readonly CANVAS_WIDTH = 640;
@@ -31,10 +32,11 @@ export abstract class Character {
     protected ctx: CanvasRenderingContext2D,
     private image: HTMLImageElement,
     public position: Position,
+    public size: Size,
     protected life: number,
     protected speed: number,
   ) {
-    Object.assign(this, { ctx, image, position, life, speed });
+    Object.assign(this, { ctx, image, position, size, life, speed });
   }
 
   draw() {

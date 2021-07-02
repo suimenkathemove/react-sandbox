@@ -34,10 +34,11 @@ export const ShootingGame: React.VFC = () => {
       viperImageRef.current,
       viperShotImageRef.current,
       viperSingleShotImageRef.current,
-      new Position(
-        Character.CANVAS_WIDTH / 2 - Viper.WIDTH / 2,
-        Character.CANVAS_HEIGHT,
-      ),
+      new Position(0, 0),
+    );
+    viperRef.current.position.set(
+      Character.CANVAS_WIDTH / 2 - viperRef.current.size.width / 2,
+      Character.CANVAS_HEIGHT,
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

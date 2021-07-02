@@ -4,7 +4,6 @@ export class Position {
   }
 
   set(x: number, y: number) {
-    this.x = x;
-    this.y = y;
+    Object.assign(this, { x, y });
   }
 }

@@ -1,11 +1,9 @@
 import { Character } from "./character";
 import { Position } from "./position";
 import { Shot } from "./shot";
+import { Size } from "./size";
 
 export class Viper extends Character {
-  static readonly WIDTH = 64;
-  static readonly HEIGHT = 64;
-
   private shots: Shot[] = [];
   private leftSingleShots: Shot[] = [];
   private rightSingleShots: Shot[] = [];
@@ -19,7 +17,7 @@ export class Viper extends Character {
     private singleShotImage: HTMLImageElement,
     position: Position,
   ) {
-    super(ctx, image, position, 1, 10);
+    super(ctx, image, position, new Size(64, 64), 1, 10);
 
     Object.assign(this, { shotImage, singleShotImage });
   }
@@ -27,11 +25,11 @@ export class Viper extends Character {
   private fitInFrame() {
     const x = Math.min(
       Math.max(this.position.x, 0),
-      Character.CANVAS_WIDTH - Viper.WIDTH,
+      Character.CANVAS_WIDTH - this.size.width,
     );
     const y = Math.min(
       Math.max(this.position.y, 0),
-      Character.CANVAS_HEIGHT - Viper.HEIGHT,
+      Character.CANVAS_HEIGHT - this.size.height,
     );
     this.position.set(x, y);
   }
@@ -58,23 +56,21 @@ export class Viper extends Character {
   }
 
   private fire() {
-    const shot = new Shot(
-      this.ctx,
-      this.shotImage,
-      new Position(
-        this.position.x + Viper.WIDTH / 2 - Shot.WIDTH / 2,
-        this.position.y - Shot.HEIGHT,
-      ),
+    const shot = new Shot(this.ctx, this.shotImage, new Position(0, 0));
+    shot.position.set(
+      this.position.x + this.size.width / 2 - shot.size.width / 2,
+      this.position.y - shot.size.height,
     );
     this.shots.push(shot);
 
     const leftSingleShot = new Shot(
       this.ctx,
       this.singleShotImage,
-      new Position(
-        this.position.x + Viper.WIDTH / 2 - Shot.WIDTH / 2,
-        this.position.y - Shot.HEIGHT,
-      ),
+      new Position(0, 0),
+    );
+    leftSingleShot.position.set(
+      this.position.x + this.size.width / 2 - leftSingleShot.size.width / 2,
+      this.position.y - leftSingleShot.size.height,
     );
     leftSingleShot.vector.set(-0.1, -0.9);
     this.leftSingleShots.push(leftSingleShot);
@@ -82,10 +78,11 @@ export class Viper extends Character {
     const rightSingleShot = new Shot(
       this.ctx,
       this.singleShotImage,
-      new Position(
-        this.position.x + Viper.WIDTH / 2 - Shot.WIDTH / 2,
-        this.position.y - Shot.HEIGHT,
-      ),
+      new Position(0, 0),
+    );
+    rightSingleShot.position.set(
+      this.position.x + this.size.width / 2 - rightSingleShot.size.width / 2,
+      this.position.y - rightSingleShot.size.height,
     );
     rightSingleShot.vector.set(0.1, -0.9);
     this.rightSingleShots.push(rightSingleShot);

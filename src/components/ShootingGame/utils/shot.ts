@@ -1,23 +1,21 @@
 import { Character } from "./character";
 import { Position } from "./position";
+import { Size } from "./size";
 
 export class Shot extends Character {
-  static readonly WIDTH = 32;
-  static readonly HEIGHT = 32;
-
   constructor(
     ctx: CanvasRenderingContext2D,
     image: HTMLImageElement,
     position: Position,
   ) {
-    super(ctx, image, position, 1, 10);
+    super(ctx, image, position, new Size(32, 32), 1, 10);
   }
 
   private checkOutFlame() {
     return (
-      this.position.x + Shot.WIDTH < 0 ||
+      this.position.x + this.size.width < 0 ||
       Character.CANVAS_WIDTH < this.position.x ||
-      this.position.y + Shot.HEIGHT < 0 ||
+      this.position.y + this.size.height < 0 ||
       Character.CANVAS_HEIGHT < this.position.y
     );
   }
