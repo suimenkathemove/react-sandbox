@@ -1,6 +1,6 @@
 import { Position } from "./position";
 
-export class Character {
+export abstract class Character {
   static readonly CANVAS_WIDTH = 640;
   static readonly CANVAS_HEIGHT = 480;
 
@@ -28,9 +28,7 @@ export class Character {
     private image: HTMLImageElement,
     public position: Position,
   ) {
-    this.ctx = ctx;
-    this.image = image;
-    this.position = position;
+    Object.assign(this, { ctx, image, position });
   }
 
   draw() {
