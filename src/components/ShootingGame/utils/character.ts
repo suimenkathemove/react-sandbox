@@ -27,8 +27,10 @@ export abstract class Character {
     private ctx: CanvasRenderingContext2D,
     private image: HTMLImageElement,
     public position: Position,
+    public life: number,
+    public speed: number,
   ) {
-    Object.assign(this, { ctx, image, position });
+    Object.assign(this, { ctx, image, position, life, speed });
   }
 
   draw() {

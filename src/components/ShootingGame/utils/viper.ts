@@ -5,16 +5,12 @@ export class Viper extends Character {
   static readonly WIDTH = 64;
   static readonly HEIGHT = 64;
 
-  life = 1;
-
-  speed = 10;
-
   constructor(
     ctx: CanvasRenderingContext2D,
     image: HTMLImageElement,
     position: Position,
   ) {
-    super(ctx, image, position);
+    super(ctx, image, position, 1, 10);
   }
 
   private fitInFrame() {
