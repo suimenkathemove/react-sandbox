@@ -7,17 +7,21 @@ export class Viper extends Character {
   static readonly HEIGHT = 64;
 
   private shots: Shot[] = [];
+  private leftSingleShots: Shot[] = [];
+  private rightSingleShots: Shot[] = [];
+
   private isZKeyPressing = false;
 
   constructor(
     ctx: CanvasRenderingContext2D,
     image: HTMLImageElement,
     private shotImage: HTMLImageElement,
+    private singleShotImage: HTMLImageElement,
     position: Position,
   ) {
     super(ctx, image, position, 1, 10);
 
-    Object.assign(this, { shotImage });
+    Object.assign(this, { shotImage, singleShotImage });
   }
 
   private fitInFrame() {
@@ -63,6 +67,28 @@ export class Viper extends Character {
       ),
     );
     this.shots.push(shot);
+
+    const leftSingleShot = new Shot(
+      this.ctx,
+      this.singleShotImage,
+      new Position(
+        this.position.x + Viper.WIDTH / 2 - Shot.WIDTH / 2,
+        this.position.y - Shot.HEIGHT,
+      ),
+    );
+    leftSingleShot.vector.set(-0.1, -0.9);
+    this.leftSingleShots.push(leftSingleShot);
+
+    const rightSingleShot = new Shot(
+      this.ctx,
+      this.singleShotImage,
+      new Position(
+        this.position.x + Viper.WIDTH / 2 - Shot.WIDTH / 2,
+        this.position.y - Shot.HEIGHT,
+      ),
+    );
+    rightSingleShot.vector.set(0.1, -0.9);
+    this.rightSingleShots.push(rightSingleShot);
   }
 
   private firingOne() {
@@ -91,6 +117,12 @@ export class Viper extends Character {
 
   update() {
     this.shots.forEach((s) => {
+      s.update();
+    });
+    this.leftSingleShots.forEach((s) => {
+      s.update();
+    });
+    this.rightSingleShots.forEach((s) => {
       s.update();
     });
 

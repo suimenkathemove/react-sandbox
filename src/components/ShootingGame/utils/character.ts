@@ -4,6 +4,8 @@ export abstract class Character {
   static readonly CANVAS_WIDTH = 640;
   static readonly CANVAS_HEIGHT = 480;
 
+  vector: Position = new Position(0.0, -1.0);
+
   static pressedKeyCandidates = [
     "ArrowUp",
     "ArrowDown",

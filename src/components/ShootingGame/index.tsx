@@ -4,6 +4,7 @@ import { useUpdateEffect } from "@/utils/useUpdateEffect";
 import { useEffect, useRef } from "react";
 import viperImageSrc from "./images/viper.png";
 import viperShotImageSrc from "./images/viper_shot.png";
+import viperSingleShotImageSrc from "./images/viper_single_shot.png";
 import { Character } from "./utils/character";
 import { Position } from "./utils/position";
 import { useIsImageLoaded } from "./utils/useIsImageLoaded";
@@ -17,6 +18,10 @@ export const ShootingGame: React.VFC = () => {
   const [viperShotImageRef, isViperShotImageLoaded] = useIsImageLoaded(
     viperShotImageSrc,
   );
+  const [
+    viperSingleShotImageRef,
+    isViperSingleShotImageLoaded,
+  ] = useIsImageLoaded(viperSingleShotImageSrc);
 
   const viperRef = useRef<Viper | null>(null);
 
@@ -28,6 +33,7 @@ export const ShootingGame: React.VFC = () => {
       ctx,
       viperImageRef.current,
       viperShotImageRef.current,
+      viperSingleShotImageRef.current,
       new Position(
         Character.CANVAS_WIDTH / 2 - Viper.WIDTH / 2,
         Character.CANVAS_HEIGHT,
@@ -60,7 +66,11 @@ export const ShootingGame: React.VFC = () => {
   }, []);
 
   useUpdateEffect(() => {
-    if (!isViperImageLoaded || !isViperShotImageLoaded) {
+    if (
+      !isViperImageLoaded ||
+      !isViperShotImageLoaded ||
+      !isViperSingleShotImageLoaded
+    ) {
       return;
     }
 
@@ -84,7 +94,11 @@ export const ShootingGame: React.VFC = () => {
       requestAnimationFrame(render);
     };
     render();
-  }, [isViperImageLoaded, isViperShotImageLoaded]);
+  }, [
+    isViperImageLoaded,
+    isViperShotImageLoaded,
+    isViperSingleShotImageLoaded,
+  ]);
 
   return (
     <canvas
