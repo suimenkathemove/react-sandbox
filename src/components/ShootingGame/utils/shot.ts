@@ -33,6 +33,6 @@ export class Shot extends Character {
     this.position.x += this.vector.x * this.speed;
     this.position.y += this.vector.y * this.speed;
 
-    this.draw();
+    this.rotationDraw();
   }
 }
