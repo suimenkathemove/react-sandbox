@@ -9,6 +9,7 @@ export abstract class Character {
     "ArrowDown",
     "ArrowLeft",
     "ArrowRight",
+    "z",
   ] as const;
 
   static pressedKey: Record<
@@ -19,16 +20,17 @@ export abstract class Character {
     ArrowDown: false,
     ArrowLeft: false,
     ArrowRight: false,
+    z: false,
   };
 
   static scene: "appearance" | "play" = "appearance";
 
   constructor(
-    private ctx: CanvasRenderingContext2D,
+    protected ctx: CanvasRenderingContext2D,
     private image: HTMLImageElement,
     public position: Position,
-    public life: number,
-    public speed: number,
+    protected life: number,
+    protected speed: number,
   ) {
     Object.assign(this, { ctx, image, position, life, speed });
   }

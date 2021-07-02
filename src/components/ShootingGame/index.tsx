@@ -1,37 +1,36 @@
 import { includes } from "@/utils/includes";
 import { useUpdateEffect } from "@/utils/useUpdateEffect";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import viperImageSrc from "./images/viper.png";
+import viperShotImageSrc from "./images/viper_shot.png";
 import { Character } from "./utils/character";
 import { Position } from "./utils/position";
+import { useIsImageLoaded } from "./utils/useIsImageLoaded";
 import { Viper } from "./utils/viper";
 
 export const ShootingGame: React.VFC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = () => canvasRef.current?.getContext("2d");
 
-  const viperImageRef = useRef(new Image());
-  const [isViperImageLoaded, setIsViperImageLoaded] = useState(false);
+  const [viperImageRef, isViperImageLoaded] = useIsImageLoaded(viperImageSrc);
+
+  const [viperShotImageRef, isViperShotImageLoaded] = useIsImageLoaded(
+    viperShotImageSrc,
+  );
 
   const viperRef = useRef<Viper | null>(null);
-
-  useEffect(() => {
-    viperImageRef.current.src = viperImageSrc;
-
-    viperImageRef.current.addEventListener("load", () => {
-      setIsViperImageLoaded(true);
-    });
-  }, []);
 
   useEffect(() => {
     viperRef.current = new Viper(
       context()!,
       viperImageRef.current,
+      viperShotImageRef.current,
       new Position(
         Character.CANVAS_WIDTH / 2 - Viper.WIDTH / 2,
         Character.CANVAS_HEIGHT,
       ),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ export const ShootingGame: React.VFC = () => {
   }, []);
 
   useUpdateEffect(() => {
-    if (!isViperImageLoaded) {
+    if (!isViperImageLoaded || !isViperShotImageLoaded) {
       return;
     }
 
@@ -81,7 +80,7 @@ export const ShootingGame: React.VFC = () => {
       requestAnimationFrame(render);
     };
     render();
-  }, [isViperImageLoaded]);
+  }, [isViperImageLoaded, isViperShotImageLoaded]);
 
   return (
     <canvas
