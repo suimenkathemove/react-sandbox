@@ -148,6 +148,10 @@ export class Viper extends Character {
         assertNever(Config.scene);
     }
 
+    if (this.enemies.some((e) => this.isCollision(e))) {
+      this.life = 0;
+    }
+
     this.draw();
   }
 }
