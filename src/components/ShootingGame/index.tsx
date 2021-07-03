@@ -5,10 +5,10 @@ import { useEffect, useRef } from "react";
 import viperImageSrc from "./images/viper.png";
 import viperShotImageSrc from "./images/viper_shot.png";
 import viperSingleShotImageSrc from "./images/viper_single_shot.png";
-import { Character } from "./utils/character";
-import { Position } from "./utils/position";
+import { Character } from "./utils/Character";
+import { Position } from "./utils/Position";
+import { Viper } from "./utils/Viper";
 import { useIsImageLoaded } from "./utils/useIsImageLoaded";
-import { Viper } from "./utils/viper";
 
 export const ShootingGame: React.VFC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

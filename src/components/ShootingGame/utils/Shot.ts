@@ -1,6 +1,6 @@
-import { Character } from "./character";
-import { Position } from "./position";
-import { Size } from "./size";
+import { Character } from "./Character";
+import { Position } from "./Position";
+import { Size } from "./Size";
 
 export class Shot extends Character {
   constructor(

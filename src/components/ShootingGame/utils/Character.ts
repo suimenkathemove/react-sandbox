@@ -1,5 +1,5 @@
-import { Position } from "./position";
-import { Size } from "./size";
+import { Position } from "./Position";
+import { Size } from "./Size";
 
 export abstract class Character {
   static readonly CANVAS_WIDTH = 640;

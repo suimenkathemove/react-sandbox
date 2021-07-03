@@ -1,7 +1,7 @@
-import { Character } from "./character";
-import { Position } from "./position";
-import { Shot } from "./shot";
-import { Size } from "./size";
+import { Character } from "./Character";
+import { Position } from "./Position";
+import { Shot } from "./Shot";
+import { Size } from "./Size";
 
 export class Viper extends Character {
   private shots: Shot[] = [];
