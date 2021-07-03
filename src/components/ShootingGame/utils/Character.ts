@@ -2,32 +2,8 @@ import { Position } from "./Position";
 import { Size } from "./Size";
 
 export abstract class Character {
-  static readonly CANVAS_WIDTH = 640;
-  static readonly CANVAS_HEIGHT = 480;
-
   angle = 1.5 * Math.PI;
   vector: Position = new Position(0.0, -1.0);
-
-  static pressedKeyCandidates = [
-    "ArrowUp",
-    "ArrowDown",
-    "ArrowLeft",
-    "ArrowRight",
-    "z",
-  ] as const;
-
-  static pressedKey: Record<
-    typeof Character.pressedKeyCandidates[number],
-    boolean
-  > = {
-    ArrowUp: false,
-    ArrowDown: false,
-    ArrowLeft: false,
-    ArrowRight: false,
-    z: false,
-  };
-
-  static scene: "appearance" | "play" = "appearance";
 
   constructor(
     protected ctx: CanvasRenderingContext2D,

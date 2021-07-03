@@ -1,4 +1,5 @@
 import { Character } from "./Character";
+import { Config } from "./Config";
 import { Position } from "./Position";
 import { Size } from "./Size";
 
@@ -16,13 +17,13 @@ export class Enemy extends Character {
       return;
     }
 
-    switch (Character.scene) {
+    switch (Config.scene) {
       case "appearance":
         break;
       case "play":
         break;
       default:
-        assertNever(Character.scene);
+        assertNever(Config.scene);
     }
 
     this.draw();

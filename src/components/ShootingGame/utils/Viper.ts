@@ -1,4 +1,5 @@
 import { Character } from "./Character";
+import { Config } from "./Config";
 import { Position } from "./Position";
 import { Shot } from "./Shot";
 import { Size } from "./Size";
@@ -25,11 +26,11 @@ export class Viper extends Character {
   private fitInFrame() {
     const x = Math.min(
       Math.max(this.position.x, 0),
-      Character.CANVAS_WIDTH - this.size.width,
+      Config.CANVAS_WIDTH - this.size.width,
     );
     const y = Math.min(
       Math.max(this.position.y, 0),
-      Character.CANVAS_HEIGHT - this.size.height,
+      Config.CANVAS_HEIGHT - this.size.height,
     );
     this.position.set(x, y);
   }
@@ -39,16 +40,16 @@ export class Viper extends Character {
   }
 
   private moving() {
-    if (Character.pressedKey.ArrowUp) {
+    if (Config.pressedKey.ArrowUp) {
       this.position.y -= this.speed;
     }
-    if (Character.pressedKey.ArrowDown) {
+    if (Config.pressedKey.ArrowDown) {
       this.position.y += this.speed;
     }
-    if (Character.pressedKey.ArrowLeft) {
+    if (Config.pressedKey.ArrowLeft) {
       this.position.x -= this.speed;
     }
-    if (Character.pressedKey.ArrowRight) {
+    if (Config.pressedKey.ArrowRight) {
       this.position.x += this.speed;
     }
 
@@ -89,19 +90,19 @@ export class Viper extends Character {
   }
 
   private firingOne() {
-    if (Character.pressedKey.z && !this.isZKeyPressing) {
+    if (Config.pressedKey.z && !this.isZKeyPressing) {
       this.fire();
 
       this.isZKeyPressing = true;
     }
 
-    if (!Character.pressedKey.z) {
+    if (!Config.pressedKey.z) {
       this.isZKeyPressing = false;
     }
   }
 
   private firingMultiple() {
-    if (Character.pressedKey.z) {
+    if (Config.pressedKey.z) {
       this.fire();
     }
   }
@@ -127,7 +128,7 @@ export class Viper extends Character {
       return;
     }
 
-    switch (Character.scene) {
+    switch (Config.scene) {
       case "appearance":
         this.appearing();
         break;
@@ -135,7 +136,7 @@ export class Viper extends Character {
         this.controlling();
         break;
       default:
-        assertNever(Character.scene);
+        assertNever(Config.scene);
     }
 
     this.draw();

@@ -6,7 +6,7 @@ import enemySmallImageSrc from "./images/enemy_small.png";
 import viperImageSrc from "./images/viper.png";
 import viperShotImageSrc from "./images/viper_shot.png";
 import viperSingleShotImageSrc from "./images/viper_single_shot.png";
-import { Character } from "./utils/Character";
+import { Config } from "./utils/Config";
 import { Enemy } from "./utils/Enemy";
 import { Position } from "./utils/Position";
 import { Viper } from "./utils/Viper";
@@ -43,8 +43,8 @@ export const ShootingGame: React.VFC = () => {
       new Position(0, 0),
     );
     viperRef.current.position.set(
-      Character.CANVAS_WIDTH / 2 - viperRef.current.size.width / 2,
-      Character.CANVAS_HEIGHT,
+      Config.CANVAS_WIDTH / 2 - viperRef.current.size.width / 2,
+      Config.CANVAS_HEIGHT,
     );
 
     enemySmallRef.current = new Enemy(
@@ -53,7 +53,7 @@ export const ShootingGame: React.VFC = () => {
       new Position(0, 0),
     );
     enemySmallRef.current.position.set(
-      Character.CANVAS_WIDTH / 2 - enemySmallRef.current.size.width / 2,
+      Config.CANVAS_WIDTH / 2 - enemySmallRef.current.size.width / 2,
       100 - enemySmallRef.current.size.height,
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,8 +62,8 @@ export const ShootingGame: React.VFC = () => {
   useEffect(() => {
     const onKeyDownOrUp = (event: KeyboardEvent, isDown: boolean) => {
       const { key } = event;
-      if (includes(Character.pressedKeyCandidates, key)) {
-        Character.pressedKey[key] = isDown;
+      if (includes(Config.pressedKeyCandidates, key)) {
+        Config.pressedKey[key] = isDown;
       }
     };
     const onKeyDown = (event: KeyboardEvent) => {
@@ -104,10 +104,10 @@ export const ShootingGame: React.VFC = () => {
     const render = () => {
       ctx.fillStyle = "#000000";
       // 直前の描画結果をクリアする
-      ctx.fillRect(0, 0, Character.CANVAS_WIDTH, Character.CANVAS_HEIGHT);
+      ctx.fillRect(0, 0, Config.CANVAS_WIDTH, Config.CANVAS_HEIGHT);
 
-      if (viper.position.y <= Character.CANVAS_HEIGHT - 100) {
-        Character.scene = "play";
+      if (viper.position.y <= Config.CANVAS_HEIGHT - 100) {
+        Config.scene = "play";
       }
 
       viper.update();
@@ -127,8 +127,8 @@ export const ShootingGame: React.VFC = () => {
   return (
     <canvas
       ref={canvasRef}
-      width={Character.CANVAS_WIDTH}
-      height={Character.CANVAS_HEIGHT}
+      width={Config.CANVAS_WIDTH}
+      height={Config.CANVAS_HEIGHT}
     />
   );
 };

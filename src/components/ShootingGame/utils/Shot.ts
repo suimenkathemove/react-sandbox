@@ -1,4 +1,5 @@
 import { Character } from "./Character";
+import { Config } from "./Config";
 import { Position } from "./Position";
 import { Size } from "./Size";
 
@@ -14,9 +15,9 @@ export class Shot extends Character {
   private checkOutFlame() {
     return (
       this.position.x + this.size.width < 0 ||
-      Character.CANVAS_WIDTH < this.position.x ||
+      Config.CANVAS_WIDTH < this.position.x ||
       this.position.y + this.size.height < 0 ||
-      Character.CANVAS_HEIGHT < this.position.y
+      Config.CANVAS_HEIGHT < this.position.y
     );
   }
 
