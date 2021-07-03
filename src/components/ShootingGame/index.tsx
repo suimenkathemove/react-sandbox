@@ -2,10 +2,12 @@ import { assert } from "@/utils/assert";
 import { includes } from "@/utils/includes";
 import { useUpdateEffect } from "@/utils/useUpdateEffect";
 import { useEffect, useRef } from "react";
+import enemySmallImageSrc from "./images/enemy_small.png";
 import viperImageSrc from "./images/viper.png";
 import viperShotImageSrc from "./images/viper_shot.png";
 import viperSingleShotImageSrc from "./images/viper_single_shot.png";
 import { Character } from "./utils/Character";
+import { Enemy } from "./utils/Enemy";
 import { Position } from "./utils/Position";
 import { Viper } from "./utils/Viper";
 import { useIsImageLoaded } from "./utils/useIsImageLoaded";
@@ -22,8 +24,12 @@ export const ShootingGame: React.VFC = () => {
     viperSingleShotImageRef,
     isViperSingleShotImageLoaded,
   ] = useIsImageLoaded(viperSingleShotImageSrc);
+  const [enemySmallImageRef, isEnemySmallImageLoaded] = useIsImageLoaded(
+    enemySmallImageSrc,
+  );
 
   const viperRef = useRef<Viper | null>(null);
+  const enemySmallRef = useRef<Enemy | null>(null);
 
   useEffect(() => {
     const ctx = getContext();
@@ -39,6 +45,16 @@ export const ShootingGame: React.VFC = () => {
     viperRef.current.position.set(
       Character.CANVAS_WIDTH / 2 - viperRef.current.size.width / 2,
       Character.CANVAS_HEIGHT,
+    );
+
+    enemySmallRef.current = new Enemy(
+      ctx,
+      enemySmallImageRef.current,
+      new Position(0, 0),
+    );
+    enemySmallRef.current.position.set(
+      Character.CANVAS_WIDTH / 2 - enemySmallRef.current.size.width / 2,
+      100 - enemySmallRef.current.size.height,
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -70,7 +86,8 @@ export const ShootingGame: React.VFC = () => {
     if (
       !isViperImageLoaded ||
       !isViperShotImageLoaded ||
-      !isViperSingleShotImageLoaded
+      !isViperSingleShotImageLoaded ||
+      !isEnemySmallImageLoaded
     ) {
       return;
     }
@@ -80,6 +97,9 @@ export const ShootingGame: React.VFC = () => {
 
     const viper = viperRef.current;
     assert<NonNullable<typeof viper>>(viper);
+
+    const enemySmall = enemySmallRef.current;
+    assert<NonNullable<typeof enemySmall>>(enemySmall);
 
     const render = () => {
       ctx.fillStyle = "#000000";
@@ -92,6 +112,8 @@ export const ShootingGame: React.VFC = () => {
 
       viper.update();
 
+      enemySmall.update();
+
       requestAnimationFrame(render);
     };
     render();
@@ -99,6 +121,7 @@ export const ShootingGame: React.VFC = () => {
     isViperImageLoaded,
     isViperShotImageLoaded,
     isViperSingleShotImageLoaded,
+    isEnemySmallImageLoaded,
   ]);
 
   return (
