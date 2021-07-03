@@ -56,6 +56,8 @@ export const ShootingGame: React.VFC = () => {
       Config.CANVAS_WIDTH / 2 - enemySmallRef.current.size.width / 2,
       100 - enemySmallRef.current.size.height,
     );
+
+    viperRef.current.enemies.push(enemySmallRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1,15 +1,18 @@
 import { Character } from "./Character";
 import { Config } from "./Config";
+import { Enemy } from "./Enemy";
 import { Position } from "./Position";
 import { Shot } from "./Shot";
 import { Size } from "./Size";
 
 export class Viper extends Character {
-  private shots: Shot[] = [];
+  public shots: Shot[] = [];
   private leftSingleShots: Shot[] = [];
   private rightSingleShots: Shot[] = [];
 
   private isZKeyPressing = false;
+
+  public enemies: Enemy[] = [];
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -87,6 +90,12 @@ export class Viper extends Character {
     );
     rightSingleShot.setAngle((280 / 180) * Math.PI);
     this.rightSingleShots.push(rightSingleShot);
+
+    this.enemies.forEach((e) => {
+      shot.targets.push(e);
+      leftSingleShot.targets.push(e);
+      rightSingleShot.targets.push(e);
+    });
   }
 
   private firingOne() {

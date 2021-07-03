@@ -4,6 +4,10 @@ import { Position } from "./Position";
 import { Size } from "./Size";
 
 export class Shot extends Character {
+  private power = 1;
+
+  public targets: Character[] = [];
+
   constructor(
     ctx: CanvasRenderingContext2D,
     image: HTMLImageElement,
@@ -21,6 +25,12 @@ export class Shot extends Character {
     );
   }
 
+  private damage(target: Character) {
+    target.life -= this.power;
+
+    this.life = 0;
+  }
+
   update() {
     // 画面外に出た場合は死亡扱いとすることで、無駄な処理を行わないようにする
     if (this.checkOutFlame()) {
@@ -33,6 +43,16 @@ export class Shot extends Character {
 
     this.position.x += this.vector.x * this.speed;
     this.position.y += this.vector.y * this.speed;
+
+    this.targets.forEach((t) => {
+      if ([this.life, t.life].some((l) => l <= 0)) {
+        return;
+      }
+
+      if (this.isCollision(t)) {
+        this.damage(t);
+      }
+    });
 
     this.rotationDraw();
   }

@@ -10,7 +10,7 @@ export abstract class Character {
     private image: HTMLImageElement,
     public position: Position,
     public size: Size,
-    protected life: number,
+    public life: number,
     protected speed: number,
   ) {
     Object.assign(this, { ctx, image, position, size, life, speed });
@@ -22,6 +22,26 @@ export abstract class Character {
     const sin = Math.sin(angle);
     const cos = Math.cos(angle);
     this.vector.set(cos, sin);
+  }
+
+  centerPosition(character: Character) {
+    const centerX = character.position.x + character.size.width / 2;
+    const centerY = character.position.y + character.size.height / 2;
+
+    return new Position(centerX, centerY);
+  }
+
+  distance(target: Character) {
+    const x = this.centerPosition(this).x - this.centerPosition(target).x;
+    const y = this.centerPosition(this).y - this.centerPosition(target).y;
+
+    return Math.sqrt(x ** 2 + y ** 2);
+  }
+
+  isCollision(target: Character) {
+    const distance = this.distance(target);
+
+    return distance <= this.size.width / 2 + target.size.width / 2;
   }
 
   draw() {
