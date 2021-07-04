@@ -7,6 +7,11 @@ export const useSpread = (wrapperRef: React.RefObject<HTMLElement>) => {
   }>({ width: 0, height: 0 });
 
   useEffect(() => {
+    setSize({
+      width: wrapperRef.current!.clientWidth,
+      height: wrapperRef.current!.clientHeight,
+    });
+
     const onResize = () => {
       setSize({
         width: wrapperRef.current!.clientWidth,
