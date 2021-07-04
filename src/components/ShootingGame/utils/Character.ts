@@ -24,16 +24,16 @@ export abstract class Character {
     this.vector.set(cos, sin);
   }
 
-  centerPosition(character: Character) {
-    const centerX = character.position.x + character.size.width / 2;
-    const centerY = character.position.y + character.size.height / 2;
+  centerPosition() {
+    const centerX = this.position.x + this.size.width / 2;
+    const centerY = this.position.y + this.size.height / 2;
 
     return new Position(centerX, centerY);
   }
 
   distance(target: Character) {
-    const x = this.centerPosition(this).x - this.centerPosition(target).x;
-    const y = this.centerPosition(this).y - this.centerPosition(target).y;
+    const x = this.centerPosition().x - target.centerPosition().x;
+    const y = this.centerPosition().y - target.centerPosition().y;
 
     return Math.sqrt(x ** 2 + y ** 2);
   }
