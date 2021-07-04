@@ -63,7 +63,7 @@ export class Viper extends Character {
     const shot = new Shot(this.ctx, this.shotImage, new Position(0, 0));
     shot.position.set(
       this.position.x + this.size.width / 2,
-      this.position.y - shot.size.height,
+      this.position.y - shot.size.height / 2,
     );
     this.shots.push(shot);
 
@@ -74,7 +74,7 @@ export class Viper extends Character {
     );
     leftSingleShot.position.set(
       this.position.x + this.size.width / 2,
-      this.position.y - leftSingleShot.size.height,
+      this.position.y - leftSingleShot.size.height / 2,
     );
     leftSingleShot.setAngle((260 / 180) * Math.PI);
     this.leftSingleShots.push(leftSingleShot);
@@ -86,7 +86,7 @@ export class Viper extends Character {
     );
     rightSingleShot.position.set(
       this.position.x + this.size.width / 2,
-      this.position.y - rightSingleShot.size.height,
+      this.position.y - rightSingleShot.size.height / 2,
     );
     rightSingleShot.setAngle((280 / 180) * Math.PI);
     this.rightSingleShots.push(rightSingleShot);
