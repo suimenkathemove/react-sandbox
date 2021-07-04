@@ -63,9 +63,9 @@ export const ShootingGame: React.VFC = () => {
 
   useEffect(() => {
     const onKeyDownOrUp = (event: KeyboardEvent, isDown: boolean) => {
-      const { key } = event;
-      if (includes(Config.pressedKeyCandidates, key)) {
-        Config.pressedKey[key] = isDown;
+      const { code } = event;
+      if (includes(Config.pressedKeyCandidates, code)) {
+        Config.pressedKey[code] = isDown;
       }
     };
     const onKeyDown = (event: KeyboardEvent) => {

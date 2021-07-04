@@ -99,19 +99,19 @@ export class Viper extends Character {
   }
 
   private firingOne() {
-    if (Config.pressedKey.z && !this.isZKeyPressing) {
+    if (Config.pressedKey.Space && !this.isZKeyPressing) {
       this.fire();
 
       this.isZKeyPressing = true;
     }
 
-    if (!Config.pressedKey.z) {
+    if (!Config.pressedKey.Space) {
       this.isZKeyPressing = false;
     }
   }
 
   private firingMultiple() {
-    if (Config.pressedKey.z) {
+    if (Config.pressedKey.Space) {
       this.fire();
     }
   }

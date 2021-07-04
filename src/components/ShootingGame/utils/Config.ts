@@ -9,7 +9,7 @@ export class Config {
     "ArrowDown",
     "ArrowLeft",
     "ArrowRight",
-    "z",
+    "Space",
   ] as const;
 
   static pressedKey: Record<
@@ -20,6 +20,6 @@ export class Config {
     ArrowDown: false,
     ArrowLeft: false,
     ArrowRight: false,
-    z: false,
+    Space: false,
   };
 }
