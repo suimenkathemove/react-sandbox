@@ -1,5 +1,5 @@
-import { Position } from "./Position";
-import { Size } from "./Size";
+import { Position } from "@/utils/Position";
+import { Size } from "@/utils/Size";
 
 export abstract class Character {
   angle = 1.5 * Math.PI;

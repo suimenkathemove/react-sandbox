@@ -1,7 +1,7 @@
+import { Position } from "@/utils/Position";
+import { Size } from "@/utils/Size";
 import { Character } from "./Character";
 import { Config } from "./Config";
-import { Position } from "./Position";
-import { Size } from "./Size";
 
 export class Enemy extends Character {
   constructor(

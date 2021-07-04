@@ -1,3 +1,4 @@
+import { Position } from "@/utils/Position";
 import { assert } from "@/utils/assert";
 import { includes } from "@/utils/includes";
 import { useUpdateEffect } from "@/utils/useUpdateEffect";
@@ -8,7 +9,6 @@ import viperShotImageSrc from "./images/viper_shot.png";
 import viperSingleShotImageSrc from "./images/viper_single_shot.png";
 import { Config } from "./utils/Config";
 import { Enemy } from "./utils/Enemy";
-import { Position } from "./utils/Position";
 import { Viper } from "./utils/Viper";
 import { useIsImageLoaded } from "./utils/useIsImageLoaded";
 
