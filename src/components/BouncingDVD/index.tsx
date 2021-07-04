@@ -20,7 +20,7 @@ export const BouncingDVD: React.VFC = () => {
     const dvd = new DVD(ctx, position, vector);
 
     onUpdateFrame(() => {
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvasSize.width, canvasSize.height);
 
       dvd.update();

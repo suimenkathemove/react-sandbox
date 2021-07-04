@@ -1,7 +1,10 @@
 import { Position } from "@/utils/Position";
+import { Size } from "@/utils/Size";
+import DVDLogoSrc from "../images/DVD_logo.svg";
 
 export class DVD {
-  private readonly size = 100;
+  private image = new Image();
+  private readonly size = new Size(512, 261);
   private readonly speed = 3;
 
   constructor(
@@ -10,13 +13,15 @@ export class DVD {
     private vector: Position,
   ) {
     Object.assign(this, { ctx, position, vector });
+
+    this.image.src = DVDLogoSrc;
   }
 
   private readonly isCollision = {
     top: () => this.position.y < 0,
-    bottom: () => this.ctx.canvas.height < this.position.y + this.size,
+    bottom: () => this.ctx.canvas.height < this.position.y + this.size.height,
     left: () => this.position.x < 0,
-    right: () => this.ctx.canvas.width < this.position.x + this.size,
+    right: () => this.ctx.canvas.width < this.position.x + this.size.width,
   };
 
   update() {
@@ -30,7 +35,12 @@ export class DVD {
     this.position.x += this.vector.x * this.speed;
     this.position.y += this.vector.y * this.speed;
 
-    this.ctx.fillStyle = "#ff0000";
-    this.ctx.fillRect(this.position.x, this.position.y, this.size, this.size);
+    this.ctx.drawImage(
+      this.image,
+      this.position.x,
+      this.position.y,
+      this.size.width,
+      this.size.height,
+    );
   }
 }
