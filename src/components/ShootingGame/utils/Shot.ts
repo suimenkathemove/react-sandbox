@@ -1,7 +1,7 @@
+import { Position } from "@/utils/Position";
 import { Character } from "./Character";
 import { Config } from "./Config";
 import { Explosion } from "./Explosion";
-import { Position } from "./Position";
 import { Size } from "./Size";
 
 export class Shot extends Character {

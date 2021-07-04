@@ -1,6 +1,6 @@
 import { rangeRandom } from "@/components/ShootingGame/utils/rangeRandom";
+import { Position } from "@/utils/Position";
 import { range } from "@/utils/range";
-import { Position } from "./Position";
 
 class Fire {
   constructor(

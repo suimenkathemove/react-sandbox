@@ -1,7 +1,7 @@
+import { Position } from "@/utils/Position";
 import { Character } from "./Character";
 import { Config } from "./Config";
 import { Enemy } from "./Enemy";
-import { Position } from "./Position";
 import { Shot } from "./Shot";
 import { Size } from "./Size";
 

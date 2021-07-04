@@ -1,4 +1,4 @@
-import { Position } from "./Position";
+import { Position } from "@/utils/Position";
 import { Size } from "./Size";
 
 export abstract class Character {
