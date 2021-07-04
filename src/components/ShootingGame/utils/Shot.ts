@@ -1,5 +1,6 @@
 import { Character } from "./Character";
 import { Config } from "./Config";
+import { Explosion } from "./Explosion";
 import { Position } from "./Position";
 import { Size } from "./Size";
 
@@ -7,6 +8,8 @@ export class Shot extends Character {
   private power = 1;
 
   public targets: Character[] = [];
+
+  private explosions: Explosion[] = [];
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -32,6 +35,10 @@ export class Shot extends Character {
   }
 
   update() {
+    this.explosions.forEach((e) => {
+      e.update();
+    });
+
     // 画面外に出た場合は死亡扱いとすることで、無駄な処理を行わないようにする
     if (this.checkOutFlame()) {
       this.life = 0;
@@ -51,6 +58,11 @@ export class Shot extends Character {
 
       if (this.isCollision(t)) {
         this.damage(t);
+
+        if (t.life <= 0) {
+          const explosion = new Explosion(this.ctx, t.centerPosition());
+          this.explosions.push(explosion);
+        }
       }
     });
 
