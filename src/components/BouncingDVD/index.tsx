@@ -9,10 +9,18 @@ export const BouncingDVD: React.VFC = () => {
     height: number;
   }>({ width: 0, height: 0 });
   useEffect(() => {
-    setCanvasSize({
-      width: rootRef.current!.clientWidth,
-      height: rootRef.current!.clientHeight,
-    });
+    const onResize = () => {
+      setCanvasSize({
+        width: rootRef.current!.clientWidth,
+        height: rootRef.current!.clientHeight,
+      });
+    };
+
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   return (
