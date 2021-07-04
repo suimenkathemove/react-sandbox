@@ -1,6 +1,8 @@
+import { Position } from "@/utils/Position";
 import { onUpdateFrame } from "@/utils/onUpdateFrame";
 import { useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
+import { DVD } from "./utils/DVD";
 import { useSpread } from "./utils/useSpread";
 
 export const BouncingDVD: React.VFC = () => {
@@ -13,8 +15,15 @@ export const BouncingDVD: React.VFC = () => {
   useEffect(() => {
     const ctx = getContext()!;
 
+    const position = new Position(0, 0);
+    const vector = new Position(1.0, 1.0);
+    const dvd = new DVD(ctx, position, vector);
+
     onUpdateFrame(() => {
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, canvasSize.width, canvasSize.height);
+
+      dvd.update();
     });
   }, [canvasSize.height, canvasSize.width]);
 
