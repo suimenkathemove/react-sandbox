@@ -16,7 +16,12 @@ export const BouncingDVD: React.VFC = () => {
     const ctx = getContext()!;
 
     const position = new Position(0, 0);
-    const vector = new Position(1.0, 1.0);
+
+    const radian = (2.0 * Math.PI * 7) / 8;
+    const sin = Math.sin(radian);
+    const cos = Math.cos(radian);
+    const vector = new Position(cos, -sin);
+
     const dvd = new DVD(ctx, position, vector);
 
     onUpdateFrame(() => {
