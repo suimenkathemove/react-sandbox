@@ -1,1 +1,1 @@
-declare function isNever(arg: never): never;
+declare function assertNever(arg: never): never;

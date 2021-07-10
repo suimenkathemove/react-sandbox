@@ -23,16 +23,16 @@ export class MovableElement {
   constructor(id: string) {
     this.element = document.getElementById(id)!;
 
-    this.elementInitialPosition = this.elementCurrentPosition();
+    this.elementInitialPosition = this.elementCurrentPosition;
 
     this.element.addEventListener("mousedown", (event) => {
-      this.elementStartPosition = this.elementCurrentPosition();
+      this.elementStartPosition = this.elementCurrentPosition;
 
       this.pointerStartPosition.x = event.clientX;
       this.pointerStartPosition.y = event.clientY;
     });
     this.element.addEventListener("touchstart", (event) => {
-      this.elementStartPosition = this.elementCurrentPosition();
+      this.elementStartPosition = this.elementCurrentPosition;
 
       this.pointerStartPosition.x = event.touches[0].clientX;
       this.pointerStartPosition.y = event.touches[0].clientY;
@@ -79,7 +79,7 @@ export class MovableElement {
     });
   }
 
-  private elementCurrentPosition(): ElementPosition {
+  private get elementCurrentPosition(): ElementPosition {
     const { top, left } = this.element.getBoundingClientRect();
 
     return { top, left };
