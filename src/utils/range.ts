@@ -10,10 +10,8 @@ export const range = (
     number,
   ] = args.length === 1 ? [void 0, ...args] : args;
 
-  let i = start;
-  while (step > 0 ? i < end : i > end) {
+  for (let i = start; step > 0 ? i < end : i > end; i += step) {
     arr.push(i);
-    i += step;
   }
 
   return arr;
