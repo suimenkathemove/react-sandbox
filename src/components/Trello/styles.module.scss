@@ -7,6 +7,9 @@
   .listWrapper {
     display: inline-block;
     height: 100%;
-    margin-right: 16px;
+  }
+
+  .listWrapper + .listWrapper {
+    margin-left: 16px;
   }
 }
