@@ -11,7 +11,7 @@ const Template: Story<React.ComponentProps<typeof Trello>> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  lists: [
+  initialLists: [
     {
       id: 1,
       title: "To do",
@@ -26,7 +26,7 @@ Default.args = {
 
 export const Overflow = Template.bind({});
 Overflow.args = {
-  lists: range(1, 10 + 1).map((i) => ({
+  initialLists: range(1, 10 + 1).map((i) => ({
     id: i,
     title: i.toString(),
     cards: [],
