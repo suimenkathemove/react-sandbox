@@ -1,0 +1,15 @@
+.base {
+  $height: 48px;
+
+  height: $height;
+  padding: 0 8px;
+  line-height: $height;
+  background-color: #eeeef2;
+  border-radius: 2px;
+
+  .title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    color: #0a0a0f;
+  }
+}
