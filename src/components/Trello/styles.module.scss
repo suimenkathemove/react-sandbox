@@ -1,15 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
 
 .base {
+  display: flex;
   height: 100%;
   white-space: nowrap;
 
   .listWrapper {
-    display: inline-block;
     height: 100%;
   }
 
   .listWrapper + .listWrapper {
+    margin-left: 16px;
+  }
+
+  .inputWrapper {
     margin-left: 16px;
   }
 }
