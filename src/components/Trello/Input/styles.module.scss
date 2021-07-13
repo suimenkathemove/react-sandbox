@@ -1,9 +1,11 @@
 $navy: #292a3d;
+$width: 100%;
 $height: 16px;
 
 .wrapper {
   display: inline-flex;
   align-items: center;
+  width: $width;
   height: 36px;
   padding: 0 4px;
   font-family: 'Nunito', sans-serif;
@@ -14,5 +16,6 @@ $height: 16px;
 }
 
 .base {
+  width: $width;
   height: $height;
 }
