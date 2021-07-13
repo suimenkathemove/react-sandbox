@@ -6,5 +6,9 @@ type Props = React.DetailedHTMLProps<
 >;
 
 export const Input: React.VFC<Props> = (props) => {
-  return <input className={styles.base} {...props} />;
+  return (
+    <div className={styles.wrapper}>
+      <input className={styles.base} {...props} />
+    </div>
+  );
 };
