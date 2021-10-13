@@ -12,6 +12,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
+    "postinstall": "typesync",
     "dev": "npm run tsm:watch & npm run storybook",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
@@ -32,7 +33,6 @@
     "tsm:watch": "tsm src/components -w --ignoreInitial -u",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "preinstall": "typesync || :",
     "prepare": "husky install"
   },
   "browserslist": {
