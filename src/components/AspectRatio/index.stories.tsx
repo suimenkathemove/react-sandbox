@@ -12,6 +12,10 @@ export const Default = Template.bind({});
 Default.args = {
   ratio: 3 / 4,
   children: (
-    <img src="https://picsum.photos/200" style={{ objectFit: "cover" }} />
+    <img
+      src="https://picsum.photos/200"
+      alt="random"
+      style={{ objectFit: "cover" }}
+    />
   ),
 };

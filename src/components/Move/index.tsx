@@ -124,6 +124,9 @@ export const Move: React.VFC = () => {
       onTouchStart={onTouchDown}
       onMouseUp={onMouseUp}
       onTouchEnd={onTouchEnd}
+      // TODO
+      role="button"
+      tabIndex={-1}
       className={styles.base}
       style={{
         transform:

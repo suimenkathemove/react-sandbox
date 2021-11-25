@@ -62,11 +62,14 @@ export const MonthlyCalendar: React.VFC<Props> = (props) => {
         {dateGrid.map((week, i) => (
           <div key={i}>
             {week.map((date, j) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <div
                 key={j}
                 onClick={() => {
                   props.onClickDate(date);
                 }}
+                role="gridcell"
+                tabIndex={-1}
                 className={clsx(
                   styles.date,
                   isSameDate(date, now) && styles.today,

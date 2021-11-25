@@ -51,6 +51,8 @@ export const Event: React.VFC<Props> = (props) => {
   return (
     <div
       onMouseDown={onMouseDown}
+      role="button"
+      tabIndex={-1}
       className={styles.base}
       style={{
         top,

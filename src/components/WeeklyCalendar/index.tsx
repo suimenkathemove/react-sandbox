@@ -181,6 +181,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
                 onMouseMove(mouseEvent, date);
               }}
               onMouseUp={onMouseUp}
+              role="presentation"
               className={styles.date}
             >
               <div>{date.getDate()}</div>
