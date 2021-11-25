@@ -4,6 +4,15 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 13,
+    sourceType: "module",
+  },
+  plugins: ["@typescript-eslint", "import", "jsx-a11y", "react", "react-hooks"],
   extends: [
     "eslint:recommended",
     "plugin:import/errors",
@@ -15,15 +24,6 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
     "prettier",
   ],
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 13,
-    sourceType: "module",
-  },
-  plugins: ["@typescript-eslint", "import", "jsx-a11y", "react", "react-hooks"],
   rules: {
     "no-use-before-define": "off",
     "lines-between-class-members": [
