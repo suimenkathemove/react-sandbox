@@ -35,7 +35,6 @@ module.exports = {
     "prettier",
   ],
   rules: {
-    "no-use-before-define": "off",
     "lines-between-class-members": [
       "error",
       "always",
@@ -65,7 +64,6 @@ module.exports = {
         varsIgnorePattern: "_",
       },
     ],
-    "@typescript-eslint/no-use-before-define": ["error"],
     "import/extensions": [
       "error",
       "ignorePackages",
