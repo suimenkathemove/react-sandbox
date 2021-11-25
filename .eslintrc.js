@@ -57,12 +57,6 @@ module.exports = {
       },
     ],
     "import/no-unresolved": "off",
-    "react/jsx-filename-extension": [
-      "error",
-      {
-        extensions: [".jsx", ".tsx"],
-      },
-    ],
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
