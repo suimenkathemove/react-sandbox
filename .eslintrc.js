@@ -35,13 +35,6 @@ module.exports = {
     "prettier",
   ],
   rules: {
-    "lines-between-class-members": [
-      "error",
-      "always",
-      {
-        exceptAfterSingleLine: true,
-      },
-    ],
     "padding-line-between-statements": [
       "error",
       {
