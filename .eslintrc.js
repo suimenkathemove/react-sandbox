@@ -58,8 +58,8 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
     "react/react-in-jsx-scope": "off",
-    "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
   },
   overrides: [
     {
