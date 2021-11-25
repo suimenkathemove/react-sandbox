@@ -19,6 +19,7 @@ module.exports = {
     "react-hooks",
     "jsx-a11y",
     "testing-library",
+    "jest-dom",
   ],
   extends: [
     "eslint:recommended",
@@ -30,6 +31,7 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
     "prettier",
   ],
   rules: {

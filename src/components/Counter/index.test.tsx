@@ -1,3 +1,4 @@
+/* eslint-disable jest-dom/prefer-to-have-text-content */
 import ReactDOM from "react-dom";
 import { Counter } from "./";
 
