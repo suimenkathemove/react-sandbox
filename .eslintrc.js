@@ -47,16 +47,7 @@ module.exports = {
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        vars: "all",
-        args: "after-used",
-        argsIgnorePattern: "_",
-        ignoreRestSiblings: false,
-        varsIgnorePattern: "_",
-      },
-    ],
+    "@typescript-eslint/no-unused-vars": ["error"],
     "import/extensions": [
       "error",
       "ignorePackages",
