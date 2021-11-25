@@ -97,5 +97,8 @@ module.exports = {
         paths: ["src"],
       },
     },
+    react: {
+      version: "detect",
+    },
   },
 };
