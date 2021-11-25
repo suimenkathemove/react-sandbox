@@ -1,4 +1,4 @@
-import { Story, Meta } from "@storybook/react/types-6-0";
+import { Meta, Story } from "@storybook/react/types-6-0";
 import { ShootingGame } from "./";
 
 const meta: Meta = { title: "ShootingGame", component: ShootingGame };

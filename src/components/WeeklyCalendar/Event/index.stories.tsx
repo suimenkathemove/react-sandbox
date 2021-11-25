@@ -1,5 +1,5 @@
 import { setTime } from "@/utils/date/setTime";
-import { Story, Meta } from "@storybook/react/types-6-0";
+import { Meta, Story } from "@storybook/react/types-6-0";
 import { Event } from "./";
 
 const meta: Meta = { title: "WeeklyCalendar/Event", component: Event };
