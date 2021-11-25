@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true,
@@ -21,7 +22,6 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["@typescript-eslint", "import", "jsx-a11y", "react", "react-hooks"],
-  root: true,
   rules: {
     "no-use-before-define": "off",
     "lines-between-class-members": [
