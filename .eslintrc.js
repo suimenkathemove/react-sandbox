@@ -43,6 +43,7 @@ module.exports = {
         next: "return",
       },
     ],
+    "import/no-unresolved": "off",
     "import/order": [
       "error",
       {
@@ -51,7 +52,6 @@ module.exports = {
         },
       },
     ],
-    "import/no-unresolved": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-empty-function": "off",
