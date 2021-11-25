@@ -18,7 +18,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: 13,
     sourceType: "module",
   },
   plugins: ["@typescript-eslint", "import", "jsx-a11y", "react", "react-hooks"],
