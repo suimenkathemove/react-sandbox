@@ -12,7 +12,14 @@ module.exports = {
     ecmaVersion: 13,
     sourceType: "module",
   },
-  plugins: ["import", "@typescript-eslint", "react", "react-hooks", "jsx-a11y"],
+  plugins: [
+    "import",
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "testing-library",
+  ],
   extends: [
     "eslint:recommended",
     "plugin:import/errors",
@@ -22,6 +29,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
+    "plugin:testing-library/react",
     "prettier",
   ],
   rules: {
