@@ -66,7 +66,6 @@ module.exports = {
       },
     ],
     "@typescript-eslint/ban-ts-comment": "off",
-    // TODO: remove
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
