@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+
 import styles from "../styles.module.scss";
+
 import { MovableElement } from "./utils/MovableElement";
 
 export const Move: React.VFC = () => {

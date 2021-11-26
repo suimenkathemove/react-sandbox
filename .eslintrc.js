@@ -57,6 +57,7 @@ module.exports = {
           },
         ],
         pathGroupsExcludedImportTypes: ["builtin"],
+        "newlines-between": "always",
       },
     ],
     "sort-imports": [

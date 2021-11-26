@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+
 import enemySmallImageSrc from "./images/enemy_small.png";
 import viperImageSrc from "./images/viper.png";
 import viperShotImageSrc from "./images/viper_shot.png";
@@ -7,6 +8,7 @@ import { Config } from "./utils/Config";
 import { Enemy } from "./utils/Enemy";
 import { Viper } from "./utils/Viper";
 import { useIsImageLoaded } from "./utils/useIsImageLoaded";
+
 import { Position } from "@/utils/Position";
 import { assert } from "@/utils/assert";
 import { includes } from "@/utils/includes";

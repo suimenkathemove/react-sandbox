@@ -1,5 +1,6 @@
 import { Character } from "./Character";
 import { Config } from "./Config";
+
 import { Position } from "@/utils/Position";
 import { Size } from "@/utils/Size";
 import { assertNever } from "@/utils/assertNever";

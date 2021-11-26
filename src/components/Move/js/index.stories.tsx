@@ -1,4 +1,5 @@
 import { Meta, Story } from "@storybook/react/types-6-0";
+
 import { Move } from "./";
 
 const meta: Meta = { title: "Move/js", component: Move };

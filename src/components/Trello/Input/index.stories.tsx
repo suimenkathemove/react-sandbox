@@ -1,5 +1,6 @@
 import { Meta, Story } from "@storybook/react/types-6-0";
 import { useState } from "react";
+
 import { Input } from "./";
 
 const meta: Meta = { title: "Trello/Input", component: Input };

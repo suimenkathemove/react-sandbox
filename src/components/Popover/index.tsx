@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
+
 import styles from "./styles.module.scss";
 
 type Props = {

@@ -1,6 +1,8 @@
 import { Meta } from "@storybook/react/types-6-0";
 import { useState } from "react";
+
 import { Popover } from "./";
+
 import { alphabets } from "@/utils/alphabets";
 
 const meta: Meta = { title: "Popover", component: Popover };
