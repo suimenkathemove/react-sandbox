@@ -1,8 +1,8 @@
-import { Position } from "@/utils/Position";
-import { Size } from "@/utils/Size";
 import { Character } from "./Character";
 import { Config } from "./Config";
 import { Explosion } from "./Explosion";
+import { Position } from "@/utils/Position";
+import { Size } from "@/utils/Size";
 
 export class Shot extends Character {
   private power = 1;

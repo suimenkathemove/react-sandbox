@@ -1,6 +1,6 @@
+import DVDLogoSrc from "../images/DVD_logo.svg";
 import { Position } from "@/utils/Position";
 import { Size } from "@/utils/Size";
-import DVDLogoSrc from "../images/DVD_logo.svg";
 
 export class DVD {
   private image = new Image();

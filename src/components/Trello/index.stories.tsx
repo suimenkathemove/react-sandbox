@@ -1,6 +1,6 @@
-import { range } from "@/utils/range";
 import { Meta, Story } from "@storybook/react/types-6-0";
 import { Trello } from "./";
+import { range } from "@/utils/range";
 
 const meta: Meta = { title: "Trello", component: Trello };
 export default meta;

@@ -1,9 +1,9 @@
-import { Position } from "@/utils/Position";
-import { onUpdateFrame } from "@/utils/onUpdateFrame";
 import { useEffect, useRef } from "react";
 import styles from "./styles.module.scss";
 import { DVD } from "./utils/DVD";
 import { useSpread } from "./utils/useSpread";
+import { Position } from "@/utils/Position";
+import { onUpdateFrame } from "@/utils/onUpdateFrame";
 
 export const BouncingDVD: React.VFC = () => {
   const rootRef = useRef<HTMLDivElement>(null);

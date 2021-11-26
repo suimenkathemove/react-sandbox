@@ -50,6 +50,13 @@ module.exports = {
         alphabetize: {
           order: "asc",
         },
+        pathGroups: [
+          {
+            pattern: "@/**",
+            group: "internal",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["builtin"],
       },
     ],
     "sort-imports": [

@@ -1,8 +1,8 @@
+import { useState } from "react";
+import { Event } from "../Event";
 import { addMinutes } from "@/utils/date/addMinutes";
 import { compareDate } from "@/utils/date/compareDate";
 import { diffMinutes } from "@/utils/date/diffMinutes";
-import { useState } from "react";
-import { Event } from "../Event";
 
 export const useEvent = (baseEvents: Event[]) => {
   const [events, setEvents] = useState(baseEvents);

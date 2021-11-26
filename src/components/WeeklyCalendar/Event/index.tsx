@@ -1,10 +1,10 @@
-import { DateRange } from "@/types/date";
-import { diffMinutes } from "@/utils/date/diffMinutes";
-import { mouseCoordinate } from "@/utils/mouseCoordinate";
 import { Mode } from "../";
 import { HOUR_HEIGHT } from "../utils/hourHeight";
 import styles from "./styles.module.scss";
 import { RESIZE_HEIGHT } from "./utils/resizeHeight";
+import { DateRange } from "@/types/date";
+import { diffMinutes } from "@/utils/date/diffMinutes";
+import { mouseCoordinate } from "@/utils/mouseCoordinate";
 
 export type Event = {
   id: number;

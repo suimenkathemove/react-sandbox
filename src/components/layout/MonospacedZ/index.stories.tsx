@@ -1,6 +1,6 @@
-import { range } from "@/utils/range";
 import { Meta } from "@storybook/react/types-6-0";
 import { MonospacedZ } from "./";
+import { range } from "@/utils/range";
 
 const meta: Meta = { title: "layout/MonospacedZ", component: MonospacedZ };
 export default meta;
