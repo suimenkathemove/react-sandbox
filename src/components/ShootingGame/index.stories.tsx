@@ -1,7 +1,8 @@
-import { Story, Meta } from "@storybook/react/types-6-0";
-import { ShootingGame } from "./";
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-const meta: Meta = { title: "ShootingGame", component: ShootingGame };
+import { ShootingGame } from './';
+
+const meta: Meta = { title: 'ShootingGame', component: ShootingGame };
 export default meta;
 
 const Template: Story<React.ComponentProps<typeof ShootingGame>> = (args) => (

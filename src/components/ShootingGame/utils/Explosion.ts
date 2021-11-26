@@ -1,6 +1,6 @@
-import { rangeRandom } from "@/components/ShootingGame/utils/rangeRandom";
-import { Position } from "@/utils/Position";
-import { range } from "@/utils/range";
+import { rangeRandom } from '@/components/ShootingGame/utils/rangeRandom';
+import { Position } from '@/utils/Position';
+import { range } from '@/utils/range';
 
 class Fire {
   constructor(
@@ -63,7 +63,7 @@ export class Explosion {
       return;
     }
 
-    this.ctx.fillStyle = "#ff0000";
+    this.ctx.fillStyle = '#ff0000';
 
     this.fires.forEach((f) => {
       const d = this.radius * this.easeProgress();

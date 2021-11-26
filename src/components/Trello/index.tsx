@@ -1,8 +1,10 @@
-import { useStateWithReset } from "@/utils/useStateWithReset";
-import { useState } from "react";
-import { Input } from "./Input";
-import { List } from "./List";
-import styles from "./styles.module.scss";
+import { useState } from 'react';
+
+import { Input } from './Input';
+import { List } from './List';
+import styles from './styles.module.scss';
+
+import { useStateWithReset } from '@/utils/useStateWithReset';
 
 type InputProps = React.ComponentProps<typeof Input>;
 
@@ -17,12 +19,12 @@ export const Trello: React.VFC<Props> = (props) => {
     props.initialLists[props.initialLists.length - 1].id,
   );
 
-  const [inputValue, setInputValue, resetInputValue] = useStateWithReset("");
-  const onChangeInput: InputProps["onChange"] = (event) => {
+  const [inputValue, setInputValue, resetInputValue] = useStateWithReset('');
+  const onChangeInput: InputProps['onChange'] = (event) => {
     setInputValue(event.target.value);
   };
-  const onKeyPressInput: InputProps["onKeyPress"] = (event) => {
-    if (event.code !== "Enter") {
+  const onKeyPressInput: InputProps['onKeyPress'] = (event) => {
+    if (event.code !== 'Enter') {
       return;
     }
 

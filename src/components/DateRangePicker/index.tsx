@@ -1,16 +1,18 @@
-import { MonthlyCalendar } from "@/components/MonthlyCalendar";
-import { Popover } from "@/components/Popover";
-import { isSameDate } from "@/utils/date/isSameDate";
-import { useShow } from "@/utils/useShow";
-import { useState } from "react";
-import styles from "./styles.module.scss";
+import { useState } from 'react';
+
+import styles from './styles.module.scss';
+
+import { MonthlyCalendar } from '@/components/MonthlyCalendar';
+import { Popover } from '@/components/Popover';
+import { isSameDate } from '@/utils/date/isSameDate';
+import { useShow } from '@/utils/useShow';
 
 type NonNullableArray<T extends unknown[]> = {
   [P in keyof T]: NonNullable<T[P]>;
 };
 type Props = {
   dateRange: [startDate: Date | null, endDate: Date | null];
-  setDateRange: (dateRange: NonNullableArray<Props["dateRange"]>) => void;
+  setDateRange: (dateRange: NonNullableArray<Props['dateRange']>) => void;
 };
 
 export const DateRangePicker: React.VFC<Props> = (props) => {
@@ -21,9 +23,9 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
   const endDate = dateRange[1];
 
   const startDateValue =
-    props.dateRange[0] != null ? props.dateRange[0].toLocaleDateString() : "";
+    props.dateRange[0] != null ? props.dateRange[0].toLocaleDateString() : '';
   const endDateValue =
-    props.dateRange[1] != null ? props.dateRange[1].toLocaleDateString() : "";
+    props.dateRange[1] != null ? props.dateRange[1].toLocaleDateString() : '';
 
   const { isShown, show, hide } = useShow();
 

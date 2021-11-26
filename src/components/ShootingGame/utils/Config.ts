@@ -2,14 +2,14 @@ export class Config {
   static readonly CANVAS_WIDTH = 640;
   static readonly CANVAS_HEIGHT = 480;
 
-  static scene: "appearance" | "play" = "appearance";
+  static scene: 'appearance' | 'play' = 'appearance';
 
   static pressedKeyCandidates = [
-    "ArrowUp",
-    "ArrowDown",
-    "ArrowLeft",
-    "ArrowRight",
-    "Space",
+    'ArrowUp',
+    'ArrowDown',
+    'ArrowLeft',
+    'ArrowRight',
+    'Space',
   ] as const;
 
   static pressedKey: Record<

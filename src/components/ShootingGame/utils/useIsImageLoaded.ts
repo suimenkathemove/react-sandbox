@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 export const useIsImageLoaded = (src: string) => {
   const imageRef = useRef(new Image());
@@ -12,11 +12,11 @@ export const useIsImageLoaded = (src: string) => {
       setIsImageLoaded(true);
     };
 
-    imageRef.current.addEventListener("load", onLoad);
+    imageRef.current.addEventListener('load', onLoad);
 
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      imageRef.current.removeEventListener("load", onLoad);
+      imageRef.current.removeEventListener('load', onLoad);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

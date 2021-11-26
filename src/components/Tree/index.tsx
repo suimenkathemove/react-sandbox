@@ -1,6 +1,7 @@
-import clsx from "clsx";
-import { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
+
+import styles from './styles.module.scss';
 
 type Datum = { id: number; parentId: number };
 type Node = Datum & { children: Node[] };

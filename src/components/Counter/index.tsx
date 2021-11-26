@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const Counter: React.VFC = () => {
   const [count, setCount] = useState(0);

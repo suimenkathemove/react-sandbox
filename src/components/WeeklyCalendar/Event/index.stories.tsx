@@ -1,8 +1,10 @@
-import { setTime } from "@/utils/date/setTime";
-import { Story, Meta } from "@storybook/react/types-6-0";
-import { Event } from "./";
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-const meta: Meta = { title: "WeeklyCalendar/Event", component: Event };
+import { Event } from './';
+
+import { setTime } from '@/utils/date/setTime';
+
+const meta: Meta = { title: 'WeeklyCalendar/Event', component: Event };
 export default meta;
 
 const Template: Story<React.ComponentProps<typeof Event>> = (args) => (
@@ -17,7 +19,7 @@ export const Default = Template.bind({});
 Default.args = {
   event: {
     id: 1,
-    title: "shopping",
+    title: 'shopping',
     startDate,
     endDate,
   },

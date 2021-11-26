@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import styles from "./styles.module.scss";
+import { useEffect, useRef, useState } from 'react';
+
+import styles from './styles.module.scss';
 
 type ElementPosition = {
   top: number;
@@ -83,10 +84,10 @@ export const Move: React.VFC = () => {
       moveByDistance({ x: pointerMovedDistanceX, y: pointerMovedDistanceY });
     };
 
-    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener('mousemove', onMouseMove);
 
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener('mousemove', onMouseMove);
     };
   }, []);
   useEffect(() => {
@@ -103,10 +104,10 @@ export const Move: React.VFC = () => {
       moveByDistance({ x: pointerMovedDistanceX, y: pointerMovedDistanceY });
     };
 
-    window.addEventListener("touchmove", onTouchMove);
+    window.addEventListener('touchmove', onTouchMove);
 
     return () => {
-      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener('touchmove', onTouchMove);
     };
   }, []);
 
@@ -124,6 +125,9 @@ export const Move: React.VFC = () => {
       onTouchStart={onTouchDown}
       onMouseUp={onMouseUp}
       onTouchEnd={onTouchEnd}
+      // TODO
+      role="button"
+      tabIndex={-1}
       className={styles.base}
       style={{
         transform:

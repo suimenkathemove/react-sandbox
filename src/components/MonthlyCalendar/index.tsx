@@ -1,9 +1,11 @@
-import { isSameDate } from "@/utils/date/isSameDate";
-import { jaDays } from "@/utils/date/jaDays";
-import clsx from "clsx";
-import { useState } from "react";
-import styles from "./styles.module.scss";
-import { createDateGrid } from "./utils/createDateGrid";
+import clsx from 'clsx';
+import { useState } from 'react';
+
+import styles from './styles.module.scss';
+import { createDateGrid } from './utils/createDateGrid';
+
+import { isSameDate } from '@/utils/date/isSameDate';
+import { jaDays } from '@/utils/date/jaDays';
 
 type Props = {
   onClickDate: (date: Date) => void;
@@ -43,11 +45,11 @@ export const MonthlyCalendar: React.VFC<Props> = (props) => {
   return (
     <div className={styles.base}>
       <div className={styles.header}>
-        <button onClick={onClickPrevMonth}>{"<"}</button>
+        <button onClick={onClickPrevMonth}>{'<'}</button>
         <div>{`${currentMonthFirstDate.getFullYear()}年 ${
           currentMonthFirstDate.getMonth() + 1
         }月`}</div>
-        <button onClick={onClickNextMonth}>{">"}</button>
+        <button onClick={onClickNextMonth}>{'>'}</button>
       </div>
 
       <div>
@@ -62,11 +64,14 @@ export const MonthlyCalendar: React.VFC<Props> = (props) => {
         {dateGrid.map((week, i) => (
           <div key={i}>
             {week.map((date, j) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <div
                 key={j}
                 onClick={() => {
                   props.onClickDate(date);
                 }}
+                role="gridcell"
+                tabIndex={-1}
                 className={clsx(
                   styles.date,
                   isSameDate(date, now) && styles.today,

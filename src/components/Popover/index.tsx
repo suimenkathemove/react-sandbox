@@ -1,10 +1,11 @@
-import clsx from "clsx";
-import { useEffect, useRef } from "react";
-import styles from "./styles.module.scss";
+import clsx from 'clsx';
+import { useEffect, useRef } from 'react';
+
+import styles from './styles.module.scss';
 
 type Props = {
   trigger: React.ReactNode;
-  placement: "left" | "right";
+  placement: 'left' | 'right';
   isShown: boolean;
   hide: VoidFunction;
   children: React.ReactNode;
@@ -23,10 +24,10 @@ export const Popover: React.VFC<Props> = (props) => {
       }
     };
 
-    window.addEventListener("click", onClickOutsideContainer);
+    window.addEventListener('click', onClickOutsideContainer);
 
     return () => {
-      window.removeEventListener("click", onClickOutsideContainer);
+      window.removeEventListener('click', onClickOutsideContainer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isShown]);

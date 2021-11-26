@@ -1,7 +1,7 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 export const useBool = (
-  initialValue = false
+  initialValue = false,
 ): [boolean, VoidFunction, VoidFunction] => {
   const [bool, setBool] = useState(initialValue);
 

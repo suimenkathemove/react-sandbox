@@ -1,104 +1,91 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true,
+    node: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier",
-  ],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
-    project: "./tsconfig.eslint.json",
-    sourceType: "module",
-    tsconfigRootDir: __dirname,
+    ecmaVersion: 13,
+    sourceType: 'module',
   },
-  plugins: ["@typescript-eslint", "import", "jsx-a11y", "react", "react-hooks"],
-  root: true,
+  plugins: [
+    'import',
+    '@typescript-eslint',
+    'react',
+    'react-hooks',
+    'jsx-a11y',
+    'testing-library',
+    'jest-dom',
+  ],
+  extends: [
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:testing-library/react',
+    'plugin:jest-dom/recommended',
+    'prettier',
+  ],
   rules: {
-    "no-use-before-define": "off",
-    "lines-between-class-members": [
-      "error",
-      "always",
+    'padding-line-between-statements': [
+      'error',
       {
-        exceptAfterSingleLine: true,
+        blankLine: 'always',
+        prev: '*',
+        next: 'return',
       },
     ],
-    "padding-line-between-statements": [
-      "error",
-      {
-        blankLine: "always",
-        prev: "*",
-        next: "return",
-      },
-    ],
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        vars: "all",
-        args: "after-used",
-        argsIgnorePattern: "_",
-        ignoreRestSiblings: false,
-        varsIgnorePattern: "_",
-      },
-    ],
-    "@typescript-eslint/no-use-before-define": ["error"],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        js: "never",
-        jsx: "never",
-        ts: "never",
-        tsx: "never",
-      },
-    ],
-    "import/order": [
-      "error",
+    'import/no-unresolved': 'off',
+    'import/order': [
+      'error',
       {
         alphabetize: {
-          order: "asc",
+          order: 'asc',
         },
+        pathGroups: [
+          {
+            pattern: '@/**',
+            group: 'internal',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['builtin'],
+        'newlines-between': 'always',
       },
     ],
-    "import/no-unresolved": "off",
-    "react/jsx-filename-extension": [
-      "error",
+    'sort-imports': [
+      'error',
       {
-        extensions: [".jsx", ".tsx"],
+        ignoreDeclarationSort: true,
       },
     ],
-    "react/react-in-jsx-scope": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
+    'react/react-in-jsx-scope': 'off',
+    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/rules-of-hooks': 'error',
   },
   overrides: [
     {
-      files: ["*.tsx"],
+      files: ['*.tsx'],
       rules: {
-        "react/prop-types": "off",
+        'react/prop-types': 'off',
       },
     },
   ],
   settings: {
-    "import/resolver": {
-      node: {
-        paths: ["src"],
-      },
+    react: {
+      version: 'detect',
     },
   },
 };

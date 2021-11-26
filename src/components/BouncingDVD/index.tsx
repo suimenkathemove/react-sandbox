@@ -1,16 +1,18 @@
-import { Position } from "@/utils/Position";
-import { onUpdateFrame } from "@/utils/onUpdateFrame";
-import { useEffect, useRef } from "react";
-import styles from "./styles.module.scss";
-import { DVD } from "./utils/DVD";
-import { useSpread } from "./utils/useSpread";
+import { useEffect, useRef } from 'react';
+
+import styles from './styles.module.scss';
+import { DVD } from './utils/DVD';
+import { useSpread } from './utils/useSpread';
+
+import { Position } from '@/utils/Position';
+import { onUpdateFrame } from '@/utils/onUpdateFrame';
 
 export const BouncingDVD: React.VFC = () => {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasSize = useSpread(rootRef);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const getContext = () => canvasRef.current?.getContext("2d");
+  const getContext = () => canvasRef.current?.getContext('2d');
 
   useEffect(() => {
     const ctx = getContext()!;
@@ -25,7 +27,7 @@ export const BouncingDVD: React.VFC = () => {
     const dvd = new DVD(ctx, position, vector);
 
     onUpdateFrame(() => {
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvasSize.width, canvasSize.height);
 
       dvd.update();

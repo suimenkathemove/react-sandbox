@@ -1,2 +1,2 @@
-import "destyle.css";
-import "@/styles/globals.scss";
+import 'destyle.css';
+import '@/styles/globals.scss';

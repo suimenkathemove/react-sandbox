@@ -1,7 +1,7 @@
-import { DateRange } from "@/types/date";
-import { addDate } from "@/utils/date/addDate";
-import { dateStart } from "@/utils/date/dateStart";
-import { range } from "@/utils/range";
+import { DateRange } from '@/types/date';
+import { addDate } from '@/utils/date/addDate';
+import { dateStart } from '@/utils/date/dateStart';
+import { range } from '@/utils/range';
 
 export const splitDateRange = ({
   startDate,

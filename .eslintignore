@@ -1,9 +1,4 @@
-build/
-public/
-**/coverage/
-**/node_modules/
-**/*.min.js
-*.config.js
-.*lintrc.js
+node_modules/
+
 config-overrides.js
-wasm/pkg
+wasm/

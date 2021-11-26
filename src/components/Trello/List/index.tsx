@@ -1,5 +1,6 @@
-import { Card } from "../Card";
-import styles from "./styles.module.scss";
+import { Card } from '../Card';
+
+import styles from './styles.module.scss';
 
 export type List = {
   id: number;
