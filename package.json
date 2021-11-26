@@ -32,8 +32,7 @@
     "tsm": "tsm src/components",
     "tsm:watch": "tsm src/components -w --ignoreInitial -u",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
-    "prepare": "husky install"
+    "build-storybook": "build-storybook -s public"
   },
   "browserslist": {
     "production": [
@@ -74,7 +73,6 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^5.0.0",
-    "husky": "^6.0.0",
     "hygen": "^6.0.4",
     "prettier": "^2.2.1",
     "react-app-rewired": "^2.1.8",
