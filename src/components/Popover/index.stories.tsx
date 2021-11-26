@@ -1,11 +1,11 @@
-import { Meta } from "@storybook/react/types-6-0";
-import { useState } from "react";
+import { Meta } from '@storybook/react/types-6-0';
+import { useState } from 'react';
 
-import { Popover } from "./";
+import { Popover } from './';
 
-import { alphabets } from "@/utils/alphabets";
+import { alphabets } from '@/utils/alphabets';
 
-const meta: Meta = { title: "Popover", component: Popover };
+const meta: Meta = { title: 'Popover', component: Popover };
 export default meta;
 
 export const Left: React.VFC = () => {
@@ -18,7 +18,7 @@ export const Left: React.VFC = () => {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: 'center' }}>
       <Popover
         trigger={<button onClick={show}>show</button>}
         placement="left"
@@ -44,7 +44,7 @@ export const Right: React.VFC = () => {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: 'center' }}>
       <Popover
         trigger={<button onClick={show}>show</button>}
         placement="right"

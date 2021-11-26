@@ -1,4 +1,4 @@
-import { isObject } from "@/utils/isObject";
+import { isObject } from '@/utils/isObject';
 
 type RecursiveObj = {
   [key: string]: RecursiveObj | unknown;
@@ -15,22 +15,22 @@ export const objMap = (
   }, {});
 
 const convertEmptyStringToNullRecursively = (obj: RecursiveObj): RecursiveObj =>
-  objMap(obj, (val) => (val === "" ? null : val));
+  objMap(obj, (val) => (val === '' ? null : val));
 
 const obj = {
-  a: "a",
-  b: "",
+  a: 'a',
+  b: '',
   c: {
     a: {
-      a: "",
+      a: '',
       b: {
-        a: "a",
-        b: "",
+        a: 'a',
+        b: '',
       },
-      c: "c",
+      c: 'c',
     },
-    b: "b",
-    c: "",
+    b: 'b',
+    c: '',
   },
 };
 

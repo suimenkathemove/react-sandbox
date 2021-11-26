@@ -1,4 +1,4 @@
-import { range } from "@/utils/range";
+import { range } from '@/utils/range';
 
 export const createDateGrid = (date: Date): Date[][] => {
   const year = date.getFullYear();

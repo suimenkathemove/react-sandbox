@@ -1,8 +1,8 @@
-import { Meta, Story } from "@storybook/react/types-6-0";
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { BouncingDVD } from "./";
+import { BouncingDVD } from './';
 
-const meta: Meta = { title: "BouncingDVD", component: BouncingDVD };
+const meta: Meta = { title: 'BouncingDVD', component: BouncingDVD };
 export default meta;
 
 const Template: Story<React.ComponentProps<typeof BouncingDVD>> = (args) => (

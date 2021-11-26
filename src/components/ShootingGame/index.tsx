@@ -1,22 +1,22 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
-import enemySmallImageSrc from "./images/enemy_small.png";
-import viperImageSrc from "./images/viper.png";
-import viperShotImageSrc from "./images/viper_shot.png";
-import viperSingleShotImageSrc from "./images/viper_single_shot.png";
-import { Config } from "./utils/Config";
-import { Enemy } from "./utils/Enemy";
-import { Viper } from "./utils/Viper";
-import { useIsImageLoaded } from "./utils/useIsImageLoaded";
+import enemySmallImageSrc from './images/enemy_small.png';
+import viperImageSrc from './images/viper.png';
+import viperShotImageSrc from './images/viper_shot.png';
+import viperSingleShotImageSrc from './images/viper_single_shot.png';
+import { Config } from './utils/Config';
+import { Enemy } from './utils/Enemy';
+import { Viper } from './utils/Viper';
+import { useIsImageLoaded } from './utils/useIsImageLoaded';
 
-import { Position } from "@/utils/Position";
-import { assert } from "@/utils/assert";
-import { includes } from "@/utils/includes";
-import { useUpdateEffect } from "@/utils/useUpdateEffect";
+import { Position } from '@/utils/Position';
+import { assert } from '@/utils/assert';
+import { includes } from '@/utils/includes';
+import { useUpdateEffect } from '@/utils/useUpdateEffect';
 
 export const ShootingGame: React.VFC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const getContext = () => canvasRef.current?.getContext("2d");
+  const getContext = () => canvasRef.current?.getContext('2d');
 
   const [viperImageRef, isViperImageLoaded] = useIsImageLoaded(viperImageSrc);
   const [viperShotImageRef, isViperShotImageLoaded] = useIsImageLoaded(
@@ -77,12 +77,12 @@ export const ShootingGame: React.VFC = () => {
       onKeyDownOrUp(event, false);
     };
 
-    window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("keyup", onKeyUp);
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keyup', onKeyUp);
 
     return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("keyup", onKeyUp);
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('keyup', onKeyUp);
     };
   }, []);
 
@@ -106,12 +106,12 @@ export const ShootingGame: React.VFC = () => {
     assert<NonNullable<typeof enemySmall>>(enemySmall);
 
     const render = () => {
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = '#000000';
       // 直前の描画結果をクリアする
       ctx.fillRect(0, 0, Config.CANVAS_WIDTH, Config.CANVAS_HEIGHT);
 
       if (viper.position.y <= Config.CANVAS_HEIGHT - 100) {
-        Config.scene = "play";
+        Config.scene = 'play';
       }
 
       viper.update();

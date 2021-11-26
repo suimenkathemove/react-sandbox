@@ -1,12 +1,12 @@
-import { Mode } from "../";
-import { HOUR_HEIGHT } from "../utils/hourHeight";
+import { Mode } from '../';
+import { HOUR_HEIGHT } from '../utils/hourHeight';
 
-import styles from "./styles.module.scss";
-import { RESIZE_HEIGHT } from "./utils/resizeHeight";
+import styles from './styles.module.scss';
+import { RESIZE_HEIGHT } from './utils/resizeHeight';
 
-import { DateRange } from "@/types/date";
-import { diffMinutes } from "@/utils/date/diffMinutes";
-import { mouseCoordinate } from "@/utils/mouseCoordinate";
+import { DateRange } from '@/types/date';
+import { diffMinutes } from '@/utils/date/diffMinutes';
+import { mouseCoordinate } from '@/utils/mouseCoordinate';
 
 export type Event = {
   id: number;
@@ -27,17 +27,17 @@ export const Event: React.VFC<Props> = (props) => {
     const newMode = ((): Mode => {
       const mouseYFromElementTop = mouseCoordinate.yFromElementTop(mouseEvent);
       if (mouseYFromElementTop < RESIZE_HEIGHT) {
-        return "resizeStart";
+        return 'resizeStart';
       }
 
       const mouseYFromElementBottom = mouseCoordinate.yFromElementBottom(
         mouseEvent,
       );
       if (-mouseYFromElementBottom < RESIZE_HEIGHT) {
-        return "resizeEnd";
+        return 'resizeEnd';
       }
 
-      return "moveOrEdit";
+      return 'moveOrEdit';
     })();
     props.onMouseDown(props.event, newMode);
   };

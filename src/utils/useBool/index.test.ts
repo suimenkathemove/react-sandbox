@@ -1,8 +1,8 @@
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from '@testing-library/react-hooks';
 
-import { useBool } from "./";
+import { useBool } from './';
 
-test("useBool", () => {
+test('useBool', () => {
   const { result } = renderHook(() => useBool());
 
   expect(result.current[0]).toBe(false);

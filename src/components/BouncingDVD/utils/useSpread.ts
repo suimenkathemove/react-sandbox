@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useSpread = (wrapperRef: React.RefObject<HTMLElement>) => {
   const [size, setSize] = useState<{
@@ -19,10 +19,10 @@ export const useSpread = (wrapperRef: React.RefObject<HTMLElement>) => {
       });
     };
 
-    window.addEventListener("resize", onResize);
+    window.addEventListener('resize', onResize);
 
     return () => {
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener('resize', onResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

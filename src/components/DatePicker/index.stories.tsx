@@ -1,10 +1,10 @@
-import { Meta, Story } from "@storybook/react/types-6-0";
-import { useState } from "react";
+import { Meta, Story } from '@storybook/react/types-6-0';
+import { useState } from 'react';
 
-import { DatePicker } from "./";
+import { DatePicker } from './';
 
 const meta: Meta = {
-  title: "DatePicker",
+  title: 'DatePicker',
   component: DatePicker,
 };
 export default meta;

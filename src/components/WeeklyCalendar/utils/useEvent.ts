@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Event } from "../Event";
+import { Event } from '../Event';
 
-import { addMinutes } from "@/utils/date/addMinutes";
-import { compareDate } from "@/utils/date/compareDate";
-import { diffMinutes } from "@/utils/date/diffMinutes";
+import { addMinutes } from '@/utils/date/addMinutes';
+import { compareDate } from '@/utils/date/compareDate';
+import { diffMinutes } from '@/utils/date/diffMinutes';
 
 export const useEvent = (baseEvents: Event[]) => {
   const [events, setEvents] = useState(baseEvents);
@@ -16,7 +16,7 @@ export const useEvent = (baseEvents: Event[]) => {
   const create = (date: Date) => {
     const newEvent: Event = {
       id: (events?.[events.length - 1]?.id ?? 0) + 1,
-      title: "",
+      title: '',
       startDate: date,
       endDate: addMinutes(date, 15),
     };

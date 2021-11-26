@@ -1,25 +1,25 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
-import { Event } from "./Event";
-import styles from "./styles.module.scss";
-import { dateByMouseEvent } from "./utils/dateByMouseEvent";
-import { HOUR_HEIGHT } from "./utils/hourHeight";
-import { useEvent } from "./utils/useEvent";
-import { useWeek } from "./utils/useWeek";
+import { Event } from './Event';
+import styles from './styles.module.scss';
+import { dateByMouseEvent } from './utils/dateByMouseEvent';
+import { HOUR_HEIGHT } from './utils/hourHeight';
+import { useEvent } from './utils/useEvent';
+import { useWeek } from './utils/useWeek';
 
-import { assertNever } from "@/utils/assertNever";
-import { isSameDate } from "@/utils/date/isSameDate";
-import { jaDays } from "@/utils/date/jaDays";
-import { splitDateRange } from "@/utils/date/splitDateRange";
-import { range } from "@/utils/range";
+import { assertNever } from '@/utils/assertNever';
+import { isSameDate } from '@/utils/date/isSameDate';
+import { jaDays } from '@/utils/date/jaDays';
+import { splitDateRange } from '@/utils/date/splitDateRange';
+import { range } from '@/utils/range';
 
 export type Mode =
-  | "normal"
-  | "resizeNew"
-  | "resizeStart"
-  | "resizeEnd"
-  | "moveOrEdit"
-  | "move";
+  | 'normal'
+  | 'resizeNew'
+  | 'resizeStart'
+  | 'resizeEnd'
+  | 'moveOrEdit'
+  | 'move';
 
 type Props = {
   events: Event[];
@@ -30,7 +30,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
 
   const useEventObj = useEvent(props.events);
 
-  const modeRef = useRef<Mode>("normal");
+  const modeRef = useRef<Mode>('normal');
 
   const mouseDownDateRef = useRef<Date | null>(null);
 
@@ -41,7 +41,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
 
     editedEventRef.current = null;
 
-    modeRef.current = "normal";
+    modeRef.current = 'normal';
   };
 
   const onMouseDown = (
@@ -50,10 +50,10 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   ) => {
     mouseDownDateRef.current = dateByMouseEvent(mouseEvent, date);
 
-    if (modeRef.current === "normal") {
+    if (modeRef.current === 'normal') {
       useEventObj.create(mouseDownDateRef.current);
 
-      modeRef.current = "resizeNew";
+      modeRef.current = 'resizeNew';
     }
   };
 
@@ -64,21 +64,21 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
     const mouseMoveDate = dateByMouseEvent(mouseEvent, date);
 
     switch (modeRef.current) {
-      case "normal":
+      case 'normal':
         break;
-      case "resizeNew":
+      case 'resizeNew':
         if (mouseDownDateRef.current != null) {
           useEventObj[modeRef.current](mouseMoveDate, mouseDownDateRef.current);
         }
         break;
-      case "resizeStart":
-      case "resizeEnd":
+      case 'resizeStart':
+      case 'resizeEnd':
         if (editedEventRef.current != null) {
           useEventObj[modeRef.current](editedEventRef.current, mouseMoveDate);
         }
         break;
-      case "moveOrEdit":
-      case "move":
+      case 'moveOrEdit':
+      case 'move':
         if (
           editedEventRef.current != null &&
           mouseDownDateRef.current != null
@@ -89,8 +89,8 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
             mouseMoveDate,
           );
 
-          if (modeRef.current === "moveOrEdit") {
-            modeRef.current = "move";
+          if (modeRef.current === 'moveOrEdit') {
+            modeRef.current = 'move';
           }
         }
         break;
@@ -101,9 +101,9 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
 
   const onMouseUp = () => {
     switch (modeRef.current) {
-      case "resizeNew":
+      case 'resizeNew':
         {
-          const input = window.prompt("タイトルを入力してください");
+          const input = window.prompt('タイトルを入力してください');
           const newEvent = useEventObj.list[useEventObj.list.length - 1];
 
           if (input != null) {
@@ -113,12 +113,12 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
           }
         }
         break;
-      case "moveOrEdit": {
+      case 'moveOrEdit': {
         if (editedEventRef.current != null) {
           const input = window.prompt(
-            "タイトルを変更するか、削除したい場合は「delete」と入力してください",
+            'タイトルを変更するか、削除したい場合は「delete」と入力してください',
           );
-          if (input === "delete") {
+          if (input === 'delete') {
             useEventObj.remove(editedEventRef.current.id);
           } else if (input != null) {
             useEventObj.inputTitle(editedEventRef.current, input);
@@ -133,7 +133,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
 
   type EventProps = React.ComponentProps<typeof Event>;
 
-  const onMouseDownEvent: EventProps["onMouseDown"] = (event, mode) => {
+  const onMouseDownEvent: EventProps['onMouseDown'] = (event, mode) => {
     editedEventRef.current = event;
 
     modeRef.current = mode;
@@ -142,8 +142,8 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
   return (
     <div className={styles.base}>
       <div className={styles.header}>
-        <button onClick={useWeekObj.prev}>{"<"}</button>
-        <button onClick={useWeekObj.next}>{">"}</button>
+        <button onClick={useWeekObj.prev}>{'<'}</button>
+        <button onClick={useWeekObj.next}>{'>'}</button>
         <div>{useWeekObj.yearMonth}</div>
       </div>
 

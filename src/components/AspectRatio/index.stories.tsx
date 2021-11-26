@@ -1,8 +1,8 @@
-import { Meta, Story } from "@storybook/react/types-6-0";
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { AspectRatio } from "./";
+import { AspectRatio } from './';
 
-const meta: Meta = { title: "AspectRatio", component: AspectRatio };
+const meta: Meta = { title: 'AspectRatio', component: AspectRatio };
 export default meta;
 
 const Template: Story<React.ComponentProps<typeof AspectRatio>> = (args) => (
@@ -16,7 +16,7 @@ Default.args = {
     <img
       src="https://picsum.photos/200"
       alt="random"
-      style={{ objectFit: "cover" }}
+      style={{ objectFit: 'cover' }}
     />
   ),
 };

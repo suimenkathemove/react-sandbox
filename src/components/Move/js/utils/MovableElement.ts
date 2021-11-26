@@ -25,20 +25,20 @@ export class MovableElement {
 
     this.elementInitialPosition = this.elementCurrentPosition;
 
-    this.element.addEventListener("mousedown", (event) => {
+    this.element.addEventListener('mousedown', (event) => {
       this.elementStartPosition = this.elementCurrentPosition;
 
       this.pointerStartPosition.x = event.clientX;
       this.pointerStartPosition.y = event.clientY;
     });
-    this.element.addEventListener("touchstart", (event) => {
+    this.element.addEventListener('touchstart', (event) => {
       this.elementStartPosition = this.elementCurrentPosition;
 
       this.pointerStartPosition.x = event.touches[0].clientX;
       this.pointerStartPosition.y = event.touches[0].clientY;
     });
 
-    window.addEventListener("mousemove", (event) => {
+    window.addEventListener('mousemove', (event) => {
       if (
         this.pointerStartPosition.x == null ||
         this.pointerStartPosition.y == null
@@ -51,7 +51,7 @@ export class MovableElement {
       this.moveByDistance(pointerMovedDistanceX, pointerMovedDistanceY);
     });
     window.addEventListener(
-      "touchmove",
+      'touchmove',
       (event) => {
         if (
           this.pointerStartPosition.x == null ||
@@ -71,10 +71,10 @@ export class MovableElement {
       { passive: false },
     );
 
-    window.addEventListener("mouseup", () => {
+    window.addEventListener('mouseup', () => {
       this.resetPointerStartPosition();
     });
-    window.addEventListener("touchend", () => {
+    window.addEventListener('touchend', () => {
       this.resetPointerStartPosition();
     });
   }

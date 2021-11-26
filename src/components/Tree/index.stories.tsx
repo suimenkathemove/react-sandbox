@@ -1,10 +1,10 @@
-import { Meta, Story } from "@storybook/react/types-6-0";
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { Tree } from "./";
+import { Tree } from './';
 
-import { range } from "@/utils/range";
+import { range } from '@/utils/range';
 
-const meta: Meta = { title: "Tree", component: Tree };
+const meta: Meta = { title: 'Tree', component: Tree };
 export default meta;
 
 const Template: Story<React.ComponentProps<typeof Tree>> = (args) => (

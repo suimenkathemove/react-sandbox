@@ -1,7 +1,7 @@
-import { HOUR_HEIGHT } from "./hourHeight";
+import { HOUR_HEIGHT } from './hourHeight';
 
-import { setTime } from "@/utils/date/setTime";
-import { mouseCoordinate } from "@/utils/mouseCoordinate";
+import { setTime } from '@/utils/date/setTime';
+import { mouseCoordinate } from '@/utils/mouseCoordinate';
 
 const FIFTEEN_MINUTES_HEIGHT = HOUR_HEIGHT / (60 / 15);
 

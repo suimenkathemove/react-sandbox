@@ -1,8 +1,8 @@
-import { Meta, Story } from "@storybook/react/types-6-0";
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { Move } from "./";
+import { Move } from './';
 
-const meta: Meta = { title: "Move/js", component: Move };
+const meta: Meta = { title: 'Move/js', component: Move };
 export default meta;
 
 const Template: Story<React.ComponentProps<typeof Move>> = (args) => (

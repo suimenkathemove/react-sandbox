@@ -1,10 +1,10 @@
-import { Meta, Story } from "@storybook/react/types-6-0";
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { Trello } from "./";
+import { Trello } from './';
 
-import { range } from "@/utils/range";
+import { range } from '@/utils/range';
 
-const meta: Meta = { title: "Trello", component: Trello };
+const meta: Meta = { title: 'Trello', component: Trello };
 export default meta;
 
 const Template: Story<React.ComponentProps<typeof Trello>> = (args) => (
@@ -16,13 +16,13 @@ Default.args = {
   initialLists: [
     {
       id: 1,
-      title: "To do",
+      title: 'To do',
       cards: [
-        { id: 1, title: "shopping" },
-        { id: 2, title: "walk" },
+        { id: 1, title: 'shopping' },
+        { id: 2, title: 'walk' },
       ],
     },
-    { id: 2, title: "Done", cards: [] },
+    { id: 2, title: 'Done', cards: [] },
   ],
 };
 

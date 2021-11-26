@@ -1,4 +1,4 @@
-import styles from "./styles.module.scss";
+import styles from './styles.module.scss';
 
 export type Card = {
   id: number;

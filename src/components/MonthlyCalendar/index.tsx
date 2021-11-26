@@ -1,11 +1,11 @@
-import clsx from "clsx";
-import { useState } from "react";
+import clsx from 'clsx';
+import { useState } from 'react';
 
-import styles from "./styles.module.scss";
-import { createDateGrid } from "./utils/createDateGrid";
+import styles from './styles.module.scss';
+import { createDateGrid } from './utils/createDateGrid';
 
-import { isSameDate } from "@/utils/date/isSameDate";
-import { jaDays } from "@/utils/date/jaDays";
+import { isSameDate } from '@/utils/date/isSameDate';
+import { jaDays } from '@/utils/date/jaDays';
 
 type Props = {
   onClickDate: (date: Date) => void;
@@ -45,11 +45,11 @@ export const MonthlyCalendar: React.VFC<Props> = (props) => {
   return (
     <div className={styles.base}>
       <div className={styles.header}>
-        <button onClick={onClickPrevMonth}>{"<"}</button>
+        <button onClick={onClickPrevMonth}>{'<'}</button>
         <div>{`${currentMonthFirstDate.getFullYear()}年 ${
           currentMonthFirstDate.getMonth() + 1
         }月`}</div>
-        <button onClick={onClickNextMonth}>{">"}</button>
+        <button onClick={onClickNextMonth}>{'>'}</button>
       </div>
 
       <div>

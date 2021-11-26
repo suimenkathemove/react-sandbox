@@ -1,9 +1,9 @@
-import { Meta, Story } from "@storybook/react/types-6-0";
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { MonthlyCalendar } from "./";
+import { MonthlyCalendar } from './';
 
 const meta: Meta = {
-  title: "MonthlyCalendar",
+  title: 'MonthlyCalendar',
   component: MonthlyCalendar,
 };
 export default meta;

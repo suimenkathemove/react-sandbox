@@ -1,11 +1,11 @@
-import { Character } from "./Character";
-import { Config } from "./Config";
-import { Enemy } from "./Enemy";
-import { Shot } from "./Shot";
+import { Character } from './Character';
+import { Config } from './Config';
+import { Enemy } from './Enemy';
+import { Shot } from './Shot';
 
-import { Position } from "@/utils/Position";
-import { Size } from "@/utils/Size";
-import { assertNever } from "@/utils/assertNever";
+import { Position } from '@/utils/Position';
+import { Size } from '@/utils/Size';
+import { assertNever } from '@/utils/assertNever';
 
 export class Viper extends Character {
   public shots: Shot[] = [];
@@ -140,10 +140,10 @@ export class Viper extends Character {
     }
 
     switch (Config.scene) {
-      case "appearance":
+      case 'appearance':
         this.appearing();
         break;
-      case "play":
+      case 'play':
         this.controlling();
         break;
       default:
