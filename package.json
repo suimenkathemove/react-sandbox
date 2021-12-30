@@ -28,7 +28,7 @@
     "lint:conflict": "eslint-config-prettier '**/*.{js,jsx,ts,tsx}'",
     "lint:style": "stylelint '**/*.{css,less,sass,scss}'",
     "lint:style:fix": "stylelint --fix '**/*.{css,less,sass,scss}'",
-    "tsc": "npx tsc --noEmit",
+    "tsc": "tsc",
     "hygen:fc:new": "hygen fc new",
     "tsm": "tsm src/components",
     "tsm:watch": "tsm src/components -w --ignoreInitial -u",

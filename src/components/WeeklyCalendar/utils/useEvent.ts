@@ -25,7 +25,7 @@ export const useEvent = (baseEvents: Event[]) => {
   };
 
   const resizeNew = (startPointDate: Date, endPointDate: Date) => {
-    const newEvent = events[events.length - 1];
+    const newEvent = events[events.length - 1]!;
 
     const [beforeDate, afterDate] =
       startPointDate < endPointDate

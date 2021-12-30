@@ -65,8 +65,8 @@ export const Move: React.VFC = () => {
     elementStartPosition.current = elementCurrentPosition();
 
     pointerStartPosition.current = {
-      x: event.touches[0].clientX,
-      y: event.touches[0].clientY,
+      x: event.touches[0]!.clientX,
+      y: event.touches[0]!.clientY,
     };
   };
 
@@ -97,9 +97,9 @@ export const Move: React.VFC = () => {
       }
 
       const pointerMovedDistanceX =
-        event.touches[0].clientX - pointerStartPosition.current.x;
+        event.touches[0]!.clientX - pointerStartPosition.current.x;
       const pointerMovedDistanceY =
-        event.touches[0].clientY - pointerStartPosition.current.y;
+        event.touches[0]!.clientY - pointerStartPosition.current.y;
 
       moveByDistance({ x: pointerMovedDistanceX, y: pointerMovedDistanceY });
     };

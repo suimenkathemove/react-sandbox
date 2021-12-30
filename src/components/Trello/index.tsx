@@ -16,7 +16,7 @@ export const Trello: React.VFC<Props> = (props) => {
   const [lists, setLists] = useState(props.initialLists);
 
   const [listCreatedCount, setListCreatedCount] = useState(
-    props.initialLists[props.initialLists.length - 1].id,
+    props.initialLists[props.initialLists.length - 1]!.id,
   );
 
   const [inputValue, setInputValue, resetInputValue] = useStateWithReset('');

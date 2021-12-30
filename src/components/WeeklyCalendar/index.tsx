@@ -104,7 +104,7 @@ export const WeeklyCalendar: React.VFC<Props> = (props) => {
       case 'resizeNew':
         {
           const input = window.prompt('タイトルを入力してください');
-          const newEvent = useEventObj.list[useEventObj.list.length - 1];
+          const newEvent = useEventObj.list[useEventObj.list.length - 1]!;
 
           if (input != null) {
             useEventObj.inputTitle(newEvent, input);

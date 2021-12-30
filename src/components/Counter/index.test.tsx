@@ -17,9 +17,9 @@ test('counter increments and decrements when the buttons are clicked', () => {
 
   expect(count!.textContent).toBe('0');
 
-  increment.click();
+  increment!.click();
   expect(count!.textContent).toBe('1');
 
-  decrement.click();
+  decrement!.click();
   expect(count!.textContent).toBe('0');
 });

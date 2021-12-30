@@ -34,8 +34,8 @@ export class MovableElement {
     this.element.addEventListener('touchstart', (event) => {
       this.elementStartPosition = this.elementCurrentPosition;
 
-      this.pointerStartPosition.x = event.touches[0].clientX;
-      this.pointerStartPosition.y = event.touches[0].clientY;
+      this.pointerStartPosition.x = event.touches[0]!.clientX;
+      this.pointerStartPosition.y = event.touches[0]!.clientY;
     });
 
     window.addEventListener('mousemove', (event) => {
@@ -62,9 +62,9 @@ export class MovableElement {
         event.preventDefault();
 
         const pointerMovedDistanceX =
-          event.touches[0].clientX - this.pointerStartPosition.x;
+          event.touches[0]!.clientX - this.pointerStartPosition.x;
         const pointerMovedDistanceY =
-          event.touches[0].clientY - this.pointerStartPosition.y;
+          event.touches[0]!.clientY - this.pointerStartPosition.y;
 
         this.moveByDistance(pointerMovedDistanceX, pointerMovedDistanceY);
       },
