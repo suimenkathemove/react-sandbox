@@ -44,6 +44,7 @@ module.exports = {
         next: 'return',
       },
     ],
+    'import/no-named-as-default': 'off',
     'import/no-unresolved': 'off',
     'import/order': [
       'error',
@@ -61,6 +62,7 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
+    'no-console': 'error',
     'sort-imports': [
       'error',
       {
@@ -69,10 +71,22 @@ module.exports = {
     ],
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        vars: 'all',
+        args: 'after-used',
+        argsIgnorePattern: '_',
+        ignoreRestSiblings: false,
+        varsIgnorePattern: '_',
+      },
+    ],
+    'react/display-name': 'off',
     'react/react-in-jsx-scope': 'off',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': 'error',
     'react-hooks/rules-of-hooks': 'error',
   },
   overrides: [
