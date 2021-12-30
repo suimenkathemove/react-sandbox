@@ -1,0 +1,37 @@
+name: storybook deploy
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  deploy-storybook:
+    if: "contains(github.event.comment.body, 'deploy-storybook') && github.event.issue.pull_request"
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+      - uses: ./.github/actions/yarn-cache
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Build Storybook
+        run: yarn build-storybook
+      - name: Upload to S3
+        run: |
+          aws s3 sync ./storybook-static s3://$S3_BUCKET_NAME/pr-$GITHUB_PULL_REQUEST_ID --quiet
+      - name: Comment URL
+        run: |
+          curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" -i ${GITHUB_PULL_REQUEST_URL} -d "`printf '{\"body\":\"deploy to %s\"}' ${S3_URL}/"pr-"${GITHUB_PULL_REQUEST_ID}`"
+
+env:
+  S3_URL: http://react-sandbox-storybook.s3-website-ap-northeast-1.amazonaws.com
+  S3_BUCKET_NAME: react-sandbox-storybook
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_PULL_REQUEST_ID: ${{ github.event.issue.number }}
+  GITHUB_PULL_REQUEST_URL: ${{ github.event.issue.pull_request.url }}
