@@ -34,4 +34,6 @@ const obj = {
   },
 };
 
+// TODO: test
+// eslint-disable-next-line no-console
 console.log(convertEmptyStringToNullRecursively(obj));
