@@ -17,7 +17,6 @@
     "dev": "yarn tsm:watch & yarn storybook",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "fix": "yarn -s format && yarn -s lint:fix",
     "format": "prettier --write --loglevel=warn '**/*.{js,jsx,ts,tsx,html,gql,graphql,json}'",
@@ -33,7 +32,9 @@
     "tsm": "tsm src/components",
     "tsm:watch": "tsm src/components -w --ignoreInitial -u",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "test": "jest",
+    "test:update": "jest -u"
   },
   "browserslist": {
     "production": [
@@ -48,6 +49,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-typescript": "^7.16.5",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
@@ -59,6 +63,8 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/user-event": "^13.1.8",
+    "@types/babel__core": "^7.1.17",
+    "@types/babel__preset-env": "^7.9.2",
     "@types/eslint": "^8.2.0",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.1",
@@ -70,6 +76,7 @@
     "@types/testing-library__user-event": "^4.2.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "babel-jest": "^27.4.5",
     "css-loader": "^6.5.1",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^8.3.0",
@@ -80,6 +87,8 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^5.0.0",
     "hygen": "^6.0.4",
+    "jest": "^27.4.5",
+    "jest-css-modules": "^2.1.0",
     "prettier": "^2.2.1",
     "react-app-rewired": "^2.1.8",
     "sass-loader": "^12.4.0",
@@ -88,6 +97,8 @@
     "stylelint-config-recess-order": "^2.4.0",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-order": "^4.1.0",
+    "ts-jest": "^27.1.2",
+    "ts-node": "^10.4.0",
     "typed-scss-modules": "^4.1.1",
     "typesync": "^0.8.0",
     "wasm-loader": "^1.3.0",

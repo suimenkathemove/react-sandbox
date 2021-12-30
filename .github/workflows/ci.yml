@@ -22,3 +22,13 @@ jobs:
         run: yarn --frozen-lockfile
       - name: lint
         run: yarn lint
+
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/yarn-cache
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: test
+        run: yarn test

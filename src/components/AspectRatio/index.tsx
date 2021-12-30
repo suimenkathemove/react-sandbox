@@ -1,11 +1,11 @@
 import styles from './styles.module.scss';
 
-type Props = {
+export type AspectRatioProps = {
   ratio: number;
   children: React.ReactNode;
 };
 
-export const AspectRatio: React.VFC<Props> = (props) => {
+export const AspectRatio: React.VFC<AspectRatioProps> = (props) => {
   return (
     <div
       className={styles.outer}
