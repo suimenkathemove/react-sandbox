@@ -5,7 +5,7 @@ export type Node = {
 
 export type Tree = Node & { id: 'root' };
 
-export type FlattenedTreeItem = Node & {
+export type FlattenedTreeItem = Pick<Node, 'id'> & {
   parentId: Node['id'] | null;
   depth: number;
 };
