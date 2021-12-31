@@ -12,6 +12,8 @@ module.exports = {
       include: path.resolve(__dirname, '../'),
     });
 
+    config.experiments = { asyncWebAssembly: true };
+
     return config;
   },
   core: {
