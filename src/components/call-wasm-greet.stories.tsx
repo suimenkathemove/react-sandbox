@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 const CallWasmGreet: React.VFC = () => {
   useEffect(() => {
     (async () => {
-      const { greet } = await import('wasm');
-      greet('John Doe');
+      // const { greet } = await import('wasm');
+      // greet('John Doe');
     })();
   }, []);
 
