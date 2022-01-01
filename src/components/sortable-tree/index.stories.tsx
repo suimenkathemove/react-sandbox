@@ -1,5 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
+import { tree } from './__mocks__/tree';
+
 import { SortableTree, SortableTreeProps } from './';
 
 export default {
@@ -12,7 +14,9 @@ const Template: ComponentStory<typeof SortableTree> = (args) => (
   <SortableTree {...args} />
 );
 
-export const defaultProps: SortableTreeProps = {};
+export const defaultProps: SortableTreeProps = {
+  tree,
+};
 
 export const Default = Template.bind({});
 Default.args = defaultProps;

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortableTreeSortableItem render 1`] = `
+<DocumentFragment>
+  <li
+    class="sc-gsDKAQ jhrqaN"
+  >
+    <div
+      class="sc-dkPtRN cagAcP"
+    >
+      <button
+        aria-describedby=""
+        aria-roledescription="sortable"
+        class="sc-bdvvtL coNFiQ"
+        role="button"
+        tabindex="0"
+      >
+        <svg
+          viewBox="0 0 20 20"
+          width="12"
+        >
+          <path
+            d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+          />
+        </svg>
+      </button>
+      <span
+        class="sc-hKwDye bNWftY"
+      >
+        1
+      </span>
+    </div>
+  </li>
+</DocumentFragment>
+`;
