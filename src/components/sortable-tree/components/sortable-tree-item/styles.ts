@@ -8,6 +8,7 @@ export const DroppableNode = styled.li<{
   ghost?: boolean;
 }>`
   display: ${(props) => props.clone && 'inline-block'};
+  /* stylelint-disable-next-line declaration-colon-newline-after */
   padding: ${(props) =>
     props.clone ? '4px' : `0 0 0 ${indentationWidth * props.depth}px`};
   pointer-events: ${(props) => props.clone && 'none'};
@@ -23,6 +24,7 @@ export const DraggableNode = styled.div<{ clone?: boolean }>`
   background-color: #ffffff;
   border: solid 1px #e0e0e0;
   border-radius: 4px;
+  /* stylelint-disable-next-line declaration-colon-newline-after */
   box-shadow: ${(props) =>
     props.clone && '0 15px 15px 0 rgba(34, 33, 81, 0.1)'};
 `;
