@@ -38,7 +38,7 @@ export const getProjection = (
 
   const parentId = (() => {
     if (depth === 0 || !prevItem) {
-      return null;
+      return 'root';
     }
 
     if (depth === prevItem.depth) {
@@ -49,12 +49,10 @@ export const getProjection = (
       return prevItem.id;
     }
 
-    return (
-      sortedFlattenedTree
-        .slice(0, overIndex)
-        .reverse()
-        .find((item) => item.depth === depth)?.parentId ?? null
-    );
+    return sortedFlattenedTree
+      .slice(0, overIndex)
+      .reverse()
+      .find((item) => item.depth === depth)!.parentId;
   })();
 
   return { depth, parentId };

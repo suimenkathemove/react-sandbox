@@ -12,6 +12,12 @@ export const buildTree = (flattenedTree: FlattenedTreeItem[]): Tree => {
     }
 
     const parentId = item.parentId ?? tree.id;
+    if (!map[parentId]) {
+      map[parentId] = {
+        id: parentId,
+        children: [],
+      };
+    }
     const parent = map[parentId]!;
 
     if (!map[item.id]) {

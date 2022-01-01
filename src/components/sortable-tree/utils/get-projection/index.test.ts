@@ -12,21 +12,21 @@ describe('getProjection', () => {
 
     test('-1', () => {
       expect(getProjection(flattenedTree, ids, indentationWidth * -1)).toEqual({
-        depth: 3,
+        depth: 2,
         parentId: '4',
       });
     });
 
     test('0', () => {
       expect(getProjection(flattenedTree, ids, indentationWidth * 0)).toEqual({
-        depth: 3,
+        depth: 2,
         parentId: '4',
       });
     });
 
     test('1', () => {
       expect(getProjection(flattenedTree, ids, indentationWidth * 1)).toEqual({
-        depth: 4,
+        depth: 3,
         parentId: '11',
       });
     });
@@ -40,21 +40,21 @@ describe('getProjection', () => {
 
     test('-1', () => {
       expect(getProjection(flattenedTree, ids, indentationWidth * -1)).toEqual({
-        depth: 2,
+        depth: 1,
         parentId: '1',
       });
     });
 
     test('0', () => {
       expect(getProjection(flattenedTree, ids, indentationWidth * 0)).toEqual({
-        depth: 3,
+        depth: 2,
         parentId: '4',
       });
     });
 
     test('1', () => {
       expect(getProjection(flattenedTree, ids, indentationWidth * 1)).toEqual({
-        depth: 4,
+        depth: 3,
         parentId: '12',
       });
     });
@@ -68,21 +68,21 @@ describe('getProjection', () => {
 
     test('-1', () => {
       expect(getProjection(flattenedTree, ids, indentationWidth * -1)).toEqual({
-        depth: 3,
+        depth: 2,
         parentId: '4',
       });
     });
 
     test('0', () => {
       expect(getProjection(flattenedTree, ids, indentationWidth * 0)).toEqual({
-        depth: 3,
+        depth: 2,
         parentId: '4',
       });
     });
 
     test('1', () => {
       expect(getProjection(flattenedTree, ids, indentationWidth * 1)).toEqual({
-        depth: 3,
+        depth: 2,
         parentId: '4',
       });
     });

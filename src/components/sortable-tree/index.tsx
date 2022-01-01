@@ -40,14 +40,7 @@ export const SortableTree: React.VFC<SortableTreeProps> = (props) => {
     document.body.style.setProperty('cursor', '');
   };
 
-  const flattenedTree = useMemo(
-    () =>
-      tree.children.reduce<FlattenedTreeItem[]>(
-        (acc, node) => [...acc, ...flattenTree(node)],
-        [],
-      ),
-    [tree],
-  );
+  const flattenedTree = useMemo(() => flattenTree(tree), [tree]);
 
   const displayedFlattenedTree = useMemo(
     () =>

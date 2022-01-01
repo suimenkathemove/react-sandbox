@@ -1,6 +1,6 @@
-import { FlattenedTreeItem, Node } from '../../types';
+import { FlattenedTreeItem, Node, Tree } from '../../types';
 
-export const flattenTree = (node: Node): FlattenedTreeItem[] => {
+export const flattenTree = (tree: Tree): FlattenedTreeItem[] => {
   const flattenedTree: FlattenedTreeItem[] = [];
 
   const flatten = (
@@ -18,7 +18,9 @@ export const flattenTree = (node: Node): FlattenedTreeItem[] => {
       flatten(n, node.id, depth + 1);
     });
   };
-  flatten(node, null);
+  tree.children.forEach((c) => {
+    flatten(c, tree.id);
+  });
 
   return flattenedTree;
 };

@@ -6,6 +6,6 @@ export type Node = {
 export type Tree = Node & { id: 'root' };
 
 export type FlattenedTreeItem = Pick<Node, 'id'> & {
-  parentId: Node['id'] | null;
+  parentId: Node['id'];
   depth: number;
 };
