@@ -12,7 +12,10 @@ const Template: ComponentStory<typeof SortableTreeSortableItem> = (args) => (
   <SortableTreeSortableItem {...args} />
 );
 
-export const defaultProps: SortableTreeSortableItemProps = {};
+export const defaultProps: SortableTreeSortableItemProps = {
+  id: '1',
+  depth: 0,
+};
 
 export const Default = Template.bind({});
 Default.args = defaultProps;

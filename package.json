@@ -5,6 +5,7 @@
   "dependencies": {
     "@dnd-kit/core": "^4.0.3",
     "@dnd-kit/sortable": "^5.1.0",
+    "@dnd-kit/utilities": "^3.0.2",
     "clsx": "^1.1.1",
     "destyle.css": "^2.0.2",
     "react": "^17.0.2",
