@@ -38,7 +38,9 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "test": "jest",
-    "test:update": "jest -u"
+    "test:update": "jest -u",
+    "cy:sb:open": "cypress open -C cypress.storybook.json",
+    "cy:sb:run": "cypress run --headless -C cypress.storybook.json"
   },
   "browserslist": {
     "production": [
@@ -69,7 +71,7 @@
     "@testing-library/user-event": "^13.1.8",
     "@types/babel__core": "^7.1.17",
     "@types/babel__preset-env": "^7.9.2",
-    "@types/caniuse-lite": "^1.0.1",
+    "@types/concurrently": "^6.4.0",
     "@types/eslint": "^8.2.0",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.1",
@@ -84,7 +86,9 @@
     "@typescript-eslint/parser": "^5.4.0",
     "babel-jest": "^27.4.5",
     "change-case": "^4.1.2",
+    "concurrently": "^6.5.1",
     "css-loader": "^6.5.1",
+    "cypress": "^9.2.0",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",

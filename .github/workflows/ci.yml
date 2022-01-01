@@ -33,6 +33,22 @@ jobs:
       - name: test
         run: yarn test
 
+  e2e:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/yarn-cache
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Run E2E Test
+        run: yarn concurrently 'yarn storybook' 'yarn cy:sb:run' -k -s first
+      - name: workaround for detached HEAD
+        run: |
+          git checkout ${GITHUB_REF#refs/heads/} || git checkout -b ${GITHUB_REF#refs/heads/} && git pull || true
+      - name: run reg-suit
+        run: |
+          yarn reg-suit run -c regconfig.e2e.json
+
   vrt:
     runs-on: ubuntu-18.04
     steps:
