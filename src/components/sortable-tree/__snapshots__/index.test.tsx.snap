@@ -1,0 +1,446 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortableTree render 1`] = `
+<DocumentFragment>
+  .c3 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 16px;
+  height: 24px;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+  border-radius: 4px;
+}
+
+.c3 svg {
+  width: 0.5em;
+  height: 0.5em;
+  fill: #757575;
+}
+
+.c3:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.c3:hover svg {
+  fill: #6f7b88;
+}
+
+.c3:active {
+  background-color: inherit;
+}
+
+.c3:active svg {
+  fill: inherit;
+}
+
+.c1 {
+  padding: 0 0 0 0px;
+}
+
+.c5 {
+  padding: 0 0 0 24px;
+}
+
+.c6 {
+  padding: 0 0 0 48px;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 460px;
+  height: 40px;
+  padding: 0 0.5rem;
+  background-color: #ffffff;
+  border: solid 1px #e0e0e0;
+  border-radius: 4px;
+}
+
+.c4 {
+  margin-left: 0.5rem;
+  font-family: 'Hiragino Kaku Gothic Pro',sans-serif;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #424242;
+  -webkit-letter-spacing: 0.1px;
+  -moz-letter-spacing: 0.1px;
+  -ms-letter-spacing: 0.1px;
+  letter-spacing: 0.1px;
+}
+
+.c0 li + li {
+  margin-top: 0.125rem;
+}
+
+<ul
+    class="c0"
+  >
+    <li
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          1
+        </span>
+      </div>
+    </li>
+    <li
+      class="c5"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          4
+        </span>
+      </div>
+    </li>
+    <li
+      class="c6"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          10
+        </span>
+      </div>
+    </li>
+    <li
+      class="c6"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          11
+        </span>
+      </div>
+    </li>
+    <li
+      class="c6"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          12
+        </span>
+      </div>
+    </li>
+    <li
+      class="c5"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          5
+        </span>
+      </div>
+    </li>
+    <li
+      class="c5"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          6
+        </span>
+      </div>
+    </li>
+    <li
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          2
+        </span>
+      </div>
+    </li>
+    <li
+      class="c5"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          7
+        </span>
+      </div>
+    </li>
+    <li
+      class="c5"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          8
+        </span>
+      </div>
+    </li>
+    <li
+      class="c5"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          9
+        </span>
+      </div>
+    </li>
+    <li
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <button
+          aria-describedby="DndDescribedBy-0"
+          aria-roledescription="sortable"
+          class="c3"
+          role="button"
+          tabindex="0"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            width="12"
+          >
+            <path
+              d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"
+            />
+          </svg>
+        </button>
+        <span
+          class="c4"
+        >
+          3
+        </span>
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
