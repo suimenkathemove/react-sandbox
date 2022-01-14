@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider render 1`] = `
+<DocumentFragment>
+  .c0 {
+  border-color: gray;
+}
+
+<hr
+    class="c0"
+  />
+</DocumentFragment>
+`;
