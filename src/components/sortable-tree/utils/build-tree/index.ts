@@ -7,11 +7,7 @@ export const buildTree = (flattenedTree: FlattenedTreeItem[]): Tree => {
   };
 
   flattenedTree.forEach((item) => {
-    if (item.id === 'root') {
-      return;
-    }
-
-    const parentId = item.parentId ?? tree.id;
+    const { parentId } = item;
     if (!map[parentId]) {
       map[parentId] = {
         id: parentId,
@@ -26,10 +22,10 @@ export const buildTree = (flattenedTree: FlattenedTreeItem[]): Tree => {
         children: [],
       };
     }
-    const node: Node = map[item.id]!;
+    const node = map[item.id]!;
 
     parent.children.push(node);
   });
 
-  return map.root;
+  return tree;
 };
