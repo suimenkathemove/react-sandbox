@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grid render 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvtL kLkpgg"
+  >
+    <header
+      class="sc-gsDKAQ ijA-dTo"
+    />
+    <main
+      class="sc-dkPtRN fnGakI"
+    />
+    <footer
+      class="sc-hKwDye dEtGwW"
+    />
+  </div>
+</DocumentFragment>
+`;
