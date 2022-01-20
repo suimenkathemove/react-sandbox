@@ -1,8 +1,8 @@
-type QuestionNodeType = 'input' | 'select' | 'selectChoice';
+type QuestionNodeType = 'input' | 'select' | 'select_choice';
 export type ExtractQuestionNodeType<T extends QuestionNodeType> = T;
 
 type QuestionNodeBase<T extends QuestionNodeType> = {
-  type: T;
+  kind: T;
   id: string;
 };
 
@@ -10,7 +10,7 @@ export type InputQuestion = QuestionNodeBase<'input'> & {
   message: string;
 };
 
-export type SelectChoice = QuestionNodeBase<'selectChoice'> & {
+export type SelectChoice = QuestionNodeBase<'select_choice'> & {
   label: string;
   questions: Question[];
 };
@@ -25,7 +25,7 @@ export type Question = InputQuestion | SelectQuestion;
 export type QuestionNode = Question | SelectChoice;
 
 export type QuestionTree = {
-  type: 'root';
+  kind: 'root';
   id: 'root';
   questions: Question[];
 };

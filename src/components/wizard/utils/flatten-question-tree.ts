@@ -15,10 +15,10 @@ export const flattenQuestionTree = (
     questionNode: QuestionNode,
     parentId: FlattenedQuestionTreeItem['parentId'],
   ) => {
-    switch (questionNode.type) {
+    switch (questionNode.kind) {
       case 'input':
         flattenedQuestionTree.push({
-          type: questionNode.type,
+          kind: questionNode.kind,
           id: questionNode.id,
           message: questionNode.message,
           parentId,
@@ -26,7 +26,7 @@ export const flattenQuestionTree = (
         break;
       case 'select':
         flattenedQuestionTree.push({
-          type: questionNode.type,
+          kind: questionNode.kind,
           id: questionNode.id,
           message: questionNode.message,
           parentId,
@@ -36,9 +36,9 @@ export const flattenQuestionTree = (
           flatten(c, questionNode.id);
         });
         break;
-      case 'selectChoice':
+      case 'select_choice':
         flattenedQuestionTree.push({
-          type: questionNode.type,
+          kind: questionNode.kind,
           id: questionNode.id,
           label: questionNode.label,
           parentId,
