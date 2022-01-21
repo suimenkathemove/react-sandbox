@@ -1,7 +1,7 @@
-type QuestionNodeType = 'input' | 'select' | 'select_choice';
-export type ExtractQuestionNodeType<T extends QuestionNodeType> = T;
+type QuestionNodeKind = 'input' | 'select' | 'select_choice';
+export type ExtractQuestionNodeKind<T extends QuestionNodeKind> = T;
 
-type QuestionNodeBase<T extends QuestionNodeType> = {
+type QuestionNodeBase<T extends QuestionNodeKind> = {
   kind: T;
   id: string;
 };
