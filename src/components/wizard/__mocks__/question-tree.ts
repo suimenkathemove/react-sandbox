@@ -1,4 +1,4 @@
-import { QuestionTree } from '../types';
+import { QuestionTree } from '../types/question';
 
 export const questionTree: QuestionTree = {
   kind: 'root',

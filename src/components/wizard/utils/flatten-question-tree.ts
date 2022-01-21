@@ -2,7 +2,7 @@ import {
   FlattenedQuestionTreeItem,
   QuestionNode,
   QuestionTree,
-} from '../types';
+} from '../types/question';
 
 import { assertNever } from '@/utils/assertNever';
 
