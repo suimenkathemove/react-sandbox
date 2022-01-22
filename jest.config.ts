@@ -2,7 +2,7 @@ import type { Config } from '@jest/types';
 
 const config: Config.InitialOptions = {
   moduleNameMapper: {
-    '^@/(.*)': '<rootDir>/$1',
+    '^@/(.*)': '<rootDir>/src/$1',
     '\\.(css|less|scss|sss|styl)$': '<rootDir>/node_modules/jest-css-modules',
   },
   testEnvironment: 'jsdom',
