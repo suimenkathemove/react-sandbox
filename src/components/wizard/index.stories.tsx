@@ -1,5 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
+import { questionTree } from './__mocks__/question-tree';
+
 import { Wizard, WizardProps } from './';
 
 export default {
@@ -10,7 +12,9 @@ export default {
 
 const Template: ComponentStory<typeof Wizard> = (args) => <Wizard {...args} />;
 
-export const defaultProps: WizardProps = {};
+export const defaultProps: WizardProps = {
+  questionTree,
+};
 
 export const Default = Template.bind({});
 Default.args = defaultProps;

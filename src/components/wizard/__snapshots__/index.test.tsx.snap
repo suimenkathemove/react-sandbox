@@ -1,3 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Wizard render 1`] = `<DocumentFragment />`;
+exports[`Wizard render 1`] = `
+<DocumentFragment>
+  <div>
+    <progress
+      class="sc-bdvvtL jYuhrR"
+      max="23"
+      value="0"
+    />
+    <div
+      style="display: flex; justify-content: space-between;"
+    >
+      <button
+        style="visibility: hidden;"
+      >
+        prev
+      </button>
+      <div
+        style="width: 200px;"
+      >
+        <div>
+          <p>
+            1
+          </p>
+          <input
+            style="border: 1px solid black;"
+            value=""
+          />
+        </div>
+      </div>
+      <button
+        disabled=""
+      >
+        next
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
