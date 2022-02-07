@@ -2,12 +2,13 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 import { FlattenedTreeItem } from '../../types';
-import { SortableTreeItem } from '../sortable-tree-item';
+import { SortableTreeItem, SortableTreeItemProps } from '../sortable-tree-item';
 
 export type SortableTreeSortableItemProps = Pick<
   FlattenedTreeItem,
   'id' | 'depth'
->;
+> &
+  Pick<SortableTreeItemProps, 'onRemove'>;
 
 export const SortableTreeSortableItem: React.VFC<SortableTreeSortableItemProps> = (
   props,
@@ -35,6 +36,7 @@ export const SortableTreeSortableItem: React.VFC<SortableTreeSortableItemProps> 
       }}
       handleProps={{ ...attributes, ...listeners }}
       ghost={isDragging}
+      onRemove={props.onRemove}
     />
   );
 };

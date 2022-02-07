@@ -1,7 +1,10 @@
+import { useCallback } from 'react';
+
 import { FlattenedTreeItem } from '../../types';
 import { Handle, HandleProps } from '../handle';
+import { XButton } from '../x-button';
 
-import { DraggableNode, DroppableNode, Id } from './styles';
+import { DraggableNode, DroppableNode, Id, XButtonWrapper } from './styles';
 
 export type SortableTreeItemProps = Pick<FlattenedTreeItem, 'id' | 'depth'> & {
   setDroppableNodeRef?: (element: HTMLElement | null) => void;
@@ -10,9 +13,14 @@ export type SortableTreeItemProps = Pick<FlattenedTreeItem, 'id' | 'depth'> & {
   handleProps?: HandleProps;
   clone?: boolean;
   ghost?: boolean;
+  onRemove: (id: FlattenedTreeItem['id']) => void;
 };
 
 export const SortableTreeItem: React.VFC<SortableTreeItemProps> = (props) => {
+  const onClickXButton = useCallback(() => {
+    props.onRemove(props.id);
+  }, [props]);
+
   return (
     <DroppableNode
       ref={props.setDroppableNodeRef}
@@ -27,6 +35,11 @@ export const SortableTreeItem: React.VFC<SortableTreeItemProps> = (props) => {
       >
         <Handle {...props.handleProps} />
         <Id>{props.id}</Id>
+        {!props.clone && (
+          <XButtonWrapper>
+            <XButton onClick={onClickXButton} />
+          </XButtonWrapper>
+        )}
       </DraggableNode>
     </DroppableNode>
   );

@@ -37,3 +37,7 @@ export const Id = styled.span`
   color: #424242;
   letter-spacing: 0.1px;
 `;
+
+export const XButtonWrapper = styled.div`
+  margin-left: auto;
+`;
