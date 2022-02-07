@@ -12,13 +12,17 @@ import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { SortableTreeItem } from './components/sortable-tree-item';
-import { SortableTreeSortableItem } from './components/sortable-tree-sortable-item';
+import {
+  SortableTreeSortableItem,
+  SortableTreeSortableItemProps,
+} from './components/sortable-tree-sortable-item';
 import { Ul } from './styles';
 import { FlattenedTreeItem, Tree } from './types';
 import { buildTree } from './utils/build-tree';
 import { flattenTree } from './utils/flatten-tree';
 import { getProjection } from './utils/get-projection';
 import { removeDescendants } from './utils/remove-descendants';
+import { removeItem } from './utils/remove-item';
 
 export type SortableTreeProps = {
   tree: Tree;
@@ -108,6 +112,12 @@ export const SortableTree: React.VFC<SortableTreeProps> = (props) => {
     resetState();
   };
 
+  const onRemove: SortableTreeSortableItemProps['onRemove'] = (id) => {
+    const newFlattenedTree = removeItem(flattenedTree, id);
+    const newTree = buildTree(newFlattenedTree);
+    setTree(newTree);
+  };
+
   const sensors = useSensors(useSensor(PointerSensor), useSensor(MouseSensor));
 
   return (
@@ -130,13 +140,18 @@ export const SortableTree: React.VFC<SortableTreeProps> = (props) => {
                   ? projection.depth
                   : item.depth
               }
+              onRemove={onRemove}
             />
           ))}
         </Ul>
         {createPortal(
           <DragOverlay>
             {activeFlattenedTreeItem && (
-              <SortableTreeItem {...activeFlattenedTreeItem} clone />
+              <SortableTreeItem
+                {...activeFlattenedTreeItem}
+                clone
+                onRemove={onRemove}
+              />
             )}
           </DragOverlay>,
           document.body,

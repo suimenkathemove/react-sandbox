@@ -15,6 +15,7 @@ const Template: ComponentStory<typeof SortableTreeItem> = (args) => (
 export const defaultProps: SortableTreeItemProps = {
   id: '1',
   depth: 0,
+  onRemove: () => {},
 };
 
 export const Default = Template.bind({});
