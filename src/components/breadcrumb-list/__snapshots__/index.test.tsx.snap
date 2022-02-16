@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BreadcrumbList render 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+<nav>
+    <ol
+      class="c0"
+    >
+      <li
+        class="c1"
+      >
+        <span>
+          1
+        </span>
+        &gt;
+      </li>
+      <li
+        class="c1"
+      >
+        <span>
+          2
+        </span>
+        &gt;
+      </li>
+      <li
+        class="c1"
+      >
+        <span>
+          3
+        </span>
+      </li>
+    </ol>
+  </nav>
+</DocumentFragment>
+`;
