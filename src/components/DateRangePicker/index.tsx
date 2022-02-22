@@ -7,20 +7,15 @@ import { Popover } from '@/components/Popover';
 import { isSameDate } from '@/utils/date/isSameDate';
 import { useShow } from '@/utils/useShow';
 
-type NonNullableArray<T extends unknown[]> = {
-  [P in keyof T]: NonNullable<T[P]>;
-};
 type Props = {
   dateRange: [startDate: Date | null, endDate: Date | null];
-  setDateRange: (dateRange: NonNullableArray<Props['dateRange']>) => void;
+  setDateRange: (dateRange: Props['dateRange']) => void;
 };
 
 export const DateRangePicker: React.VFC<Props> = (props) => {
   const [firstSelectedDate, setFirstSelectedDate] = useState<Date | null>(null);
 
-  const [dateRange, setDateRange] = useState(props.dateRange);
-  const startDate = dateRange[0];
-  const endDate = dateRange[1];
+  const [startDate, endDate] = props.dateRange;
 
   const startDateValue =
     props.dateRange[0] != null ? props.dateRange[0].toLocaleDateString() : '';
@@ -39,7 +34,7 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
     if (firstSelectedDate == null) {
       setFirstSelectedDate(date);
 
-      setDateRange([null, null]);
+      props.setDateRange([null, null]);
     } else {
       setFirstSelectedDate(null);
 
@@ -47,18 +42,10 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
         date < firstSelectedDate
           ? [date, firstSelectedDate]
           : [firstSelectedDate, date];
-      setDateRange(newDateRange);
+      props.setDateRange(newDateRange);
+
+      hide();
     }
-  };
-
-  const onClickSubmit = () => {
-    if (startDate == null || endDate == null) {
-      return;
-    }
-
-    props.setDateRange([startDate, endDate]);
-
-    hide();
   };
 
   const isForDate = (date: Date): boolean =>
@@ -102,8 +89,6 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
             (date) => isSelectedDate(date) && styles.selectedDate,
           ]}
         />
-
-        <button onClick={onClickSubmit}>決定</button>
       </Popover>
     </div>
   );
