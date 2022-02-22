@@ -1,21 +1,15 @@
 import { Meta } from '@storybook/react/types-6-0';
-import { useState } from 'react';
 
 import { Popover } from './';
 
 import { alphabets } from '@/utils/alphabets';
+import { useShow } from '@/utils/useShow';
 
 const meta: Meta = { title: 'Popover', component: Popover };
 export default meta;
 
 export const Left: React.VFC = () => {
-  const [isShown, setIsShown] = useState(false);
-  const show = () => {
-    setIsShown(true);
-  };
-  const hide = () => {
-    setIsShown(false);
-  };
+  const { isShown, show, hide } = useShow();
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -35,13 +29,7 @@ export const Left: React.VFC = () => {
 };
 
 export const Right: React.VFC = () => {
-  const [isShown, setIsShown] = useState(false);
-  const show = () => {
-    setIsShown(true);
-  };
-  const hide = () => {
-    setIsShown(false);
-  };
+  const { isShown, show, hide } = useShow();
 
   return (
     <div style={{ textAlign: 'center' }}>
