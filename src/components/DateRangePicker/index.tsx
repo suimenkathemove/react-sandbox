@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
 
@@ -17,10 +17,8 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
 
   const [startDate, endDate] = props.dateRange;
 
-  const startDateValue =
-    props.dateRange[0] != null ? props.dateRange[0].toLocaleDateString() : '';
-  const endDateValue =
-    props.dateRange[1] != null ? props.dateRange[1].toLocaleDateString() : '';
+  const startDateValue = startDate?.toLocaleDateString() ?? '';
+  const endDateValue = endDate?.toLocaleDateString() ?? '';
 
   const { isShown, show, hide } = useShow();
 
@@ -47,6 +45,12 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
       hide();
     }
   };
+
+  useEffect(() => {
+    if (!isShown) {
+      setFirstSelectedDate(null);
+    }
+  }, [isShown]);
 
   const isForDate = (date: Date): boolean =>
     startDate != null &&
