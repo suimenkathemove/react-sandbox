@@ -61,6 +61,17 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
     hide();
   };
 
+  const isForDate = (date: Date): boolean =>
+    startDate != null &&
+    endDate != null &&
+    startDate <= date &&
+    date <= endDate;
+
+  const isSelectedDate = (date: Date): boolean =>
+    [firstSelectedDate, startDate, endDate].some(
+      (date2) => date2 != null && isSameDate(date, date2),
+    );
+
   return (
     <div>
       <Popover
@@ -87,16 +98,8 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
         <MonthlyCalendar
           onClickDate={onClickDate}
           dateClassNames={[
-            (date) =>
-              [firstSelectedDate, startDate, endDate].some(
-                (date2) => date2 != null && isSameDate(date, date2),
-              ) && styles.selectedDate,
-            (date) =>
-              startDate != null &&
-              endDate != null &&
-              startDate < date &&
-              date < endDate &&
-              styles.inDate,
+            (date) => isForDate(date) && styles.forDate,
+            (date) => isSelectedDate(date) && styles.selectedDate,
           ]}
         />
 
