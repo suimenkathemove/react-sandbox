@@ -39,6 +39,7 @@
     "build-storybook": "build-storybook -s public",
     "test": "jest",
     "test:update": "jest -u",
+    "code-check": "yarn lint & yarn tsc & yarn test:update",
     "cy:sb:open": "cypress open -C cypress.storybook.json",
     "cy:sb:run": "cypress run --headless -C cypress.storybook.json"
   },
