@@ -15,8 +15,7 @@ type Props = {
 export const DatePicker: React.VFC<Props> = (props) => {
   const [selectedDate, setSelectedDate] = useState(props.selectedDate);
 
-  const value =
-    props.selectedDate != null ? props.selectedDate.toLocaleDateString() : '';
+  const value = props.selectedDate?.toLocaleDateString() ?? '';
 
   const { isShown, show, hide } = useShow();
 
@@ -35,32 +34,29 @@ export const DatePicker: React.VFC<Props> = (props) => {
   };
 
   return (
-    <div>
-      <Popover
-        trigger={
-          <input
-            value={value}
-            onClick={onClickInput}
-            onChange={() => {}}
-            className={styles.input}
-          />
-        }
-        placement="left"
-        isShown={isShown}
-        hide={hide}
-      >
-        <MonthlyCalendar
-          onClickDate={setSelectedDate}
-          dateClassNames={[
-            (date) =>
-              selectedDate != null &&
-              isSameDate(date, selectedDate) &&
-              styles.selectedDate,
-          ]}
+    <Popover
+      trigger={
+        <input
+          value={value}
+          onClick={onClickInput}
+          onChange={() => {}}
+          className={styles.input}
         />
-
-        <button onClick={onClickSubmit}>決定</button>
-      </Popover>
-    </div>
+      }
+      placement="left"
+      isShown={isShown}
+      hide={hide}
+    >
+      <MonthlyCalendar
+        onClickDate={setSelectedDate}
+        dateClassNames={[
+          (date) =>
+            selectedDate != null &&
+            isSameDate(date, selectedDate) &&
+            styles.selectedDate,
+        ]}
+      />
+      <button onClick={onClickSubmit}>決定</button>
+    </Popover>
   );
 };
