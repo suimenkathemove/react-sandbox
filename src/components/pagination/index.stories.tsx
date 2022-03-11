@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { range } from 'lodash-es';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 
 import { Pagination, PaginationProps } from './';
 
@@ -29,17 +29,18 @@ export const All: React.VFC = () => {
   return (
     <>
       {range(1, 10 + 1).map((lastPage) => (
-        <Fragment key={lastPage}>
-          {lastPage}
+        <div key={lastPage}>
+          <p>{lastPage}</p>
           {range(1, lastPage + 1).map((currentPage) => (
-            <Pagination
-              key={currentPage}
-              lastPage={lastPage}
-              currentPage={currentPage}
-              onClickPage={() => {}}
-            />
+            <div key={currentPage}>
+              <Pagination
+                lastPage={lastPage}
+                currentPage={currentPage}
+                onClickPage={() => {}}
+              />
+            </div>
           ))}
-        </Fragment>
+        </div>
       ))}
     </>
   );
