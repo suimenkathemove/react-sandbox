@@ -2,6 +2,7 @@ $length: 50px;
 
 .base {
   width: calc(#{$length} * 7);
+  background-color: white;
 }
 
 .header {
