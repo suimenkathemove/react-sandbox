@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
 
+import { adjustEndDate } from '@/components/DateRangePicker/adjust-end-date';
 import { MonthlyCalendar } from '@/components/MonthlyCalendar';
 import { Popover } from '@/components/Popover';
 import { isSameDate } from '@/utils/date/isSameDate';
@@ -38,8 +39,8 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
 
       const newDateRange: [Date, Date] =
         date < firstSelectedDate
-          ? [date, firstSelectedDate]
-          : [firstSelectedDate, date];
+          ? [date, adjustEndDate(firstSelectedDate)]
+          : [firstSelectedDate, adjustEndDate(date)];
       props.setDateRange(newDateRange);
 
       hide();
