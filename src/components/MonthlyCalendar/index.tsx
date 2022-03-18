@@ -7,12 +7,12 @@ import { createDateGrid } from './utils/createDateGrid';
 import { isSameDate } from '@/utils/date/isSameDate';
 import { jaDays } from '@/utils/date/jaDays';
 
-type Props = {
+export type MonthlyCalendarProps = {
   onClickDate: (date: Date) => void;
   dateClassNames?: ((date: Date) => string | false)[];
 };
 
-export const MonthlyCalendar: React.VFC<Props> = (props) => {
+export const MonthlyCalendar: React.VFC<MonthlyCalendarProps> = (props) => {
   const now = new Date();
 
   const month = useMonth();

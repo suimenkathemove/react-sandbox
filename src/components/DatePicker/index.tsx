@@ -1,8 +1,9 @@
-import { useState } from 'react';
-
 import styles from './styles.module.scss';
 
-import { MonthlyCalendar } from '@/components/MonthlyCalendar';
+import {
+  MonthlyCalendar,
+  MonthlyCalendarProps,
+} from '@/components/MonthlyCalendar';
 import { Popover } from '@/components/Popover';
 import { isSameDate } from '@/utils/date/isSameDate';
 import { useShow } from '@/utils/useShow';
@@ -13,8 +14,6 @@ type Props = {
 };
 
 export const DatePicker: React.VFC<Props> = (props) => {
-  const [selectedDate, setSelectedDate] = useState(props.selectedDate);
-
   const value = props.selectedDate?.toLocaleDateString() ?? '';
 
   const { isShown, show, hide } = useShow();
@@ -25,13 +24,14 @@ export const DatePicker: React.VFC<Props> = (props) => {
     show();
   };
 
-  const onClickSubmit = () => {
-    if (selectedDate != null) {
-      props.setSelectedDate(selectedDate);
+  const onClickDate: MonthlyCalendarProps['onClickDate'] = (date) => {
+    props.setSelectedDate(date);
 
-      hide();
-    }
+    hide();
   };
+
+  const isSelectedDate = (date: Date): boolean =>
+    props.selectedDate != null && isSameDate(date, props.selectedDate);
 
   return (
     <Popover
@@ -48,15 +48,9 @@ export const DatePicker: React.VFC<Props> = (props) => {
       hide={hide}
     >
       <MonthlyCalendar
-        onClickDate={setSelectedDate}
-        dateClassNames={[
-          (date) =>
-            selectedDate != null &&
-            isSameDate(date, selectedDate) &&
-            styles.selectedDate,
-        ]}
+        onClickDate={onClickDate}
+        dateClassNames={[(date) => isSelectedDate(date) && styles.selectedDate]}
       />
-      <button onClick={onClickSubmit}>決定</button>
     </Popover>
   );
 };
