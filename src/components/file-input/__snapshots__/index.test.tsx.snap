@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileInput render 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: none;
+}
+
+<input
+    class="c0"
+    type="file"
+  />
+</DocumentFragment>
+`;
