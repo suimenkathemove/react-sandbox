@@ -1,9 +1,6 @@
 import styles from './styles.module.scss';
 
-type Props = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
+type Props = JSX.IntrinsicElements['input'];
 
 export const Input: React.VFC<Props> = (props) => {
   return (

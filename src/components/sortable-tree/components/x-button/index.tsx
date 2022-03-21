@@ -2,10 +2,7 @@ import { memo } from 'react';
 
 import { Button } from './styles';
 
-export type XButtonProps = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->;
+export type XButtonProps = JSX.IntrinsicElements['button'];
 
 export const XButton = memo<XButtonProps>((props) => {
   return (
