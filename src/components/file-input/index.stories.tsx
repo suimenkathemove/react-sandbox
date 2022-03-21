@@ -14,9 +14,7 @@ const Template: ComponentStory<typeof FileInput> = (args) => (
 );
 
 export const defaultProps: FileInputProps = {
-  onChange: (file) => {
-    window.alert(file);
-  },
+  onChange: () => {},
 };
 
 export const Default = Template.bind({});
