@@ -25,6 +25,10 @@
   "[typescriptreact]": {
     "editor.formatOnSave": true
   },
+  "[rust]": {
+    "editor.defaultFormatter": "matklad.rust-analyzer",
+    "editor.formatOnSave": true
+  },
   "editor.lineNumbers": "on",
   "editor.rulers": [80],
   "editor.wordWrap": "on",
