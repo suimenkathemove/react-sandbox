@@ -1,0 +1,4 @@
+[tasks.wasm]
+cwd = "./wasm"
+command = "wasm-pack"
+args = ["build"]
