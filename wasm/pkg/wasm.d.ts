@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * @param {string} name
- */
+* @param {string} name
+*/
 export function greet(name: string): void;
