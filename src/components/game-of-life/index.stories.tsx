@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { GameOfLife } from './';
 
 export default {
-  title: '/GameOfLife',
+  title: 'GameOfLife',
   component: GameOfLife,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof GameOfLife>;
