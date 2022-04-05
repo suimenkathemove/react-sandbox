@@ -96,6 +96,88 @@ export function greet(name) {
 export const Cell = Object.freeze({ Dead:0,"0":"Dead",Alive:1,"1":"Alive", });
 /**
 */
+export class Todo {
+
+    static __wrap(ptr) {
+        const obj = Object.create(Todo.prototype);
+        obj.ptr = ptr;
+
+        return obj;
+    }
+
+    __destroy_into_raw() {
+        const ptr = this.ptr;
+        this.ptr = 0;
+
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_todo_free(ptr);
+    }
+    /**
+    * @param {string} id
+    * @param {string} text
+    * @returns {Todo}
+    */
+    static new(id, text) {
+        var ptr0 = passStringToWasm0(id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len0 = WASM_VECTOR_LEN;
+        var ptr1 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len1 = WASM_VECTOR_LEN;
+        var ret = wasm.todo_new(ptr0, len0, ptr1, len1);
+        return Todo.__wrap(ret);
+    }
+    /**
+    * @returns {string}
+    */
+    get id() {
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.todo_id(retptr, this.ptr);
+            var r0 = getInt32Memory0()[retptr / 4 + 0];
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            return getStringFromWasm0(r0, r1);
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_free(r0, r1);
+        }
+    }
+    /**
+    * @param {string} id
+    */
+    set id(id) {
+        var ptr0 = passStringToWasm0(id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len0 = WASM_VECTOR_LEN;
+        wasm.todo_set_id(this.ptr, ptr0, len0);
+    }
+    /**
+    * @returns {string}
+    */
+    get text() {
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.todo_text(retptr, this.ptr);
+            var r0 = getInt32Memory0()[retptr / 4 + 0];
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            return getStringFromWasm0(r0, r1);
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_free(r0, r1);
+        }
+    }
+    /**
+    * @param {string} text
+    */
+    set text(text) {
+        var ptr0 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len0 = WASM_VECTOR_LEN;
+        wasm.todo_set_text(this.ptr, ptr0, len0);
+    }
+}
+/**
+*/
 export class Universe {
 
     static __wrap(ptr) {

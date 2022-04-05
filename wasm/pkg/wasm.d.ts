@@ -12,6 +12,25 @@ export enum Cell {
 }
 /**
 */
+export class Todo {
+  free(): void;
+/**
+* @param {string} id
+* @param {string} text
+* @returns {Todo}
+*/
+  static new(id: string, text: string): Todo;
+/**
+* @returns {string}
+*/
+  id: string;
+/**
+* @returns {string}
+*/
+  text: string;
+}
+/**
+*/
 export class Universe {
   free(): void;
 /**

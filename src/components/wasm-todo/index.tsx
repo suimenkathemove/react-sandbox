@@ -1,7 +1,17 @@
-import styles from './styles.module.scss';
+export const WasmTodo: React.VFC = () => {
+  const append = async () => {
+    const { Todo } = await import('wasm');
 
-export type WasmTodoProps = {};
+    const id = window.prompt('id', '')!;
+    const text = window.prompt('text', '')!;
+    const todo = Todo.new(id, text);
+    // eslint-disable-next-line no-console
+    console.log(todo);
+  };
 
-export const WasmTodo: React.VFC<WasmTodoProps> = (props) => {
-  return <></>;
+  return (
+    <div>
+      <button onClick={append}>append</button>
+    </div>
+  );
 };
