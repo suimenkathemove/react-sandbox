@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { GameOfLife, GameOfLifeProps } from './';
+import { GameOfLife } from './';
 
 export default {
   title: '/GameOfLife',
@@ -8,9 +8,11 @@ export default {
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof GameOfLife>;
 
-const Template: ComponentStory<typeof GameOfLife> = (args) => <GameOfLife {...args} />;
+const Template: ComponentStory<typeof GameOfLife> = (args) => (
+  <GameOfLife {...args} />
+);
 
-export const defaultProps: GameOfLifeProps = {};
+export const defaultProps = {};
 
 export const Default = Template.bind({});
 Default.args = defaultProps;

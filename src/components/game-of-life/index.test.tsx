@@ -6,7 +6,7 @@ import { GameOfLife } from './';
 
 const setup = () => render(<GameOfLife {...defaultProps} />);
 
-describe('GameOfLife', () => {
+xdescribe('GameOfLife', () => {
   afterEach(() => {
     cleanup();
   });
