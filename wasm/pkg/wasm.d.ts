@@ -22,6 +22,10 @@ export class List {
 * @param {any} val
 */
   static create(val: any): void;
+/**
+* @param {any} id
+*/
+  static delete(id: any): void;
 }
 /**
 */

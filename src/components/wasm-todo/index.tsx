@@ -16,10 +16,20 @@ export const WasmTodo: React.VFC = () => {
     }
   };
 
+  const delete_ = async () => {
+    const { List } = await import('wasm');
+
+    const id = window.prompt('id');
+    if (id != null) {
+      List.delete(id);
+    }
+  };
+
   return (
     <div>
       <button onClick={show}>show</button>
       <button onClick={create}>create</button>
+      <button onClick={delete_}>delete</button>
     </div>
   );
 };

@@ -9,6 +9,9 @@ exports[`WasmTodo render 1`] = `
     <button>
       create
     </button>
+    <button>
+      delete
+    </button>
   </div>
 </DocumentFragment>
 `;

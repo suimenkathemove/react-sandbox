@@ -21,4 +21,16 @@ impl List {
         let todo: Todo = val.into_serde().unwrap();
         TODOS.lock().unwrap().push(todo);
     }
+
+    pub fn delete(id: &JsValue) {
+        let id: String = id.into_serde().unwrap();
+        let todos = &mut *(TODOS.lock().unwrap());
+        let index = &todos.iter().position(|t| t.id() == id);
+        match index {
+            Some(index) => {
+                todos.remove(*index);
+            }
+            None => (),
+        }
+    }
 }
