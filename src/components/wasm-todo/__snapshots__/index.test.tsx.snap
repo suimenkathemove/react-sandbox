@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WasmTodo render 1`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      show
+    </button>
+    <button>
+      create
+    </button>
+    <button>
+      update
+    </button>
+    <button>
+      delete
+    </button>
+  </div>
+</DocumentFragment>
+`;
