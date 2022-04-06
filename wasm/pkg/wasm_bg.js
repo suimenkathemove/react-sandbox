@@ -163,6 +163,16 @@ export class List {
         }
     }
     /**
+    * @param {any} val
+    */
+    static update(val) {
+        try {
+            wasm.list_update(addBorrowedObject(val));
+        } finally {
+            heap[stack_pointer++] = undefined;
+        }
+    }
+    /**
     * @param {any} id
     */
     static delete(id) {

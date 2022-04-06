@@ -22,15 +22,24 @@ impl List {
         TODOS.lock().unwrap().push(todo);
     }
 
+    pub fn update(val: &JsValue) {
+        let todo: Todo = val.into_serde().unwrap();
+        let id = todo.id();
+        let text = todo.text();
+
+        let todos = &mut *(TODOS.lock().unwrap());
+        let todo = todos.iter_mut().find(|t| t.id() == id);
+        if let Some(todo) = todo {
+            todo.set_text(text);
+        }
+    }
+
     pub fn delete(id: &JsValue) {
         let id: String = id.into_serde().unwrap();
         let todos = &mut *(TODOS.lock().unwrap());
         let index = &todos.iter().position(|t| t.id() == id);
-        match index {
-            Some(index) => {
-                todos.remove(*index);
-            }
-            None => (),
+        if let Some(index) = index {
+            todos.remove(*index);
         }
     }
 }

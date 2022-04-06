@@ -10,6 +10,9 @@ exports[`WasmTodo render 1`] = `
       create
     </button>
     <button>
+      update
+    </button>
+    <button>
       delete
     </button>
   </div>

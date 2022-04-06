@@ -23,6 +23,10 @@ export class List {
 */
   static create(val: any): void;
 /**
+* @param {any} val
+*/
+  static update(val: any): void;
+/**
 * @param {any} id
 */
   static delete(id: any): void;
