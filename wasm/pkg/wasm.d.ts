@@ -12,6 +12,19 @@ export enum Cell {
 }
 /**
 */
+export class List {
+  free(): void;
+/**
+* @returns {any}
+*/
+  static show(): any;
+/**
+* @param {any} val
+*/
+  static create(val: any): void;
+}
+/**
+*/
 export class Todo {
   free(): void;
 /**

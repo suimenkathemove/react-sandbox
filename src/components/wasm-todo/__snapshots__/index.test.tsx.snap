@@ -4,7 +4,10 @@ exports[`WasmTodo render 1`] = `
 <DocumentFragment>
   <div>
     <button>
-      append
+      show
+    </button>
+    <button>
+      create
     </button>
   </div>
 </DocumentFragment>
