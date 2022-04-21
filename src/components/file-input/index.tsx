@@ -8,8 +8,8 @@ export type FileInputProps = {
 
 export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
   (props, ref) => {
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { files } = event.target;
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { files } = e.target;
 
       if (files == null) {
         return;
@@ -24,6 +24,12 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
       props.onChange(file);
     };
 
-    return <Input ref={ref} type="file" onChange={onChange} />;
+    const onClick: JSX.IntrinsicElements['input']['onClick'] = (e) => {
+      e.currentTarget.value = '';
+    };
+
+    return (
+      <Input ref={ref} type="file" onChange={onChange} onClick={onClick} />
+    );
   },
 );
