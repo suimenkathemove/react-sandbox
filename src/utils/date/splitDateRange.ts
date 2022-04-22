@@ -1,6 +1,7 @@
 import { DateRange } from '@/types/date';
 import { addDate } from '@/utils/date/addDate';
 import { dateStart } from '@/utils/date/dateStart';
+import { diffDates } from '@/utils/date/diff-dates';
 import { range } from '@/utils/range';
 
 export const splitDateRange = ({
@@ -20,7 +21,7 @@ export const splitDateRange = ({
     endDate,
   };
   const middleDateRange: DateRange[] = range(
-    endDate.getDate() - startDate.getDate() - 1,
+    diffDates(dateStart(endDate), dateStart(startDate)) - 1,
   ).map((date) => ({
     startDate: addDate(dateStart(startDate), date + 1),
     endDate: addDate(dateStart(startDate), date + 2),
