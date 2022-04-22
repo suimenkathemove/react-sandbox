@@ -24,7 +24,8 @@ jobs:
         run: yarn build-storybook
       - name: Upload to S3
         run: |
-          aws s3 sync ./storybook-static s3://$S3_BUCKET_NAME/main --quiet
+          aws s3 sync ./storybook-static s3://$S3_BUCKET_NAME/main --quiet --exclude "*.wasm"
+          aws s3 sync ./storybook-static s3://$S3_BUCKET_NAME/main --quiet --content-type "application/wasm" --exclude "*" --include "*.wasm"
 
 env:
   S3_BUCKET_NAME: react-sandbox-storybook
