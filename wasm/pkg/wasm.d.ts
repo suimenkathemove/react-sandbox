@@ -12,6 +12,11 @@ export enum Cell {
 }
 /**
 */
+export class FlattenedTreeItem {
+  free(): void;
+}
+/**
+*/
 export class List {
   free(): void;
 /**
@@ -30,6 +35,20 @@ export class List {
 * @param {any} id
 */
   static delete(id: any): void;
+}
+/**
+*/
+export class Node {
+  free(): void;
+/**
+* @param {any} val
+* @returns {Node}
+*/
+  static new(val: any): Node;
+/**
+* @returns {any}
+*/
+  flatten_tree(): any;
 }
 /**
 */
