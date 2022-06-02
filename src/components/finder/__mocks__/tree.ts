@@ -19,6 +19,8 @@ export const tree: Tree = {
                 {
                   id: '13',
                   isLeaf: true,
+                  children: [],
+                  collapsed: true,
                 },
               ],
               collapsed: true,
@@ -26,10 +28,14 @@ export const tree: Tree = {
             {
               id: '11',
               isLeaf: true,
+              children: [],
+              collapsed: true,
             },
             {
               id: '12',
               isLeaf: true,
+              children: [],
+              collapsed: true,
             },
           ],
           collapsed: true,
@@ -43,6 +49,8 @@ export const tree: Tree = {
         {
           id: '6',
           isLeaf: true,
+          children: [],
+          collapsed: true,
         },
       ],
       collapsed: true,
@@ -60,10 +68,14 @@ export const tree: Tree = {
         {
           id: '8',
           isLeaf: true,
+          children: [],
+          collapsed: true,
         },
         {
           id: '9',
           isLeaf: true,
+          children: [],
+          collapsed: true,
         },
       ],
       collapsed: true,

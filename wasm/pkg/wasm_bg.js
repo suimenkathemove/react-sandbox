@@ -99,6 +99,14 @@ function addHeapObject(obj) {
     heap[idx] = obj;
     return idx;
 }
+/**
+* @param {string} name
+*/
+export function greet(name) {
+    var ptr0 = passStringToWasm0(name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    var len0 = WASM_VECTOR_LEN;
+    wasm.greet(ptr0, len0);
+}
 
 function dropObject(idx) {
     if (idx < 36) return;
@@ -123,6 +131,32 @@ function addBorrowedObject(obj) {
 * @param {any} val
 * @returns {any}
 */
+export function finder_flatten_tree(val) {
+    try {
+        var ret = wasm.finder_flatten_tree(addBorrowedObject(val));
+        return takeObject(ret);
+    } finally {
+        heap[stack_pointer++] = undefined;
+    }
+}
+
+/**
+* @param {any} val
+* @returns {any}
+*/
+export function finder_build_tree(val) {
+    try {
+        var ret = wasm.finder_build_tree(addBorrowedObject(val));
+        return takeObject(ret);
+    } finally {
+        heap[stack_pointer++] = undefined;
+    }
+}
+
+/**
+* @param {any} val
+* @returns {any}
+*/
 export function build_tree(val) {
     try {
         var ret = wasm.build_tree(addBorrowedObject(val));
@@ -143,15 +177,6 @@ export function flatten_tree(val) {
     } finally {
         heap[stack_pointer++] = undefined;
     }
-}
-
-/**
-* @param {string} name
-*/
-export function greet(name) {
-    var ptr0 = passStringToWasm0(name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    var len0 = WASM_VECTOR_LEN;
-    wasm.greet(ptr0, len0);
 }
 
 /**
@@ -343,6 +368,10 @@ export class Universe {
     }
 }
 
+export function __wbg_alert_f5393de24ed74e50(arg0, arg1) {
+    alert(getStringFromWasm0(arg0, arg1));
+};
+
 export function __wbindgen_json_serialize(arg0, arg1) {
     const obj = getObject(arg1);
     var ret = JSON.stringify(obj === undefined ? null : obj);
@@ -355,10 +384,6 @@ export function __wbindgen_json_serialize(arg0, arg1) {
 export function __wbindgen_json_parse(arg0, arg1) {
     var ret = JSON.parse(getStringFromWasm0(arg0, arg1));
     return addHeapObject(ret);
-};
-
-export function __wbg_alert_f5393de24ed74e50(arg0, arg1) {
-    alert(getStringFromWasm0(arg0, arg1));
 };
 
 export function __wbindgen_throw(arg0, arg1) {
