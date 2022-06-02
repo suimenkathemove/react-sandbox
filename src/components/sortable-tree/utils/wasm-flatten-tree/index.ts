@@ -3,9 +3,7 @@ import { FlattenedTreeItem, Tree } from '../../types';
 export const wasmFlattenTree = async (
   tree: Tree,
 ): Promise<FlattenedTreeItem[]> => {
-  const { Node } = await import('wasm');
+  const { flatten_tree } = await import('wasm');
 
-  const node = Node.new(tree);
-
-  return node.flatten_tree();
+  return flatten_tree(tree);
 };

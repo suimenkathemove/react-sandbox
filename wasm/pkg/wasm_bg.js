@@ -1,10 +1,12 @@
 import * as wasm from './wasm_bg.wasm';
 
-const lTextDecoder = typeof TextDecoder === 'undefined' ? (0, module.require)('util').TextDecoder : TextDecoder;
+const heap = new Array(32).fill(undefined);
 
-let cachedTextDecoder = new lTextDecoder('utf-8', { ignoreBOM: true, fatal: true });
+heap.push(undefined, null, true, false);
 
-cachedTextDecoder.decode();
+function getObject(idx) { return heap[idx]; }
+
+let WASM_VECTOR_LEN = 0;
 
 let cachegetUint8Memory0 = null;
 function getUint8Memory0() {
@@ -13,29 +15,6 @@ function getUint8Memory0() {
     }
     return cachegetUint8Memory0;
 }
-
-function getStringFromWasm0(ptr, len) {
-    return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
-}
-
-const heap = new Array(32).fill(undefined);
-
-heap.push(undefined, null, true, false);
-
-let heap_next = heap.length;
-
-function addHeapObject(obj) {
-    if (heap_next === heap.length) heap.push(heap.length + 1);
-    const idx = heap_next;
-    heap_next = heap[idx];
-
-    heap[idx] = obj;
-    return idx;
-}
-
-function getObject(idx) { return heap[idx]; }
-
-let WASM_VECTOR_LEN = 0;
 
 const lTextEncoder = typeof TextEncoder === 'undefined' ? (0, module.require)('util').TextEncoder : TextEncoder;
 
@@ -100,12 +79,25 @@ function getInt32Memory0() {
     return cachegetInt32Memory0;
 }
 
-let stack_pointer = 32;
+const lTextDecoder = typeof TextDecoder === 'undefined' ? (0, module.require)('util').TextDecoder : TextDecoder;
 
-function addBorrowedObject(obj) {
-    if (stack_pointer == 1) throw new Error('out of js stack');
-    heap[--stack_pointer] = obj;
-    return stack_pointer;
+let cachedTextDecoder = new lTextDecoder('utf-8', { ignoreBOM: true, fatal: true });
+
+cachedTextDecoder.decode();
+
+function getStringFromWasm0(ptr, len) {
+    return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
+}
+
+let heap_next = heap.length;
+
+function addHeapObject(obj) {
+    if (heap_next === heap.length) heap.push(heap.length + 1);
+    const idx = heap_next;
+    heap_next = heap[idx];
+
+    heap[idx] = obj;
+    return idx;
 }
 
 function dropObject(idx) {
@@ -119,6 +111,40 @@ function takeObject(idx) {
     dropObject(idx);
     return ret;
 }
+
+let stack_pointer = 32;
+
+function addBorrowedObject(obj) {
+    if (stack_pointer == 1) throw new Error('out of js stack');
+    heap[--stack_pointer] = obj;
+    return stack_pointer;
+}
+/**
+* @param {any} val
+* @returns {any}
+*/
+export function build_tree(val) {
+    try {
+        var ret = wasm.build_tree(addBorrowedObject(val));
+        return takeObject(ret);
+    } finally {
+        heap[stack_pointer++] = undefined;
+    }
+}
+
+/**
+* @param {any} val
+* @returns {any}
+*/
+export function flatten_tree(val) {
+    try {
+        var ret = wasm.flatten_tree(addBorrowedObject(val));
+        return takeObject(ret);
+    } finally {
+        heap[stack_pointer++] = undefined;
+    }
+}
+
 /**
 * @param {string} name
 */
@@ -131,22 +157,6 @@ export function greet(name) {
 /**
 */
 export const Cell = Object.freeze({ Dead:0,"0":"Dead",Alive:1,"1":"Alive", });
-/**
-*/
-export class FlattenedTreeItem {
-
-    __destroy_into_raw() {
-        const ptr = this.ptr;
-        this.ptr = 0;
-
-        return ptr;
-    }
-
-    free() {
-        const ptr = this.__destroy_into_raw();
-        wasm.__wbg_flattenedtreeitem_free(ptr);
-    }
-}
 /**
 */
 export class List {
@@ -198,48 +208,6 @@ export class List {
         } finally {
             heap[stack_pointer++] = undefined;
         }
-    }
-}
-/**
-*/
-export class Node {
-
-    static __wrap(ptr) {
-        const obj = Object.create(Node.prototype);
-        obj.ptr = ptr;
-
-        return obj;
-    }
-
-    __destroy_into_raw() {
-        const ptr = this.ptr;
-        this.ptr = 0;
-
-        return ptr;
-    }
-
-    free() {
-        const ptr = this.__destroy_into_raw();
-        wasm.__wbg_node_free(ptr);
-    }
-    /**
-    * @param {any} val
-    * @returns {Node}
-    */
-    static new(val) {
-        try {
-            var ret = wasm.node_new(addBorrowedObject(val));
-            return Node.__wrap(ret);
-        } finally {
-            heap[stack_pointer++] = undefined;
-        }
-    }
-    /**
-    * @returns {any}
-    */
-    flatten_tree() {
-        var ret = wasm.node_flatten_tree(this.ptr);
-        return takeObject(ret);
     }
 }
 /**
@@ -375,11 +343,6 @@ export class Universe {
     }
 }
 
-export function __wbindgen_json_parse(arg0, arg1) {
-    var ret = JSON.parse(getStringFromWasm0(arg0, arg1));
-    return addHeapObject(ret);
-};
-
 export function __wbindgen_json_serialize(arg0, arg1) {
     const obj = getObject(arg1);
     var ret = JSON.stringify(obj === undefined ? null : obj);
@@ -387,6 +350,11 @@ export function __wbindgen_json_serialize(arg0, arg1) {
     var len0 = WASM_VECTOR_LEN;
     getInt32Memory0()[arg0 / 4 + 1] = len0;
     getInt32Memory0()[arg0 / 4 + 0] = ptr0;
+};
+
+export function __wbindgen_json_parse(arg0, arg1) {
+    var ret = JSON.parse(getStringFromWasm0(arg0, arg1));
+    return addHeapObject(ret);
 };
 
 export function __wbg_alert_f5393de24ed74e50(arg0, arg1) {

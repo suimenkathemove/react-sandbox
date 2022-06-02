@@ -16,6 +16,8 @@ import {
   SortableTreeSortableItem,
   SortableTreeSortableItemProps,
 } from './components/sortable-tree-sortable-item';
+import { useTestWasmBuildTree } from './hooks/use-test-wasm-build-tree';
+import { useTestWasmFlattenTree } from './hooks/use-test-wasm-flatten-tree';
 import { Ul } from './styles';
 import { FlattenedTreeItem, Tree } from './types';
 import { buildTree } from './utils/build-tree';
@@ -30,6 +32,7 @@ export type SortableTreeProps = {
 
 export const SortableTree: React.VFC<SortableTreeProps> = (props) => {
   const [tree, setTree] = useState(() => props.tree);
+  useTestWasmFlattenTree(tree);
   const [activeId, setActiveId] = useState<FlattenedTreeItem['id'] | null>(
     null,
   );
@@ -45,6 +48,7 @@ export const SortableTree: React.VFC<SortableTreeProps> = (props) => {
   };
 
   const flattenedTree = useMemo(() => flattenTree(tree), [tree]);
+  useTestWasmBuildTree(flattenedTree);
 
   const displayedFlattenedTree = useMemo(
     () =>

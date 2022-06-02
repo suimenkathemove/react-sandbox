@@ -1,6 +1,16 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
+* @param {any} val
+* @returns {any}
+*/
+export function build_tree(val: any): any;
+/**
+* @param {any} val
+* @returns {any}
+*/
+export function flatten_tree(val: any): any;
+/**
 * @param {string} name
 */
 export function greet(name: string): void;
@@ -9,11 +19,6 @@ export function greet(name: string): void;
 export enum Cell {
   Dead,
   Alive,
-}
-/**
-*/
-export class FlattenedTreeItem {
-  free(): void;
 }
 /**
 */
@@ -35,20 +40,6 @@ export class List {
 * @param {any} id
 */
   static delete(id: any): void;
-}
-/**
-*/
-export class Node {
-  free(): void;
-/**
-* @param {any} val
-* @returns {Node}
-*/
-  static new(val: any): Node;
-/**
-* @returns {any}
-*/
-  flatten_tree(): any;
 }
 /**
 */

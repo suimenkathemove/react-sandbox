@@ -1,108 +1,44 @@
-use super::flattened_tree::{create_mock_flattened_tree, FlattenedTreeItem};
+use super::flattened_tree::FlattenedTreeItem;
+use serde::{Deserialize, Serialize};
 use std::{cell::RefCell, rc::Rc};
+use wasm_bindgen::prelude::*;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Node {
     pub id: String,
     pub children: Vec<Rc<RefCell<Node>>>,
 }
 
-impl Node {
-    pub fn flatten_tree(&self) -> Vec<FlattenedTreeItem> {
-        let mut flattened_tree = Vec::<FlattenedTreeItem>::new();
+#[wasm_bindgen]
+pub fn flatten_tree(val: &JsValue) -> JsValue {
+    let tree: Node = val.into_serde().unwrap();
 
-        fn flatten(
-            flattened_tree: &mut Vec<FlattenedTreeItem>,
-            node: Rc<RefCell<Node>>,
-            parent_id: String,
-            depth: usize,
-        ) {
-            flattened_tree.push(FlattenedTreeItem {
-                id: node.borrow().id.to_string(),
-                parent_id,
-                depth,
-            });
+    let mut flattened_tree = Vec::<FlattenedTreeItem>::new();
 
-            node.borrow().children.iter().for_each(|c| {
-                flatten(
-                    flattened_tree,
-                    Rc::clone(c),
-                    node.borrow().id.to_string(),
-                    depth + 1,
-                );
-            });
-        }
-        self.children.iter().for_each(|c| {
-            flatten(&mut flattened_tree, Rc::clone(c), self.id.to_string(), 0);
+    fn flatten(
+        flattened_tree: &mut Vec<FlattenedTreeItem>,
+        node: Rc<RefCell<Node>>,
+        parentId: String,
+        depth: usize,
+    ) {
+        flattened_tree.push(FlattenedTreeItem {
+            id: node.borrow().id.to_string(),
+            parentId,
+            depth,
         });
 
-        flattened_tree
+        node.borrow().children.iter().for_each(|c| {
+            flatten(
+                flattened_tree,
+                Rc::clone(c),
+                node.borrow().id.to_string(),
+                depth + 1,
+            );
+        });
     }
-}
+    tree.children.iter().for_each(|c| {
+        flatten(&mut flattened_tree, Rc::clone(c), tree.id.to_string(), 0);
+    });
 
-pub fn create_mock_node() -> Node {
-    Node {
-        id: "root".to_string(),
-        children: vec![
-            Rc::new(RefCell::new(Node {
-                id: "1".to_string(),
-                children: vec![
-                    Rc::new(RefCell::new(Node {
-                        id: "4".to_string(),
-                        children: vec![
-                            Rc::new(RefCell::new(Node {
-                                id: "10".to_string(),
-                                children: vec![],
-                            })),
-                            Rc::new(RefCell::new(Node {
-                                id: "11".to_string(),
-                                children: vec![],
-                            })),
-                            Rc::new(RefCell::new(Node {
-                                id: "12".to_string(),
-                                children: vec![],
-                            })),
-                        ],
-                    })),
-                    Rc::new(RefCell::new(Node {
-                        id: "5".to_string(),
-                        children: vec![],
-                    })),
-                    Rc::new(RefCell::new(Node {
-                        id: "6".to_string(),
-                        children: vec![],
-                    })),
-                ],
-            })),
-            Rc::new(RefCell::new(Node {
-                id: "2".to_string(),
-                children: vec![
-                    Rc::new(RefCell::new(Node {
-                        id: "7".to_string(),
-                        children: vec![],
-                    })),
-                    Rc::new(RefCell::new(Node {
-                        id: "8".to_string(),
-                        children: vec![],
-                    })),
-                    Rc::new(RefCell::new(Node {
-                        id: "9".to_string(),
-                        children: vec![],
-                    })),
-                ],
-            })),
-            Rc::new(RefCell::new(Node {
-                id: "3".to_string(),
-                children: vec![],
-            })),
-        ],
-    }
-}
-
-#[test]
-fn test_flatten_tree() {
-    let flattened_tree = create_mock_flattened_tree();
-    let node = create_mock_node();
-
-    assert_eq!(flattened_tree, node.flatten_tree());
+    JsValue::from_serde(&flattened_tree).unwrap()
 }
