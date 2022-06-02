@@ -13,14 +13,14 @@ export const flattenTree = (tree: Tree): FlattenedTreeItem[] => {
         id: node.id,
         parentId,
         depth,
-        isDirectory: false,
+        isLeaf: node.isLeaf,
       });
     } else {
       flattenedTree.push({
         id: node.id,
         parentId,
         depth,
-        isDirectory: true,
+        isLeaf: node.isLeaf,
         collapsed: node.collapsed,
       });
 

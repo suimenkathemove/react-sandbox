@@ -18,10 +18,10 @@ export type FlattenedTreeItem = Pick<Node, 'id'> & {
   depth: number;
 } & (
     | {
-        isDirectory: true;
-        collapsed: boolean;
+        isLeaf: true;
       }
     | {
-        isDirectory: false;
+        isLeaf: false;
+        collapsed: boolean;
       }
   );

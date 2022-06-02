@@ -38,7 +38,7 @@ export const Finder: React.VFC<FinderProps> = (props) => {
 
     const descendants = extractDescendants(flattenedTree, selectedRootId);
     const collapsedIds = descendants
-      .filter((item) => item.isDirectory && item.collapsed)
+      .filter((item) => !item.isLeaf && item.collapsed)
       .map(({ id }) => id);
 
     return removeDescendants(descendants, collapsedIds);
@@ -46,7 +46,7 @@ export const Finder: React.VFC<FinderProps> = (props) => {
 
   const onCollapse = (id: FlattenedTreeItem['id']) => {
     const newFlattenedTree = flattenedTree.map((item) =>
-      item.id === id && item.isDirectory
+      item.id === id && !item.isLeaf
         ? { ...item, collapsed: !item.collapsed }
         : item,
     );
@@ -75,7 +75,7 @@ export const Finder: React.VFC<FinderProps> = (props) => {
         <ul>
           {descendants.map((item) => (
             <Descendant key={item.id} depth={item.depth - 1}>
-              {item.isDirectory && (
+              {!item.isLeaf && (
                 <button
                   onClick={() => {
                     onCollapse(item.id);
