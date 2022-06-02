@@ -8,26 +8,17 @@ export const flattenTree = (tree: Tree): FlattenedTreeItem[] => {
     parentId: FlattenedTreeItem['parentId'],
     depth = 0,
   ) => {
-    if (node.isLeaf) {
-      flattenedTree.push({
-        id: node.id,
-        parentId,
-        depth,
-        isLeaf: node.isLeaf,
-      });
-    } else {
-      flattenedTree.push({
-        id: node.id,
-        parentId,
-        depth,
-        isLeaf: node.isLeaf,
-        collapsed: node.collapsed,
-      });
+    flattenedTree.push({
+      id: node.id,
+      parentId,
+      depth,
+      isLeaf: node.isLeaf,
+      collapsed: node.collapsed,
+    });
 
-      node.children.forEach((c) => {
-        flatten(c, node.id, depth + 1);
-      });
-    }
+    node.children.forEach((c) => {
+      flatten(c, node.id, depth + 1);
+    });
   };
   if (!tree.isLeaf) {
     tree.children.forEach((c) => {

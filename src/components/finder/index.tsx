@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 
+import { useTestWasmBuildTree } from './hooks/use-test-wasm-build-tree';
+import { useTestWasmFlattenTree } from './hooks/use-test-wasm-flatten-tree';
 import {
   Container,
   Descendant,
@@ -19,8 +21,10 @@ export type FinderProps = {
 
 export const Finder: React.VFC<FinderProps> = (props) => {
   const [tree, setTree] = useState(() => props.tree);
+  useTestWasmFlattenTree(tree);
 
   const flattenedTree = useMemo(() => flattenTree(tree), [tree]);
+  useTestWasmBuildTree(flattenedTree);
 
   const roots = useMemo(
     () => flattenedTree.filter(({ depth }) => depth === 0),

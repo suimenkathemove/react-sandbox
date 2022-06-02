@@ -14,36 +14,22 @@ export const buildTree = (flattenedTree: FlattenedTreeItem[]): Tree => {
   flattenedTree.forEach((item) => {
     const { parentId } = item;
     if (!map[parentId]) {
-      if (!item.isLeaf) {
-        map[parentId] = {
-          id: parentId,
-          isLeaf: item.isLeaf,
-          children: [],
-          collapsed: item.collapsed,
-        };
-      } else {
-        map[parentId] = {
-          id: parentId,
-          isLeaf: item.isLeaf,
-        };
-      }
+      map[parentId] = {
+        id: parentId,
+        isLeaf: item.isLeaf,
+        children: [],
+        collapsed: item.collapsed,
+      };
     }
     const parent = map[parentId]!;
 
     if (!map[item.id]) {
-      if (!item.isLeaf) {
-        map[item.id] = {
-          id: item.id,
-          isLeaf: item.isLeaf,
-          children: [],
-          collapsed: item.collapsed,
-        };
-      } else {
-        map[item.id] = {
-          id: item.id,
-          isLeaf: item.isLeaf,
-        };
-      }
+      map[item.id] = {
+        id: item.id,
+        isLeaf: item.isLeaf,
+        children: [],
+        collapsed: item.collapsed,
+      };
     }
     const node = map[item.id]!;
 
