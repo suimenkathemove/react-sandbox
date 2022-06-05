@@ -42,7 +42,7 @@ export const tree: Tree = {
         },
         {
           id: '5',
-          isLeaf: false,
+          isLeaf: true,
           children: [],
           collapsed: true,
         },
@@ -61,7 +61,7 @@ export const tree: Tree = {
       children: [
         {
           id: '7',
-          isLeaf: false,
+          isLeaf: true,
           children: [],
           collapsed: true,
         },
@@ -82,7 +82,7 @@ export const tree: Tree = {
     },
     {
       id: '3',
-      isLeaf: false,
+      isLeaf: true,
       children: [],
       collapsed: true,
     },
