@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
-export const useMonth = (): {
+export const useMonth = (
+  initialDate?: Date,
+): {
   currentMonthFirstDate: Date;
   prev: VoidFunction;
   next: VoidFunction;
 } => {
-  const now = new Date();
+  const now = initialDate ?? new Date();
   const [currentMonthFirstDate, setCurrentMonthFirstDate] = useState(
     new Date(now.getFullYear(), now.getMonth()),
   );

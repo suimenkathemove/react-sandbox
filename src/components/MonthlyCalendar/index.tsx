@@ -8,6 +8,7 @@ import { isSameDate } from '@/utils/date/isSameDate';
 import { jaDays } from '@/utils/date/jaDays';
 
 export type MonthlyCalendarProps = {
+  initialDate?: Parameters<typeof useMonth>[0];
   onClickDate: (date: Date) => void;
   dateClassNames?: ((date: Date) => string | false)[];
 };
@@ -15,7 +16,7 @@ export type MonthlyCalendarProps = {
 export const MonthlyCalendar: React.VFC<MonthlyCalendarProps> = (props) => {
   const now = new Date();
 
-  const month = useMonth();
+  const month = useMonth(props.initialDate);
 
   const yearAndMonth = `${month.currentMonthFirstDate.getFullYear()}年 ${
     month.currentMonthFirstDate.getMonth() + 1

@@ -88,6 +88,7 @@ export const DateRangePicker: React.VFC<Props> = (props) => {
         hide={hide}
       >
         <MonthlyCalendar
+          initialDate={props.dateRange[0] ?? void 0}
           onClickDate={onClickDate}
           dateClassNames={[
             (date) => isForDate(date) && styles.forDate,
