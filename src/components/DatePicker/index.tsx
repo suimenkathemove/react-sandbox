@@ -48,6 +48,7 @@ export const DatePicker: React.VFC<Props> = (props) => {
       hide={hide}
     >
       <MonthlyCalendar
+        initialDate={props.selectedDate ?? void 0}
         onClickDate={onClickDate}
         dateClassNames={[(date) => isSelectedDate(date) && styles.selectedDate]}
       />
