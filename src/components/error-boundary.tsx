@@ -15,6 +15,21 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true };
   }
 
+  // https://github.com/facebook/react/issues/14981#issuecomment-743916884
+  componentDidMount() {
+    window.addEventListener('unhandledrejection', this.onUnhandledRejection);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.onUnhandledRejection);
+  }
+
+  onUnhandledRejection = (event: PromiseRejectionEvent) => {
+    event.promise.catch((error) => {
+      this.setState(ErrorBoundary.getDerivedStateFromError(error));
+    });
+  };
+
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
     // eslint-disable-next-line no-console
     console.error(error, errorInfo);
