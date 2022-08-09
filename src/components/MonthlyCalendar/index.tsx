@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useCallback } from 'react';
 
 import { useMonth } from './hooks/useMonth';
 import styles from './styles.module.scss';
@@ -18,6 +19,24 @@ export const MonthlyCalendar: React.VFC<MonthlyCalendarProps> = (props) => {
 
   const month = useMonth(props.initialDate);
 
+  const onClickPrev = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
+    (e) => {
+      e.preventDefault();
+
+      month.prev();
+    },
+    [month],
+  );
+
+  const onClickNext = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
+    (e) => {
+      e.preventDefault();
+
+      month.next();
+    },
+    [month],
+  );
+
   const yearAndMonth = `${month.currentMonthFirstDate.getFullYear()}年 ${
     month.currentMonthFirstDate.getMonth() + 1
   }月`;
@@ -27,9 +46,9 @@ export const MonthlyCalendar: React.VFC<MonthlyCalendarProps> = (props) => {
   return (
     <div className={styles.base}>
       <div className={styles.header}>
-        <button onClick={month.prev}>{'<'}</button>
+        <button onClick={onClickPrev}>{'<'}</button>
         <div>{yearAndMonth}</div>
-        <button onClick={month.next}>{'>'}</button>
+        <button onClick={onClickNext}>{'>'}</button>
       </div>
 
       <div>
