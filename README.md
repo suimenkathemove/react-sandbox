@@ -2,9 +2,10 @@
 
 ## WASM
 
-```bash
-cargo make wasm
-```
+1. `cargo make wasm`
+2. `rm -rf node_modules/`
+3. `yarn`
+4. restart server
 
 ## Storybook URL
 
