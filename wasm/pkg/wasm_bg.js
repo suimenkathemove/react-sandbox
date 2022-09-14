@@ -100,12 +100,26 @@ function addHeapObject(obj) {
     return idx;
 }
 /**
+*/
+export function main() {
+    wasm.main();
+}
+
+/**
 * @param {string} name
 */
 export function greet(name) {
     var ptr0 = passStringToWasm0(name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     var len0 = WASM_VECTOR_LEN;
     wasm.greet(ptr0, len0);
+}
+
+let stack_pointer = 32;
+
+function addBorrowedObject(obj) {
+    if (stack_pointer == 1) throw new Error('out of js stack');
+    heap[--stack_pointer] = obj;
+    return stack_pointer;
 }
 
 function dropObject(idx) {
@@ -118,14 +132,6 @@ function takeObject(idx) {
     const ret = getObject(idx);
     dropObject(idx);
     return ret;
-}
-
-let stack_pointer = 32;
-
-function addBorrowedObject(obj) {
-    if (stack_pointer == 1) throw new Error('out of js stack');
-    heap[--stack_pointer] = obj;
-    return stack_pointer;
 }
 /**
 * @param {any} val
@@ -367,6 +373,14 @@ export class Universe {
         }
     }
 }
+
+export function __wbg_log_682923c8ea4d4d53(arg0, arg1) {
+    console.log(getStringFromWasm0(arg0, arg1));
+};
+
+export function __wbg_log_42d0e38bd40d781a(arg0) {
+    console.log(arg0 >>> 0);
+};
 
 export function __wbg_alert_f5393de24ed74e50(arg0, arg1) {
     alert(getStringFromWasm0(arg0, arg1));
