@@ -1,12 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
-*/
-export function main(): void;
-/**
 * @param {string} name
 */
 export function greet(name: string): void;
+/**
+*/
+export function main(): void;
 /**
 * @param {any} val
 * @returns {any}
@@ -65,11 +65,9 @@ export class Todo {
 */
   static new(id: string, text: string): Todo;
 /**
-* @returns {string}
 */
   id: string;
 /**
-* @returns {string}
 */
   text: string;
 }

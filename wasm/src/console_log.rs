@@ -1,6 +1,5 @@
 use wasm_bindgen::prelude::wasm_bindgen;
 
-#[wasm_bindgen(start)]
 pub fn main() {
     bare_bone();
     using_a_macro();
