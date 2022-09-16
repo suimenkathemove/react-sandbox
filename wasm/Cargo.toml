@@ -18,6 +18,7 @@ syn = "1.0.99"
 [dependencies.web-sys]
 version = "0.3.60"
 features = [
+  'console',
   'Document',
   'Element',
   'HtmlElement',

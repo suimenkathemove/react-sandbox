@@ -31,5 +31,11 @@ fn using_a_macro() {
     console_log!("Hello, {}!", "World");
 }
 
-// TODO
-fn using_web_sys() {}
+fn using_web_sys() {
+    use web_sys::console;
+
+    console::log_1(&"log_1".into());
+
+    let log_3_arg = &"log_3".into();
+    console::log_3(log_3_arg, log_3_arg, log_3_arg);
+}
