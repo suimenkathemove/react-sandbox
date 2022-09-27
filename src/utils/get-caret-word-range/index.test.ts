@@ -1,6 +1,6 @@
-import { range } from 'lodash-es';
-
 import { getCaretWordRange } from './';
+
+import { range } from '@/utils/range';
 
 describe('getCaretWordRange', () => {
   const testText = (text: string) => {
