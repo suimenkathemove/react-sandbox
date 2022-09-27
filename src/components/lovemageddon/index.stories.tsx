@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Lovemageddon, LovemageddonProps } from './';
+import { Lovemageddon } from './';
 
 export default {
   title: 'Lovemageddon',
@@ -12,7 +12,7 @@ const Template: ComponentStory<typeof Lovemageddon> = (args) => (
   <Lovemageddon {...args} />
 );
 
-export const defaultProps: LovemageddonProps = {};
+export const defaultProps = {};
 
 export const Default = Template.bind({});
 Default.args = defaultProps;
