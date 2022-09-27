@@ -7,7 +7,7 @@ import { Lovemageddon } from './';
 
 const setup = () => render(<Lovemageddon {...defaultProps} />);
 
-describe('Lovemageddon', () => {
+xdescribe('Lovemageddon', () => {
   afterEach(() => {
     cleanup();
   });
