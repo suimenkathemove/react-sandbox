@@ -1,38 +1,19 @@
 {
   "css.validate": false,
-  "scss.validate": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": false,
-  "[graphql]": {
-    "editor.formatOnSave": true
-  },
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": true
-  },
-  "[json]": {
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": true
-  },
-  "[rust]": {
-    "editor.defaultFormatter": "rust-lang.rust-analyzer",
-    "editor.formatOnSave": true
-  },
-  "editor.lineNumbers": "on",
-  "editor.rulers": [80],
-  "editor.wordWrap": "on",
+  "editor.formatOnSave": true,
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "scss.validate": false,
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "[graphql][javascript][javascriptreact][json][jsonc][typescript][typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.fixAll.stylelint": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  }
 }
