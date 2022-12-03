@@ -4,7 +4,27 @@
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "scss.validate": false,
+  "terminal.integrated.profiles.osx": {
+    "dev": {
+      "path": "${workspaceFolder}/dev.sh"
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "dev",
   "typescript.tsdk": "./node_modules/typescript/lib",
+  "[markdown]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.markdownlint": true
+    },
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.tabSize": 2
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.tabSize": 2
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
   "[javascript][javascriptreact][typescript][typescriptreact]": {
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true,
@@ -19,5 +39,8 @@
   },
   "[rust]": {
     "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
   }
 }
