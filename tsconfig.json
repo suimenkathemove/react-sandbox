@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -7,6 +6,9 @@
     "module": "esnext",
     "moduleResolution": "node",
     "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
     "resolveJsonModule": true,
     "allowJs": true,
     "sourceMap": true,
