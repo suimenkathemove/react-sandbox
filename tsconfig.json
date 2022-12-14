@@ -15,7 +15,6 @@
     "noEmit": true,
     "downlevelIteration": true,
     "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
