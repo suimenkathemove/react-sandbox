@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   tsc:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/yarn-cache
@@ -14,7 +14,7 @@ jobs:
         run: yarn tsc
 
   lint:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/yarn-cache
@@ -24,7 +24,7 @@ jobs:
         run: yarn lint
 
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/yarn-cache
@@ -34,7 +34,7 @@ jobs:
         run: yarn test
 
   e2e:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/yarn-cache
@@ -50,7 +50,7 @@ jobs:
           yarn reg-suit run -c regconfig.e2e.json
 
   vrt:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
         with:
