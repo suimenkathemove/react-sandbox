@@ -68,6 +68,7 @@
     "@storybook/manager-webpack5": "^6.4.9",
     "@storybook/node-logger": "^6.4.9",
     "@storybook/react": "^6.4.9",
+    "@suimenkathemove/frontend-tsconfig": "^0.1.1",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^7.0.2",

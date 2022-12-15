@@ -4964,6 +4964,18 @@
     remark "^13.0.0"
     unist-util-find-all-after "^3.0.2"
 
+"@suimenkathemove/frontend-tsconfig@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@suimenkathemove/frontend-tsconfig/-/frontend-tsconfig-0.1.1.tgz#effbd2c9ce1c5f7dad9bf540a4ed5e5a5b748bcf"
+  integrity sha512-2kZSAKza1JcZdjqw5oJ43oRVEI24v01b7Nk4SKbBLXyo5SD05cDb42S4lkSAaajWXW9yMjXmrYheVtRDAXwb0w==
+  dependencies:
+    "@suimenkathemove/tsconfig" "^0.1.9"
+
+"@suimenkathemove/tsconfig@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@suimenkathemove/tsconfig/-/tsconfig-0.1.9.tgz#efd4189b67ca345b9cef48cb57c279230070c587"
+  integrity sha512-6uUAJV5fkp6ffumHbWZ1DgojGv+gBLn/WIV9EjhF/vFs0ahG0Nb5EgA7zIht49MEcE5iirDUlsOmXRCv8psFaQ==
+
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-2.2.3.tgz#ee34985952ca21558ab0d952f00298ad2190c053"
