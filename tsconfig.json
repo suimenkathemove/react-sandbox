@@ -1,9 +1,6 @@
 {
+  "extends": "@suimenkathemove/frontend-tsconfig",
   "compilerOptions": {
-    "target": "ES5",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "jsx": "react-jsx",
-    "module": "ESNext",
     "moduleResolution": "Node",
     "baseUrl": "src",
     "paths": {
@@ -17,10 +14,12 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    // TODO: remove
+    "exactOptionalPropertyTypes": false,
+    // TODO: remove
+    "noImplicitOverride": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
