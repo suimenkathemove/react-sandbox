@@ -1,6 +1,7 @@
 {
   "extends": "@suimenkathemove/frontend-tsconfig",
   "compilerOptions": {
+    "incremental": true,
     "moduleResolution": "Node",
     "baseUrl": "src",
     "paths": {

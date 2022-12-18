@@ -29,3 +29,6 @@ target
 # reg-suit
 .reg
 __screenshots__
+
+# typescript
+*.tsbuildinfo
