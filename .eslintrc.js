@@ -102,5 +102,4 @@ module.exports = {
       version: 'detect',
     },
   },
-  ignorePatterns: ['wasm'],
 };
