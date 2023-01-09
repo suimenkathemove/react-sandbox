@@ -4,8 +4,7 @@ import { MonospacedZ } from './';
 
 import { range } from '@/utils/range';
 
-const meta: Meta = { title: 'layout/MonospacedZ', component: MonospacedZ };
-export default meta;
+export default { component: MonospacedZ } as Meta;
 
 export const Default: React.VFC = () => {
   return (

@@ -2,8 +2,7 @@ import { Meta } from '@storybook/react/types-6-0';
 
 import { Component } from '@/components/component';
 
-const meta: Meta = { title: 'stylings/layouts/centerings' };
-export default meta;
+export default {} as Meta;
 
 // for `display: block;`
 export const Margin0auto: React.FC = () => {
