@@ -5,7 +5,6 @@ import { Carousel, CarouselProps } from './';
 import { range } from '@/utils/range';
 
 export default {
-  title: 'ui-components/Carousel',
   component: Carousel,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof Carousel>;

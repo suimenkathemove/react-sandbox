@@ -3,7 +3,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { PageControl, PageControlProps } from './';
 
 export default {
-  title: 'ui-components/PageControl',
   component: PageControl,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof PageControl>;
