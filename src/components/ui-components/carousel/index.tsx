@@ -13,12 +13,12 @@ export const Carousel = memo<CarouselProps>((props) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const prev = () => {
-    setCurrentPage((current) => Math.max(current - 1, 0));
+    setCurrentPage((currentPage) => Math.max(currentPage - 1, 0));
   };
 
   const next = () => {
-    setCurrentPage((current) =>
-      Math.min(current + 1, props.children.length - 1),
+    setCurrentPage((currentPage) =>
+      Math.min(currentPage + 1, props.children.length - 1),
     );
   };
 
@@ -26,7 +26,7 @@ export const Carousel = memo<CarouselProps>((props) => {
     <Container width={props.width ?? '100%'}>
       <ItemContainer>
         {props.children.map((child, i) => (
-          <Item key={i} current={currentPage}>
+          <Item key={i} currentPage={currentPage}>
             {child}
           </Item>
         ))}
