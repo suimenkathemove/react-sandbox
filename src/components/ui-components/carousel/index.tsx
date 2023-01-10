@@ -30,7 +30,9 @@ export const Carousel = memo<CarouselProps>((props) => {
         ))}
       </ItemContainer>
       <PageControlContainer>
-        <button onClick={prev}>{'<'}</button>
+        <button onClick={prev} disabled={currentPage === 0}>
+          {'<'}
+        </button>
         <PageControl
           pageCount={props.children.length}
           currentPage={currentPage}
@@ -39,7 +41,12 @@ export const Carousel = memo<CarouselProps>((props) => {
           circleColor="white"
           circleActiveColor="gray"
         />
-        <button onClick={next}>{'>'}</button>
+        <button
+          onClick={next}
+          disabled={currentPage === props.children.length - 1}
+        >
+          {'>'}
+        </button>
       </PageControlContainer>
     </Container>
   );
