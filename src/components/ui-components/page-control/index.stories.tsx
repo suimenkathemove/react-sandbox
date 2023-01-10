@@ -13,7 +13,7 @@ const Template: ComponentStory<typeof PageControl> = (args) => {
 
 export const defaultProps: PageControlProps = {
   pageCount: 3,
-  current: 1,
+  currentPage: 1,
   gap: 4,
   circleSize: 6,
 };

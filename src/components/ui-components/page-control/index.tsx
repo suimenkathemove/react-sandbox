@@ -6,7 +6,7 @@ import { range } from '@/utils/range';
 
 export type PageControlProps = {
   pageCount: number;
-  current: number;
+  currentPage: number;
   gap: number;
   circleSize: number;
 };
@@ -18,7 +18,7 @@ export const PageControl = memo<PageControlProps>((props) => {
         <Circle
           key={i}
           size={props.circleSize}
-          color={i === props.current ? 'white' : 'gray'}
+          color={i === props.currentPage ? 'white' : 'gray'}
         />
       ))}
     </Container>

@@ -10,21 +10,23 @@ export type CarouselProps = {
 };
 
 export const Carousel = memo<CarouselProps>((props) => {
-  const [current, setCurrent] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const prev = () => {
-    setCurrent((current) => Math.max(current - 1, 0));
+    setCurrentPage((current) => Math.max(current - 1, 0));
   };
 
   const next = () => {
-    setCurrent((current) => Math.min(current + 1, props.children.length - 1));
+    setCurrentPage((current) =>
+      Math.min(current + 1, props.children.length - 1),
+    );
   };
 
   return (
     <Container width={props.width ?? '100%'}>
       <ItemContainer>
         {props.children.map((child, i) => (
-          <Item key={i} current={current}>
+          <Item key={i} current={currentPage}>
             {child}
           </Item>
         ))}
@@ -33,7 +35,7 @@ export const Carousel = memo<CarouselProps>((props) => {
         <button onClick={prev}>{'<'}</button>
         <PageControl
           pageCount={props.children.length}
-          current={current}
+          currentPage={currentPage}
           gap={4}
           circleSize={6}
         />
