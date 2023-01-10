@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { Carousel, CarouselProps } from './';
 
@@ -7,11 +7,7 @@ import { range } from '@/utils/range';
 export default {
   component: Carousel,
   excludeStories: ['defaultProps'],
-} as ComponentMeta<typeof Carousel>;
-
-const Template: ComponentStory<typeof Carousel> = (args) => {
-  return <Carousel {...args} />;
-};
+} as Meta<CarouselProps>;
 
 export const defaultProps: CarouselProps = {
   children: range(5).map((i) => (
@@ -27,8 +23,14 @@ export const defaultProps: CarouselProps = {
   )),
 };
 
-export const Default = Template.bind({});
-Default.args = defaultProps;
+export const Default: StoryObj = {
+  render: () => {
+    return <Carousel {...defaultProps} />;
+  },
+};
 
-export const Width100px = Template.bind({});
-Width100px.args = { ...defaultProps, width: '100px' };
+export const Width100px: StoryObj = {
+  render: () => {
+    return <Carousel {...defaultProps} width="100px" />;
+  },
+};
