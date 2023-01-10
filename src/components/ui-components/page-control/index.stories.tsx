@@ -3,6 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { PageControl, PageControlProps } from './';
 
 export default {
+  component: PageControl,
   excludeStories: ['defaultProps'],
 } as Meta<PageControlProps>;
 
