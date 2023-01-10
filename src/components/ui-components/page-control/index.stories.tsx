@@ -16,6 +16,8 @@ export const defaultProps: PageControlProps = {
   currentPage: 1,
   gap: 4,
   circleSize: 6,
+  circleColor: 'white',
+  circleActiveColor: 'gray',
 };
 
 export const Default = Template.bind({});

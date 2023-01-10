@@ -38,6 +38,8 @@ export const Carousel = memo<CarouselProps>((props) => {
           currentPage={currentPage}
           gap={4}
           circleSize={6}
+          circleColor="white"
+          circleActiveColor="gray"
         />
         <button onClick={next}>{'>'}</button>
       </PageControlContainer>

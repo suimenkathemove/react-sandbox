@@ -9,6 +9,8 @@ export type PageControlProps = {
   currentPage: number;
   gap: number;
   circleSize: number;
+  circleColor: string;
+  circleActiveColor: string;
 };
 
 export const PageControl = memo<PageControlProps>((props) => {
@@ -18,7 +20,11 @@ export const PageControl = memo<PageControlProps>((props) => {
         <Circle
           key={i}
           size={props.circleSize}
-          color={i === props.currentPage ? 'white' : 'gray'}
+          color={
+            i === props.currentPage
+              ? props.circleActiveColor
+              : props.circleColor
+          }
         />
       ))}
     </Container>
