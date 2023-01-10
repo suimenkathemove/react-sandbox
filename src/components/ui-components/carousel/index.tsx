@@ -13,13 +13,11 @@ export const Carousel = memo<CarouselProps>((props) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const prev = () => {
-    setCurrentPage((currentPage) => Math.max(currentPage - 1, 0));
+    setCurrentPage((p) => Math.max(p - 1, 0));
   };
 
   const next = () => {
-    setCurrentPage((currentPage) =>
-      Math.min(currentPage + 1, props.children.length - 1),
-    );
+    setCurrentPage((p) => Math.min(p + 1, props.children.length - 1));
   };
 
   return (
