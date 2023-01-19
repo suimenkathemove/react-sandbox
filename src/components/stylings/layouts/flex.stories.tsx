@@ -7,9 +7,10 @@ export default {} as Meta;
 
 const Container = styled.div`
   display: flex;
+  flex-wrap: wrap;
+
   /* flex-wrap: wrap; を指定しないと効かない */
   align-content: center;
-  flex-wrap: wrap;
   height: 200px;
 `;
 export const AlignContentCenter: React.FC = () => {
