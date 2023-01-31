@@ -3,7 +3,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BreadcrumbList, BreadcrumbListProps } from './';
 
 export default {
-  title: 'BreadcrumbList',
   component: BreadcrumbList,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof BreadcrumbList>;
