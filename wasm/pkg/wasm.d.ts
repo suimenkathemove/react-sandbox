@@ -1,23 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
-* @param {string} name
-*/
-export function greet(name: string): void;
-/**
-*/
-export function main(): void;
-/**
-* @param {any} val
-* @returns {any}
-*/
-export function finder_flatten_tree(val: any): any;
-/**
-* @param {any} val
-* @returns {any}
-*/
-export function finder_build_tree(val: any): any;
-/**
 * @param {any} val
 * @returns {any}
 */
@@ -27,6 +10,23 @@ export function build_tree(val: any): any;
 * @returns {any}
 */
 export function flatten_tree(val: any): any;
+/**
+* @param {string} name
+*/
+export function greet(name: string): void;
+/**
+* @param {any} val
+* @returns {any}
+*/
+export function finder_flatten_tree(val: any): any;
+/**
+*/
+export function main(): void;
+/**
+* @param {any} val
+* @returns {any}
+*/
+export function finder_build_tree(val: any): any;
 /**
 */
 export enum Cell {
@@ -86,4 +86,12 @@ export class Universe {
 * @returns {string}
 */
   render(): string;
+}
+/**
+*/
+export class WasmMarkdownEditor {
+  free(): void;
+/**
+*/
+  static main(): void;
 }
