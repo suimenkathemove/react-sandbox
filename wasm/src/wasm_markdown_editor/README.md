@@ -14,3 +14,4 @@
 - [x] backspace
 - [ ] newline
 - [ ] selection
+- [ ] history
