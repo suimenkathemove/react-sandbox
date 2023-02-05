@@ -11,6 +11,6 @@
   - [ ] 点滅
   - [x] 移動
 - [ ] state部とrender部に分ける
-- [ ] backspace
+- [x] backspace
 - [ ] newline
 - [ ] selection
