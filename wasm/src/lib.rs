@@ -11,8 +11,8 @@ pub mod wasm_markdown_editor;
 
 #[wasm_bindgen(start)]
 pub fn main() -> Result<(), JsValue> {
-    console_log::main();
-    dom::main()?;
+    // console_log::main();
+    // dom::main()?;
 
     Ok(())
 }
