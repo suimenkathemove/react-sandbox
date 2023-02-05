@@ -9,7 +9,7 @@
   - [x] render
   - [ ] focus
   - [ ] 点滅
-  - [ ] 移動
+  - [x] 移動
 - [ ] state部とrender部に分ける
 - [ ] backspace
 - [ ] newline
