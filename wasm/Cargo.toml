@@ -27,6 +27,7 @@ features = [
   "HtmlElement",
   "HtmlInputElement",
   "InputEvent",
+  "KeyboardEvent",
   "Node",
   "MouseEvent",
   "TextMetrics",

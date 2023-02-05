@@ -11,7 +11,8 @@ use wasm_bindgen::{
     JsCast,
 };
 use web_sys::{
-    window, CanvasRenderingContext2d, HtmlCanvasElement, HtmlInputElement, InputEvent, MouseEvent,
+    window, CanvasRenderingContext2d, HtmlCanvasElement, HtmlInputElement, InputEvent,
+    KeyboardEvent, MouseEvent,
 };
 
 #[wasm_bindgen]
@@ -55,6 +56,31 @@ impl WasmMarkdownEditor {
 
         let caret_index = Rc::new(Cell::new(0usize));
 
+        fn render(
+            ctx: &CanvasRenderingContext2d,
+            char_infos: &Rc<RefCell<Vec<CharInfo>>>,
+            caret_index: &Rc<Cell<usize>>,
+        ) {
+            ctx.clear_rect(0., 0., 640., 480.);
+
+            let text = char_infos
+                .borrow()
+                .iter()
+                .map(|c| c.char)
+                .collect::<String>();
+            ctx.fill_text(&text, 0., 0.).unwrap();
+
+            let caret_x = char_infos.borrow()[0..caret_index.get()]
+                .into_iter()
+                .map(|c| c.width)
+                .sum();
+            line(
+                &ctx,
+                &Coordinate { x: caret_x, y: 0. },
+                &Coordinate { x: caret_x, y: 16. },
+            );
+        }
+
         {
             let input = Rc::clone(&input);
             let on_click = Closure::<dyn FnMut(_)>::new(move |_event: MouseEvent| {
@@ -68,6 +94,8 @@ impl WasmMarkdownEditor {
 
         {
             let ctx = Rc::clone(&ctx);
+            let char_infos = Rc::clone(&char_infos);
+            let caret_index = Rc::clone(&caret_index);
             let on_input = Closure::<dyn FnMut(_)>::new(move |event: InputEvent| {
                 let target = event
                     .target()
@@ -94,31 +122,45 @@ impl WasmMarkdownEditor {
                     caret_index.set(caret_index.get() + 1);
                 }
 
-                {
-                    ctx.clear_rect(0., 0., 640., 480.);
-
-                    let text = char_infos
-                        .borrow()
-                        .iter()
-                        .map(|c| c.char)
-                        .collect::<String>();
-                    ctx.fill_text(&text, 0., 0.).unwrap();
-
-                    let caret_x = char_infos.borrow()[0..caret_index.get()]
-                        .into_iter()
-                        .map(|c| c.width)
-                        .sum();
-                    line(
-                        &ctx,
-                        &Coordinate { x: caret_x, y: 0. },
-                        &Coordinate { x: caret_x, y: 16. },
-                    );
-                }
+                render(&ctx, &char_infos, &caret_index);
             });
             input
                 .add_event_listener_with_callback("input", on_input.as_ref().unchecked_ref())
                 .unwrap();
             on_input.forget();
+        }
+
+        {
+            let ctx = Rc::clone(&ctx);
+            let char_infos = Rc::clone(&char_infos);
+            let caret_index = Rc::clone(&caret_index);
+            let on_key_down = Closure::<dyn FnMut(_)>::new(move |event: KeyboardEvent| {
+                match event.key().as_str() {
+                    "ArrowLeft" => {
+                        let new_caret_index = if caret_index.get() <= 0 {
+                            0
+                        } else {
+                            caret_index.get() - 1
+                        };
+                        caret_index.set(new_caret_index);
+
+                        render(&ctx, &char_infos, &caret_index);
+                    }
+                    "ArrowRight" => {
+                        let new_caret_index =
+                            std::cmp::min(caret_index.get() + 1, char_infos.borrow().len());
+                        caret_index.set(new_caret_index);
+
+                        render(&ctx, &char_infos, &caret_index);
+                    }
+                    _ => {}
+                };
+            });
+            window()
+                .unwrap()
+                .add_event_listener_with_callback("keydown", on_key_down.as_ref().unchecked_ref())
+                .unwrap();
+            on_key_down.forget();
         }
     }
 }
