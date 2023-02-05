@@ -157,11 +157,13 @@ impl WasmMarkdownEditor {
                         render(&ctx, &char_infos, &caret_index);
                     }
                     "Backspace" => {
-                        if char_infos.borrow().len() <= 0 {
+                        let prev_caret_index = caret_index.get() - 1;
+
+                        if char_infos.borrow().get(prev_caret_index).is_none() {
                             return;
                         }
 
-                        char_infos.borrow_mut().remove(caret_index.get() - 1);
+                        char_infos.borrow_mut().remove(prev_caret_index);
                         caret_index.set(caret_index.get() - 1);
 
                         render(&ctx, &char_infos, &caret_index);
