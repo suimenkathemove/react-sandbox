@@ -114,10 +114,13 @@ impl WasmMarkdownEditor {
                         .unwrap()
                         .to_owned();
                     let text_metrics = ctx.measure_text(&char.to_string()).unwrap();
-                    char_infos.borrow_mut().push(CharInfo {
-                        char,
-                        width: text_metrics.width(),
-                    });
+                    char_infos.borrow_mut().insert(
+                        caret_index.get(),
+                        CharInfo {
+                            char,
+                            width: text_metrics.width(),
+                        },
+                    );
 
                     caret_index.set(caret_index.get() + 1);
                 }
