@@ -23,7 +23,7 @@ fn bare_bone() {
 
 macro_rules! console_log {
     ($($t:tt)*) => {
-       log(&format_args!($($t)*).to_string())
+        log(&format_args!($($t)*).to_string())
     };
 }
 
