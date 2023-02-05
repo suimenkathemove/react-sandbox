@@ -1,4 +1,11 @@
-use std::{cell::RefCell, rc::Rc};
+mod char_info;
+
+use self::char_info::CharInfo;
+use crate::{canvas::line, coordinate::Coordinate};
+use std::{
+    cell::{Cell, RefCell},
+    rc::Rc,
+};
 use wasm_bindgen::{
     prelude::{wasm_bindgen, Closure},
     JsCast,
@@ -42,8 +49,11 @@ impl WasmMarkdownEditor {
             .unwrap();
         ctx.set_font("16px serif");
         ctx.set_text_baseline("top");
+        let ctx = Rc::new(ctx);
 
-        let text = Rc::new(RefCell::new(String::new()));
+        let char_infos = Rc::new(RefCell::new(Vec::<CharInfo>::new()));
+
+        let caret_index = Rc::new(Cell::new(0usize));
 
         {
             let input = Rc::clone(&input);
@@ -57,18 +67,53 @@ impl WasmMarkdownEditor {
         }
 
         {
+            let ctx = Rc::clone(&ctx);
             let on_input = Closure::<dyn FnMut(_)>::new(move |event: InputEvent| {
                 let target = event
                     .target()
                     .unwrap()
                     .dyn_into::<HtmlInputElement>()
                     .unwrap();
+
                 let value = target.value();
-                text.borrow_mut().push_str(&value);
                 target.set_value("");
 
-                ctx.clear_rect(0., 0., 640., 480.);
-                ctx.fill_text(&text.borrow(), 0., 0.).unwrap();
+                {
+                    let char = value
+                        .chars()
+                        .collect::<Vec<char>>()
+                        .first()
+                        .unwrap()
+                        .to_owned();
+                    let text_metrics = ctx.measure_text(&char.to_string()).unwrap();
+                    char_infos.borrow_mut().push(CharInfo {
+                        char,
+                        width: text_metrics.width(),
+                    });
+
+                    caret_index.set(caret_index.get() + 1);
+                }
+
+                {
+                    ctx.clear_rect(0., 0., 640., 480.);
+
+                    let text = char_infos
+                        .borrow()
+                        .iter()
+                        .map(|c| c.char)
+                        .collect::<String>();
+                    ctx.fill_text(&text, 0., 0.).unwrap();
+
+                    let caret_x = char_infos.borrow()[0..caret_index.get()]
+                        .into_iter()
+                        .map(|c| c.width)
+                        .sum();
+                    line(
+                        &ctx,
+                        &Coordinate { x: caret_x, y: 0. },
+                        &Coordinate { x: caret_x, y: 16. },
+                    );
+                }
             });
             input
                 .add_event_listener_with_callback("input", on_input.as_ref().unchecked_ref())

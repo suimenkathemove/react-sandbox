@@ -1,9 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
+export function finder_build_tree(a: number): number;
 export function build_tree(a: number): number;
-export function flatten_tree(a: number): number;
 export function greet(a: number, b: number): void;
+export function flatten_tree(a: number): number;
 export function __wbg_wasmmarkdowneditor_free(a: number): void;
 export function wasmmarkdowneditor_new(): void;
 export function __wbg_todo_free(a: number): void;
@@ -19,7 +20,6 @@ export function list_show(): number;
 export function list_create(a: number): void;
 export function list_update(a: number): void;
 export function list_delete(a: number): void;
-export function finder_build_tree(a: number): number;
 export function __wbg_universe_free(a: number): void;
 export function universe_tick(a: number): void;
 export function universe_new(): number;
@@ -27,7 +27,7 @@ export function universe_render(a: number, b: number): void;
 export function __wbindgen_malloc(a: number): number;
 export function __wbindgen_realloc(a: number, b: number, c: number): number;
 export const __wbindgen_export_2: WebAssembly.Table;
-export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h5009399618ba9b70(a: number, b: number, c: number): void;
+export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h27ffd2a56b7adb11(a: number, b: number, c: number): void;
 export function __wbindgen_add_to_stack_pointer(a: number): number;
 export function __wbindgen_free(a: number, b: number): void;
 export function __wbindgen_exn_store(a: number): void;

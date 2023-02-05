@@ -204,7 +204,7 @@ function makeMutClosure(arg0, arg1, dtor, f) {
     return real;
 }
 function __wbg_adapter_16(arg0, arg1, arg2) {
-    wasm._dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h5009399618ba9b70(arg0, arg1, addHeapObject(arg2));
+    wasm._dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h27ffd2a56b7adb11(arg0, arg1, addHeapObject(arg2));
 }
 
 let stack_pointer = 32;
@@ -218,9 +218,9 @@ function addBorrowedObject(obj) {
 * @param {any} val
 * @returns {any}
 */
-export function build_tree(val) {
+export function finder_build_tree(val) {
     try {
-        const ret = wasm.build_tree(addBorrowedObject(val));
+        const ret = wasm.finder_build_tree(addBorrowedObject(val));
         return takeObject(ret);
     } finally {
         heap[stack_pointer++] = undefined;
@@ -231,9 +231,9 @@ export function build_tree(val) {
 * @param {any} val
 * @returns {any}
 */
-export function flatten_tree(val) {
+export function build_tree(val) {
     try {
-        const ret = wasm.flatten_tree(addBorrowedObject(val));
+        const ret = wasm.build_tree(addBorrowedObject(val));
         return takeObject(ret);
     } finally {
         heap[stack_pointer++] = undefined;
@@ -250,6 +250,19 @@ export function greet(name) {
 }
 
 /**
+* @param {any} val
+* @returns {any}
+*/
+export function flatten_tree(val) {
+    try {
+        const ret = wasm.flatten_tree(addBorrowedObject(val));
+        return takeObject(ret);
+    } finally {
+        heap[stack_pointer++] = undefined;
+    }
+}
+
+/**
 */
 export function main() {
     wasm.main();
@@ -262,19 +275,6 @@ export function main() {
 export function finder_flatten_tree(val) {
     try {
         const ret = wasm.finder_flatten_tree(addBorrowedObject(val));
-        return takeObject(ret);
-    } finally {
-        heap[stack_pointer++] = undefined;
-    }
-}
-
-/**
-* @param {any} val
-* @returns {any}
-*/
-export function finder_build_tree(val) {
-    try {
-        const ret = wasm.finder_build_tree(addBorrowedObject(val));
         return takeObject(ret);
     } finally {
         heap[stack_pointer++] = undefined;
@@ -563,6 +563,11 @@ export function __wbg_addEventListener_cbe4c6f619b032f3() { return handleError(f
     getObject(arg0).addEventListener(getStringFromWasm0(arg1, arg2), getObject(arg3));
 }, arguments) };
 
+export function __wbg_width_87b8dcd7cafaeec1(arg0) {
+    const ret = getObject(arg0).width;
+    return ret;
+};
+
 export function __wbg_style_e9380748cee29f13(arg0) {
     const ret = getObject(arg0).style;
     return addHeapObject(ret);
@@ -614,12 +619,33 @@ export function __wbg_settextBaseline_d33235cd2782235c(arg0, arg1, arg2) {
     getObject(arg0).textBaseline = getStringFromWasm0(arg1, arg2);
 };
 
+export function __wbg_beginPath_4e91b7092d0d33d9(arg0) {
+    getObject(arg0).beginPath();
+};
+
+export function __wbg_stroke_85dee7d87c4a6ead(arg0) {
+    getObject(arg0).stroke();
+};
+
+export function __wbg_lineTo_dbe49320dd6e392a(arg0, arg1, arg2) {
+    getObject(arg0).lineTo(arg1, arg2);
+};
+
+export function __wbg_moveTo_15a09390bee05586(arg0, arg1, arg2) {
+    getObject(arg0).moveTo(arg1, arg2);
+};
+
 export function __wbg_clearRect_b3895f56c5ecd19d(arg0, arg1, arg2, arg3, arg4) {
     getObject(arg0).clearRect(arg1, arg2, arg3, arg4);
 };
 
 export function __wbg_fillText_e5b1cef36b742bcc() { return handleError(function (arg0, arg1, arg2, arg3, arg4) {
     getObject(arg0).fillText(getStringFromWasm0(arg1, arg2), arg3, arg4);
+}, arguments) };
+
+export function __wbg_measureText_734acef1b5e2b3fd() { return handleError(function (arg0, arg1, arg2) {
+    const ret = getObject(arg0).measureText(getStringFromWasm0(arg1, arg2));
+    return addHeapObject(ret);
 }, arguments) };
 
 export function __wbg_appendChild_e513ef0e5098dfdd() { return handleError(function (arg0, arg1) {
@@ -703,12 +729,12 @@ export function __wbindgen_throw(arg0, arg1) {
     throw new Error(getStringFromWasm0(arg0, arg1));
 };
 
-export function __wbindgen_closure_wrapper89(arg0, arg1, arg2) {
+export function __wbindgen_closure_wrapper97(arg0, arg1, arg2) {
     const ret = makeMutClosure(arg0, arg1, 15, __wbg_adapter_16);
     return addHeapObject(ret);
 };
 
-export function __wbindgen_closure_wrapper90(arg0, arg1, arg2) {
+export function __wbindgen_closure_wrapper98(arg0, arg1, arg2) {
     const ret = makeMutClosure(arg0, arg1, 15, __wbg_adapter_16);
     return addHeapObject(ret);
 };

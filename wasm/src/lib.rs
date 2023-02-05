@@ -1,6 +1,8 @@
 use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
 
+mod canvas;
 pub mod console_log;
+mod coordinate;
 pub mod dom;
 pub mod finder;
 pub mod game_of_life;

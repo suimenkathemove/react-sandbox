@@ -4,16 +4,21 @@
 * @param {any} val
 * @returns {any}
 */
+export function finder_build_tree(val: any): any;
+/**
+* @param {any} val
+* @returns {any}
+*/
 export function build_tree(val: any): any;
+/**
+* @param {string} name
+*/
+export function greet(name: string): void;
 /**
 * @param {any} val
 * @returns {any}
 */
 export function flatten_tree(val: any): any;
-/**
-* @param {string} name
-*/
-export function greet(name: string): void;
 /**
 */
 export function main(): void;
@@ -22,11 +27,6 @@ export function main(): void;
 * @returns {any}
 */
 export function finder_flatten_tree(val: any): any;
-/**
-* @param {any} val
-* @returns {any}
-*/
-export function finder_build_tree(val: any): any;
 /**
 */
 export enum Cell {
