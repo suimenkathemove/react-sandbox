@@ -8,9 +8,9 @@ export const WasmMarkdownEditor: React.FC = (props) => {
   useEffect(() => {
     (async () => {
       const { WasmMarkdownEditor } = await import('../../../../wasm/pkg');
-      WasmMarkdownEditor.main();
+      WasmMarkdownEditor.new();
     })();
   }, []);
 
-  return <canvas id="wasm-markdown-editor" />;
+  return null;
 };
