@@ -41,6 +41,7 @@ impl WasmMarkdownEditor {
             .dyn_into::<CanvasRenderingContext2d>()
             .unwrap();
         ctx.set_font("16px serif");
+        ctx.set_text_baseline("top");
 
         let text = Rc::new(RefCell::new(String::new()));
 
@@ -67,7 +68,7 @@ impl WasmMarkdownEditor {
                 target.set_value("");
 
                 ctx.clear_rect(0., 0., 640., 480.);
-                ctx.fill_text(&text.borrow(), 50., 50.).unwrap();
+                ctx.fill_text(&text.borrow(), 0., 0.).unwrap();
             });
             input
                 .add_event_listener_with_callback("input", on_input.as_ref().unchecked_ref())

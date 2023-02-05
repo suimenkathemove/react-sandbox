@@ -610,6 +610,10 @@ export function __wbg_setfont_f55835290596888e(arg0, arg1, arg2) {
     getObject(arg0).font = getStringFromWasm0(arg1, arg2);
 };
 
+export function __wbg_settextBaseline_d33235cd2782235c(arg0, arg1, arg2) {
+    getObject(arg0).textBaseline = getStringFromWasm0(arg1, arg2);
+};
+
 export function __wbg_clearRect_b3895f56c5ecd19d(arg0, arg1, arg2, arg3, arg4) {
     getObject(arg0).clearRect(arg1, arg2, arg3, arg4);
 };
@@ -699,12 +703,12 @@ export function __wbindgen_throw(arg0, arg1) {
     throw new Error(getStringFromWasm0(arg0, arg1));
 };
 
-export function __wbindgen_closure_wrapper88(arg0, arg1, arg2) {
+export function __wbindgen_closure_wrapper89(arg0, arg1, arg2) {
     const ret = makeMutClosure(arg0, arg1, 15, __wbg_adapter_16);
     return addHeapObject(ret);
 };
 
-export function __wbindgen_closure_wrapper89(arg0, arg1, arg2) {
+export function __wbindgen_closure_wrapper90(arg0, arg1, arg2) {
     const ret = makeMutClosure(arg0, arg1, 15, __wbg_adapter_16);
     return addHeapObject(ret);
 };
