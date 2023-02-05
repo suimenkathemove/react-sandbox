@@ -19,11 +19,11 @@ syn = "1.0.99"
 version = "0.3.60"
 features = [
   "CanvasRenderingContext2d",
-  'console',
-  'Document',
-  'Element',
-  'HtmlElement',
+  "console",
+  "Document",
+  "Element",
   "HtmlCanvasElement",
-  'Node',
-  'Window',
+  "HtmlElement",
+  "Node",
+  "Window",
 ]
