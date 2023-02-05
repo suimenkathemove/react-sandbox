@@ -156,6 +156,16 @@ impl WasmMarkdownEditor {
 
                         render(&ctx, &char_infos, &caret_index);
                     }
+                    "Backspace" => {
+                        if char_infos.borrow().len() <= 0 {
+                            return;
+                        }
+
+                        char_infos.borrow_mut().remove(caret_index.get() - 1);
+                        caret_index.set(caret_index.get() - 1);
+
+                        render(&ctx, &char_infos, &caret_index);
+                    }
                     _ => {}
                 };
             });
