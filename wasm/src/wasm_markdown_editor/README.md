@@ -14,7 +14,8 @@ Markdown WYSIWYG Editor with Rust, WebAssembly & Canvas API.
   - [x] render
   - [ ] focus
   - [ ] 点滅
-  - [x] 移動
+  - [ ] move
+    - [x] keyboard
     - [ ] mouse
 - [ ] controller
 - [ ] state部とrender部に分ける
