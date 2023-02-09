@@ -15,11 +15,13 @@ Markdown WYSIWYG Editor with Rust, WebAssembly & Canvas API.
   - [ ] focus
   - [ ] blinking
   - [ ] move
-    - [ ] keyboard
+    - [x] keyboard
       - [x] left, right
         - [x] left, right
         - [x] beginning of line, end of line
       - [x] up, down
+        - [x] up, down
+        - [x] first line, last line
     - [ ] mouse
 - [x] backspace
   - [x] delete character
