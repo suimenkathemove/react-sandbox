@@ -12,5 +12,10 @@ export const WasmMarkdownEditor: React.FC = (props) => {
     })();
   }, []);
 
-  return null;
+  return (
+    <div id="wasm-markdown-editor">
+      <canvas id="wasm-markdown-editor-canvas" />
+      <input id="wasm-markdown-editor-input" />
+    </div>
+  );
 };

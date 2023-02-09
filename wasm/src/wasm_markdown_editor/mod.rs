@@ -24,20 +24,18 @@ impl WasmMarkdownEditor {
         let document = window().unwrap().document().unwrap();
 
         let canvas = document
-            .create_element("canvas")
+            .get_element_by_id("wasm-markdown-editor-canvas")
             .unwrap()
             .dyn_into::<HtmlCanvasElement>()
             .unwrap();
-        document.body().unwrap().append_child(&canvas).unwrap();
         canvas.set_width(640);
         canvas.set_height(480);
 
         let input = document
-            .create_element("input")
+            .get_element_by_id("wasm-markdown-editor-input")
             .unwrap()
             .dyn_into::<HtmlInputElement>()
             .unwrap();
-        document.body().unwrap().append_child(&input).unwrap();
         input.style().set_property("width", "0").unwrap();
         input.style().set_property("height", "0").unwrap();
         let input = Rc::new(input);
