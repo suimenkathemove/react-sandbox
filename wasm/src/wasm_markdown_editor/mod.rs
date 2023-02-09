@@ -148,23 +148,21 @@ impl WasmMarkdownEditor {
             let on_key_down = Closure::<dyn FnMut(_)>::new(move |event: KeyboardEvent| {
                 match event.key().as_str() {
                     "ArrowLeft" => {
-                        let new_caret_index = if caret_index.borrow().column <= 0 {
+                        let new_caret_index_column = if caret_index.borrow().column <= 0 {
                             0
                         } else {
                             caret_index.borrow().column - 1
                         };
-
-                        caret_index.borrow_mut().column = new_caret_index;
+                        caret_index.borrow_mut().column = new_caret_index_column;
 
                         render(&ctx, &lines, &caret_index);
                     }
                     "ArrowRight" => {
-                        let new_caret_index = std::cmp::min(
+                        let new_caret_index_column = std::cmp::min(
                             caret_index.borrow().column + 1,
                             lines.borrow().0[caret_index.borrow().row].0.len(),
                         );
-
-                        caret_index.borrow_mut().column = new_caret_index;
+                        caret_index.borrow_mut().column = new_caret_index_column;
 
                         render(&ctx, &lines, &caret_index);
                     }
