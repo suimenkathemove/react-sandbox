@@ -13,7 +13,7 @@ Markdown WYSIWYG Editor with Rust, WebAssembly & Canvas API.
 
 - [ ] caret
   - [ ] focus
-  - [ ] 点滅
+  - [ ] blinking
   - [ ] move
     - [ ] keyboard
       - [ ] left, right
