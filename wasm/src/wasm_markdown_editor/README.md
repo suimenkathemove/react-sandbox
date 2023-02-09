@@ -3,6 +3,7 @@
 - [WASM Markdown Editor](#wasm-markdown-editor)
   - [Overview](#overview)
   - [TODO](#todo)
+    - [Design](#design)
 
 ## Overview
 
@@ -11,18 +12,27 @@ Markdown WYSIWYG Editor with Rust, WebAssembly & Canvas API.
 ## TODO
 
 - [ ] caret
-  - [x] render
   - [ ] focus
   - [ ] 点滅
   - [ ] move
-    - [x] keyboard
+    - [ ] keyboard
+      - [ ] left, right
+        - [x] left, right
+        - [ ] beginning of line, end of line
+      - [ ] top, bottom
     - [ ] mouse
-- [ ] controller
-- [ ] state部とrender部に分ける
 - [x] backspace
-- [ ] newline
+  - [x] delete character
+  - [ ] beginning of line
+- [ ] enter
+- [ ] folding
 - [ ] selection
   - [ ] keyboard
     - [ ] cmd + a => select all
   - [ ] mouse
 - [ ] history
+
+### Design
+
+- [ ] controller
+- [ ] state, render
