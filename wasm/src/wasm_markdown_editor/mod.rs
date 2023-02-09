@@ -213,7 +213,10 @@ impl WasmMarkdownEditor {
                         let new_line_char_infos = lines.borrow_mut().0[caret_index.borrow().row]
                             .0
                             .split_off(caret_index.borrow().column);
-                        lines.borrow_mut().0.push(Line(new_line_char_infos));
+                        lines
+                            .borrow_mut()
+                            .0
+                            .insert(caret_index.borrow().row + 1, Line(new_line_char_infos));
 
                         caret_index.borrow_mut().row += 1;
                         caret_index.borrow_mut().column = 0;
