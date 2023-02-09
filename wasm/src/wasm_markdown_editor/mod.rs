@@ -148,21 +148,35 @@ impl WasmMarkdownEditor {
             let on_key_down = Closure::<dyn FnMut(_)>::new(move |event: KeyboardEvent| {
                 match event.key().as_str() {
                     "ArrowLeft" => {
-                        let new_caret_index_column = if caret_index.borrow().column <= 0 {
-                            0
+                        if caret_index.borrow().column == 0 {
+                            if caret_index.borrow().row == 0 {
+                                return;
+                            }
+
+                            let prev_line_char_infos_len =
+                                lines.borrow().0[caret_index.borrow().row - 1].0.len();
+
+                            caret_index.borrow_mut().row -= 1;
+                            caret_index.borrow_mut().column = prev_line_char_infos_len;
                         } else {
-                            caret_index.borrow().column - 1
-                        };
-                        caret_index.borrow_mut().column = new_caret_index_column;
+                            caret_index.borrow_mut().column -= 1;
+                        }
 
                         render(&ctx, &lines, &caret_index);
                     }
                     "ArrowRight" => {
-                        let new_caret_index_column = std::cmp::min(
-                            caret_index.borrow().column + 1,
-                            lines.borrow().0[caret_index.borrow().row].0.len(),
-                        );
-                        caret_index.borrow_mut().column = new_caret_index_column;
+                        if caret_index.borrow().column
+                            == lines.borrow().0[caret_index.borrow().row].0.len()
+                        {
+                            if caret_index.borrow().row == lines.borrow().0.len() - 1 {
+                                return;
+                            }
+
+                            caret_index.borrow_mut().row += 1;
+                            caret_index.borrow_mut().column = 0;
+                        } else {
+                            caret_index.borrow_mut().column += 1;
+                        }
 
                         render(&ctx, &lines, &caret_index);
                     }
