@@ -180,6 +180,46 @@ impl WasmMarkdownEditor {
 
                         render(&ctx, &lines, &caret_index);
                     }
+                    "ArrowUp" => {
+                        if caret_index.borrow().row == 0 {
+                            return;
+                        }
+
+                        let new_caret_index_column = {
+                            let prev_line_char_infos_len =
+                                lines.borrow().0[caret_index.borrow().row - 1].0.len();
+                            if caret_index.borrow().column > prev_line_char_infos_len {
+                                prev_line_char_infos_len
+                            } else {
+                                caret_index.borrow().column
+                            }
+                        };
+
+                        caret_index.borrow_mut().row -= 1;
+                        caret_index.borrow_mut().column = new_caret_index_column;
+
+                        render(&ctx, &lines, &caret_index);
+                    }
+                    "ArrowDown" => {
+                        if caret_index.borrow().row == lines.borrow().0.len() - 1 {
+                            return;
+                        }
+
+                        let new_caret_index_column = {
+                            let next_line_char_infos_len =
+                                lines.borrow().0[caret_index.borrow().row + 1].0.len();
+                            if caret_index.borrow().column > next_line_char_infos_len {
+                                next_line_char_infos_len
+                            } else {
+                                caret_index.borrow().column
+                            }
+                        };
+
+                        caret_index.borrow_mut().row += 1;
+                        caret_index.borrow_mut().column = new_caret_index_column;
+
+                        render(&ctx, &lines, &caret_index);
+                    }
                     "Backspace" => {
                         let prev_caret_index = caret_index.borrow().column - 1;
 

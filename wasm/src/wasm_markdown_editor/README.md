@@ -19,7 +19,7 @@ Markdown WYSIWYG Editor with Rust, WebAssembly & Canvas API.
       - [x] left, right
         - [x] left, right
         - [x] beginning of line, end of line
-      - [ ] top, bottom
+      - [x] up, down
     - [ ] mouse
 - [x] backspace
   - [x] delete character
