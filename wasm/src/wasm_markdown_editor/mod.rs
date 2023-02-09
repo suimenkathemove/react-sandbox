@@ -1,6 +1,6 @@
-mod char_info;
+mod models;
 
-use self::char_info::CharInfo;
+use self::models::CharInfo;
 use crate::{canvas::line, coordinate::Coordinate};
 use std::{
     cell::{Cell, RefCell},
