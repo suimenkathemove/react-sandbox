@@ -23,8 +23,8 @@ Markdown WYSIWYG Editor with Rust, WebAssembly & Canvas API.
     - [ ] mouse
 - [x] backspace
   - [x] delete character
-  - [ ] beginning of line
-- [ ] enter
+  - [x] beginning of line
+- [x] enter
 - [ ] folding
 - [ ] selection
   - [ ] keyboard

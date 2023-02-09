@@ -1,11 +1,8 @@
 mod models;
 
-use self::models::CharInfo;
+use self::models::{CaretIndex, CharInfo, Line, Lines};
 use crate::{canvas::line, coordinate::Coordinate};
-use std::{
-    cell::{Cell, RefCell},
-    rc::Rc,
-};
+use std::{cell::RefCell, rc::Rc};
 use wasm_bindgen::{
     prelude::{wasm_bindgen, Closure},
     JsCast,
@@ -50,32 +47,43 @@ impl WasmMarkdownEditor {
         ctx.set_text_baseline("top");
         let ctx = Rc::new(ctx);
 
-        let char_infos = Rc::new(RefCell::new(Vec::<CharInfo>::new()));
+        let lines = Rc::new(RefCell::new(Lines::new()));
 
-        let caret_index = Rc::new(Cell::new(0usize));
+        let caret_index = Rc::new(RefCell::new(CaretIndex::new()));
 
         fn render(
             ctx: &CanvasRenderingContext2d,
-            char_infos: &Rc<RefCell<Vec<CharInfo>>>,
-            caret_index: &Rc<Cell<usize>>,
+            lines: &Rc<RefCell<Lines>>,
+            caret_index: &Rc<RefCell<CaretIndex>>,
         ) {
             ctx.clear_rect(0., 0., 640., 480.);
 
-            let text = char_infos
-                .borrow()
-                .iter()
-                .map(|c| c.char)
-                .collect::<String>();
-            ctx.fill_text(&text, 0., 0.).unwrap();
+            lines.borrow().0.iter().enumerate().for_each(|(i, l)| {
+                let text = l.0.iter().map(|c| c.char).collect::<String>();
+                let y = lines.borrow().0[..i].iter().map(|l| l.height()).sum();
+                ctx.fill_text(&text, 0., y).unwrap();
+            });
 
-            let caret_x = char_infos.borrow()[0..caret_index.get()]
-                .into_iter()
+            let caret_x = lines.borrow().0[caret_index.borrow().row].0
+                [..caret_index.borrow().column]
+                .iter()
                 .map(|c| c.width)
                 .sum();
+            let caret_y_start = lines.borrow().0[..caret_index.borrow().row]
+                .iter()
+                .map(|l| l.height())
+                .sum();
+            let caret_y_end = caret_y_start + lines.borrow().0[caret_index.borrow().row].height();
             line(
                 &ctx,
-                &Coordinate { x: caret_x, y: 0. },
-                &Coordinate { x: caret_x, y: 16. },
+                &Coordinate {
+                    x: caret_x,
+                    y: caret_y_start,
+                },
+                &Coordinate {
+                    x: caret_x,
+                    y: caret_y_end,
+                },
             );
         }
 
@@ -92,17 +100,19 @@ impl WasmMarkdownEditor {
 
         {
             let ctx = Rc::clone(&ctx);
-            let char_infos = Rc::clone(&char_infos);
+            let lines = Rc::clone(&lines);
             let caret_index = Rc::clone(&caret_index);
             let on_input = Closure::<dyn FnMut(_)>::new(move |event: InputEvent| {
-                let target = event
-                    .target()
-                    .unwrap()
-                    .dyn_into::<HtmlInputElement>()
-                    .unwrap();
-
-                let value = target.value();
-                target.set_value("");
+                let value = {
+                    let target = event
+                        .target()
+                        .unwrap()
+                        .dyn_into::<HtmlInputElement>()
+                        .unwrap();
+                    let value = target.value();
+                    target.set_value("");
+                    value
+                };
 
                 {
                     let char = value
@@ -112,18 +122,18 @@ impl WasmMarkdownEditor {
                         .unwrap()
                         .to_owned();
                     let text_metrics = ctx.measure_text(&char.to_string()).unwrap();
-                    char_infos.borrow_mut().insert(
-                        caret_index.get(),
+                    lines.borrow_mut().0[caret_index.borrow().row].0.insert(
+                        caret_index.borrow().column,
                         CharInfo {
                             char,
                             width: text_metrics.width(),
                         },
                     );
 
-                    caret_index.set(caret_index.get() + 1);
+                    caret_index.borrow_mut().column += 1;
                 }
 
-                render(&ctx, &char_infos, &caret_index);
+                render(&ctx, &lines, &caret_index);
             });
             input
                 .add_event_listener_with_callback("input", on_input.as_ref().unchecked_ref())
@@ -133,38 +143,70 @@ impl WasmMarkdownEditor {
 
         {
             let ctx = Rc::clone(&ctx);
-            let char_infos = Rc::clone(&char_infos);
+            let lines = Rc::clone(&lines);
             let caret_index = Rc::clone(&caret_index);
             let on_key_down = Closure::<dyn FnMut(_)>::new(move |event: KeyboardEvent| {
                 match event.key().as_str() {
                     "ArrowLeft" => {
-                        let new_caret_index = if caret_index.get() <= 0 {
+                        let new_caret_index = if caret_index.borrow().column <= 0 {
                             0
                         } else {
-                            caret_index.get() - 1
+                            caret_index.borrow().column - 1
                         };
-                        caret_index.set(new_caret_index);
 
-                        render(&ctx, &char_infos, &caret_index);
+                        caret_index.borrow_mut().column = new_caret_index;
+
+                        render(&ctx, &lines, &caret_index);
                     }
                     "ArrowRight" => {
-                        let new_caret_index =
-                            std::cmp::min(caret_index.get() + 1, char_infos.borrow().len());
-                        caret_index.set(new_caret_index);
+                        let new_caret_index = std::cmp::min(
+                            caret_index.borrow().column + 1,
+                            lines.borrow().0[caret_index.borrow().row].0.len(),
+                        );
 
-                        render(&ctx, &char_infos, &caret_index);
+                        caret_index.borrow_mut().column = new_caret_index;
+
+                        render(&ctx, &lines, &caret_index);
                     }
                     "Backspace" => {
-                        let prev_caret_index = caret_index.get() - 1;
+                        let prev_caret_index = caret_index.borrow().column - 1;
 
-                        if char_infos.borrow().get(prev_caret_index).is_none() {
-                            return;
+                        if caret_index.borrow().column == 0 {
+                            if caret_index.borrow().row == 0 {
+                                return;
+                            }
+
+                            let prev_line_char_infos_len =
+                                lines.borrow().0[caret_index.borrow().row - 1].0.len();
+
+                            let current_line =
+                                lines.borrow_mut().0.remove(caret_index.borrow().row);
+                            lines.borrow_mut().0[caret_index.borrow().row - 1]
+                                .0
+                                .extend(current_line.0);
+
+                            caret_index.borrow_mut().row -= 1;
+                            caret_index.borrow_mut().column = prev_line_char_infos_len;
+                        } else {
+                            lines.borrow_mut().0[caret_index.borrow().row]
+                                .0
+                                .remove(prev_caret_index);
+
+                            caret_index.borrow_mut().column -= 1;
                         }
 
-                        char_infos.borrow_mut().remove(prev_caret_index);
-                        caret_index.set(caret_index.get() - 1);
+                        render(&ctx, &lines, &caret_index);
+                    }
+                    "Enter" => {
+                        let new_line_char_infos = lines.borrow_mut().0[caret_index.borrow().row]
+                            .0
+                            .split_off(caret_index.borrow().column);
+                        lines.borrow_mut().0.push(Line(new_line_char_infos));
 
-                        render(&ctx, &char_infos, &caret_index);
+                        caret_index.borrow_mut().row += 1;
+                        caret_index.borrow_mut().column = 0;
+
+                        render(&ctx, &lines, &caret_index);
                     }
                     _ => {}
                 };

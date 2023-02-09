@@ -241,15 +241,6 @@ export function build_tree(val) {
 }
 
 /**
-* @param {string} name
-*/
-export function greet(name) {
-    const ptr0 = passStringToWasm0(name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    wasm.greet(ptr0, len0);
-}
-
-/**
 * @param {any} val
 * @returns {any}
 */
@@ -260,6 +251,15 @@ export function flatten_tree(val) {
     } finally {
         heap[stack_pointer++] = undefined;
     }
+}
+
+/**
+* @param {string} name
+*/
+export function greet(name) {
+    const ptr0 = passStringToWasm0(name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    wasm.greet(ptr0, len0);
 }
 
 /**
@@ -516,12 +516,12 @@ export function __wbindgen_json_parse(arg0, arg1) {
     return addHeapObject(ret);
 };
 
-export function __wbg_alert_e63a4c41bbd7a3e9(arg0, arg1) {
-    alert(getStringFromWasm0(arg0, arg1));
-};
-
 export function __wbindgen_object_drop_ref(arg0) {
     takeObject(arg0);
+};
+
+export function __wbg_alert_e63a4c41bbd7a3e9(arg0, arg1) {
+    alert(getStringFromWasm0(arg0, arg1));
 };
 
 export function __wbg_instanceof_Window_acc97ff9f5d2c7b4(arg0) {
@@ -727,18 +727,18 @@ export function __wbindgen_throw(arg0, arg1) {
     throw new Error(getStringFromWasm0(arg0, arg1));
 };
 
-export function __wbindgen_closure_wrapper180(arg0, arg1, arg2) {
-    const ret = makeMutClosure(arg0, arg1, 41, __wbg_adapter_16);
+export function __wbindgen_closure_wrapper183(arg0, arg1, arg2) {
+    const ret = makeMutClosure(arg0, arg1, 40, __wbg_adapter_16);
     return addHeapObject(ret);
 };
 
-export function __wbindgen_closure_wrapper181(arg0, arg1, arg2) {
-    const ret = makeMutClosure(arg0, arg1, 41, __wbg_adapter_16);
+export function __wbindgen_closure_wrapper184(arg0, arg1, arg2) {
+    const ret = makeMutClosure(arg0, arg1, 40, __wbg_adapter_16);
     return addHeapObject(ret);
 };
 
-export function __wbindgen_closure_wrapper182(arg0, arg1, arg2) {
-    const ret = makeMutClosure(arg0, arg1, 41, __wbg_adapter_16);
+export function __wbindgen_closure_wrapper185(arg0, arg1, arg2) {
+    const ret = makeMutClosure(arg0, arg1, 40, __wbg_adapter_16);
     return addHeapObject(ret);
 };
 
