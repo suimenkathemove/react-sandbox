@@ -10,7 +10,7 @@ pub fn main() {
 extern "C" {
     // to bind `console.log(..)`
     #[wasm_bindgen(js_namespace = console)]
-    fn log(s: &str);
+    pub fn log(s: &str);
 
     #[wasm_bindgen(js_namespace = console, js_name = log)]
     fn log_u32(a: u32);
