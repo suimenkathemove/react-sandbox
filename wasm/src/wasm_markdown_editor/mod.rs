@@ -331,11 +331,16 @@ impl WasmMarkdownEditor {
             render(&ctx, &lines, &caret_index, &is_caret_shown);
 
             spawn_local(async move {
-                *blink_id.borrow_mut() = Some(Uuid::new_v4());
-                while (*blink_id.borrow()).is_some() {
+                let new_blink_id = Uuid::new_v4();
+                *blink_id.borrow_mut() = Some(new_blink_id);
+                while (*blink_id.borrow()).is_some()
+                    && (*blink_id.borrow()).unwrap() == new_blink_id
+                {
                     Delay::new(Duration::from_millis(500)).await.unwrap();
 
-                    if (*blink_id.borrow()).is_some() {
+                    if (*blink_id.borrow()).is_some()
+                        && (*blink_id.borrow()).unwrap() == new_blink_id
+                    {
                         let new_is_caret_shown = !(*is_caret_shown.borrow());
                         *is_caret_shown.borrow_mut() = new_is_caret_shown;
 
