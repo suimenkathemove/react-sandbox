@@ -2,14 +2,17 @@ mod models;
 
 use self::models::{CaretIndex, CharInfo, Line, Lines};
 use crate::{canvas::line, coordinate::Coordinate};
-use std::{cell::RefCell, rc::Rc};
+use std::{cell::RefCell, rc::Rc, time::Duration};
+use uuid::Uuid;
 use wasm_bindgen::{
     prelude::{wasm_bindgen, Closure},
     JsCast,
 };
+use wasm_bindgen_futures::spawn_local;
+use wasm_timer::Delay;
 use web_sys::{
     window, CanvasRenderingContext2d, HtmlCanvasElement, HtmlInputElement, InputEvent,
-    KeyboardEvent, MouseEvent,
+    KeyboardEvent,
 };
 
 #[wasm_bindgen]
@@ -51,10 +54,15 @@ impl WasmMarkdownEditor {
 
         let caret_index = Rc::new(RefCell::new(CaretIndex::new()));
 
+        let is_caret_shown = Rc::new(RefCell::new(true));
+
+        let blink_id: Rc<RefCell<Option<Uuid>>> = Rc::new(RefCell::new(None));
+
         fn render(
             ctx: &CanvasRenderingContext2d,
-            lines: &Rc<RefCell<Lines>>,
-            caret_index: &Rc<RefCell<CaretIndex>>,
+            lines: &RefCell<Lines>,
+            caret_index: &RefCell<CaretIndex>,
+            is_caret_shown: &RefCell<bool>,
         ) {
             ctx.clear_rect(0., 0., 640., 480.);
 
@@ -64,44 +72,37 @@ impl WasmMarkdownEditor {
                 ctx.fill_text(&text, 0., y).unwrap();
             });
 
-            let caret_x = lines.borrow().0[caret_index.borrow().row].0
-                [..caret_index.borrow().column]
-                .iter()
-                .map(|c| c.width)
-                .sum();
-            let caret_y_start = lines.borrow().0[..caret_index.borrow().row]
-                .iter()
-                .map(|l| l.height())
-                .sum();
-            let caret_y_end = caret_y_start + lines.borrow().0[caret_index.borrow().row].height();
-            line(
-                &ctx,
-                &Coordinate {
-                    x: caret_x,
-                    y: caret_y_start,
-                },
-                &Coordinate {
-                    x: caret_x,
-                    y: caret_y_end,
-                },
-            );
-        }
-
-        {
-            let input = Rc::clone(&input);
-            let on_click = Closure::<dyn FnMut(_)>::new(move |_event: MouseEvent| {
-                input.focus().unwrap();
-            });
-            canvas
-                .add_event_listener_with_callback("click", on_click.as_ref().unchecked_ref())
-                .unwrap();
-            on_click.forget();
+            if *is_caret_shown.borrow() {
+                let caret_x = lines.borrow().0[caret_index.borrow().row].0
+                    [..caret_index.borrow().column]
+                    .iter()
+                    .map(|c| c.width)
+                    .sum();
+                let caret_y_start = lines.borrow().0[..caret_index.borrow().row]
+                    .iter()
+                    .map(|l| l.height())
+                    .sum();
+                let caret_y_end =
+                    caret_y_start + lines.borrow().0[caret_index.borrow().row].height();
+                line(
+                    &ctx,
+                    &Coordinate {
+                        x: caret_x,
+                        y: caret_y_start,
+                    },
+                    &Coordinate {
+                        x: caret_x,
+                        y: caret_y_end,
+                    },
+                );
+            }
         }
 
         {
             let ctx = Rc::clone(&ctx);
             let lines = Rc::clone(&lines);
             let caret_index = Rc::clone(&caret_index);
+            let is_caret_shown = Rc::clone(&is_caret_shown);
             let on_input = Closure::<dyn FnMut(_)>::new(move |event: InputEvent| {
                 let value = {
                     let target = event
@@ -133,7 +134,7 @@ impl WasmMarkdownEditor {
                     caret_index.borrow_mut().column += 1;
                 }
 
-                render(&ctx, &lines, &caret_index);
+                render(&ctx, &lines, &caret_index, &is_caret_shown);
             });
             input
                 .add_event_listener_with_callback("input", on_input.as_ref().unchecked_ref())
@@ -145,7 +146,12 @@ impl WasmMarkdownEditor {
             let ctx = Rc::clone(&ctx);
             let lines = Rc::clone(&lines);
             let caret_index = Rc::clone(&caret_index);
+            let is_caret_shown = Rc::clone(&is_caret_shown);
+            let blink_id = Rc::clone(&blink_id);
             let on_key_down = Closure::<dyn FnMut(_)>::new(move |event: KeyboardEvent| {
+                *is_caret_shown.borrow_mut() = true;
+                *blink_id.borrow_mut() = None;
+
                 match event.key().as_str() {
                     "ArrowLeft" => {
                         if caret_index.borrow().column == 0 {
@@ -162,7 +168,7 @@ impl WasmMarkdownEditor {
                             caret_index.borrow_mut().column -= 1;
                         }
 
-                        render(&ctx, &lines, &caret_index);
+                        render(&ctx, &lines, &caret_index, &is_caret_shown);
                     }
                     "ArrowRight" => {
                         if caret_index.borrow().column
@@ -178,7 +184,7 @@ impl WasmMarkdownEditor {
                             caret_index.borrow_mut().column += 1;
                         }
 
-                        render(&ctx, &lines, &caret_index);
+                        render(&ctx, &lines, &caret_index, &is_caret_shown);
                     }
                     "ArrowUp" => {
                         if caret_index.borrow().row == 0 {
@@ -198,7 +204,7 @@ impl WasmMarkdownEditor {
                             caret_index.borrow_mut().column = new_caret_index_column;
                         }
 
-                        render(&ctx, &lines, &caret_index);
+                        render(&ctx, &lines, &caret_index, &is_caret_shown);
                     }
                     "ArrowDown" => {
                         if caret_index.borrow().row == lines.borrow().0.len() - 1 {
@@ -219,7 +225,7 @@ impl WasmMarkdownEditor {
                             caret_index.borrow_mut().column = new_caret_index_column;
                         }
 
-                        render(&ctx, &lines, &caret_index);
+                        render(&ctx, &lines, &caret_index, &is_caret_shown);
                     }
                     "Backspace" => {
                         let prev_caret_index = caret_index.borrow().column - 1;
@@ -248,7 +254,7 @@ impl WasmMarkdownEditor {
                             caret_index.borrow_mut().column -= 1;
                         }
 
-                        render(&ctx, &lines, &caret_index);
+                        render(&ctx, &lines, &caret_index, &is_caret_shown);
                     }
                     "Enter" => {
                         let new_line_char_infos = lines.borrow_mut().0[caret_index.borrow().row]
@@ -262,7 +268,7 @@ impl WasmMarkdownEditor {
                         caret_index.borrow_mut().row += 1;
                         caret_index.borrow_mut().column = 0;
 
-                        render(&ctx, &lines, &caret_index);
+                        render(&ctx, &lines, &caret_index, &is_caret_shown);
                     }
                     _ => {}
                 };
@@ -272,6 +278,71 @@ impl WasmMarkdownEditor {
                 .add_event_listener_with_callback("keydown", on_key_down.as_ref().unchecked_ref())
                 .unwrap();
             on_key_down.forget();
+        }
+
+        {
+            let ctx = Rc::clone(&ctx);
+            let lines = Rc::clone(&lines);
+            let caret_index = Rc::clone(&caret_index);
+            let is_caret_shown = Rc::clone(&is_caret_shown);
+            let blink_id = Rc::clone(&blink_id);
+            let on_key_up = Closure::<dyn FnMut(_)>::new(move |_event: KeyboardEvent| {
+                let ctx = Rc::clone(&ctx);
+                let lines = Rc::clone(&lines);
+                let caret_index = Rc::clone(&caret_index);
+                let is_caret_shown = Rc::clone(&is_caret_shown);
+                let blink_id = Rc::clone(&blink_id);
+                spawn_local(async move {
+                    let new_blink_id = Uuid::new_v4();
+                    *blink_id.borrow_mut() = Some(new_blink_id);
+                    while (*blink_id.borrow()).is_some()
+                        && (*blink_id.borrow()).unwrap() == new_blink_id
+                    {
+                        Delay::new(Duration::from_millis(500)).await.unwrap();
+
+                        if (*blink_id.borrow()).is_some()
+                            && (*blink_id.borrow()).unwrap() == new_blink_id
+                        {
+                            let new_is_caret_shown = !(*is_caret_shown.borrow());
+                            *is_caret_shown.borrow_mut() = new_is_caret_shown;
+
+                            render(&ctx, &lines, &caret_index, &is_caret_shown);
+                        }
+                    }
+                });
+            });
+            window()
+                .unwrap()
+                .add_event_listener_with_callback("keyup", on_key_up.as_ref().unchecked_ref())
+                .unwrap();
+            on_key_up.forget();
+        }
+
+        {
+            let input = Rc::clone(&input);
+            input.focus().unwrap();
+
+            let ctx = Rc::clone(&ctx);
+            let lines = Rc::clone(&lines);
+            let caret_index = Rc::clone(&caret_index);
+            let is_caret_shown = Rc::clone(&is_caret_shown);
+            let blink_id = Rc::clone(&blink_id);
+
+            render(&ctx, &lines, &caret_index, &is_caret_shown);
+
+            spawn_local(async move {
+                *blink_id.borrow_mut() = Some(Uuid::new_v4());
+                while (*blink_id.borrow()).is_some() {
+                    Delay::new(Duration::from_millis(500)).await.unwrap();
+
+                    if (*blink_id.borrow()).is_some() {
+                        let new_is_caret_shown = !(*is_caret_shown.borrow());
+                        *is_caret_shown.borrow_mut() = new_is_caret_shown;
+
+                        render(&ctx, &lines, &caret_index, &is_caret_shown);
+                    }
+                }
+            });
         }
     }
 }
