@@ -7,6 +7,7 @@ pub mod dom;
 pub mod finder;
 pub mod game_of_life;
 pub mod greet;
+pub mod time;
 pub mod todo;
 pub mod tree;
 pub mod wasm_markdown_editor;
