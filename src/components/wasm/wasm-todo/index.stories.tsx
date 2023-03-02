@@ -3,7 +3,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { WasmTodo } from './';
 
 export default {
-  title: 'WasmTodo',
   component: WasmTodo,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof WasmTodo>;
