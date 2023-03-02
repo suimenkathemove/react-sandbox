@@ -1,10 +1,10 @@
 import styles from './styles.module.scss';
 
+import { Popover } from '@/components/Popover';
 import {
   MonthlyCalendar,
   MonthlyCalendarProps,
-} from '@/components/MonthlyCalendar';
-import { Popover } from '@/components/Popover';
+} from '@/components/ui-components/MonthlyCalendar';
 import { isSameDate } from '@/utils/date/isSameDate';
 import { useShow } from '@/utils/useShow';
 
