@@ -1,11 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
+export function finder_build_tree(a: number): number;
 export function __wbg_universe_free(a: number): void;
 export function universe_tick(a: number): void;
 export function universe_new(): number;
 export function universe_render(a: number, b: number): void;
-export function finder_build_tree(a: number): number;
 export function build_tree(a: number): number;
 export function __wbg_wasmmarkdowneditor_free(a: number): void;
 export function wasmmarkdowneditor_new(): void;
@@ -18,18 +18,18 @@ export function todo_set_id(a: number, b: number, c: number): void;
 export function todo_text(a: number, b: number): void;
 export function todo_set_text(a: number, b: number, c: number): void;
 export function main(): void;
-export function finder_flatten_tree(a: number): number;
 export function __wbg_list_free(a: number): void;
 export function list_show(): number;
 export function list_create(a: number): void;
 export function list_update(a: number): void;
 export function list_delete(a: number): void;
+export function finder_flatten_tree(a: number): number;
 export function __wbindgen_malloc(a: number): number;
 export function __wbindgen_realloc(a: number, b: number, c: number): number;
 export const __wbindgen_export_2: WebAssembly.Table;
-export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__he03b3a3739373c5e(a: number, b: number, c: number): void;
-export function _dyn_core__ops__function__FnMut_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__haa5a9bcb11f5c6d1(a: number, b: number): void;
-export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h3d75685cb71b94fd(a: number, b: number, c: number): void;
+export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h6717ccea3930825f(a: number, b: number, c: number): void;
+export function _dyn_core__ops__function__FnMut_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h25d5aa6140eaf23b(a: number, b: number): void;
+export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h0ff3761a5e54e279(a: number, b: number, c: number): void;
 export function __wbindgen_add_to_stack_pointer(a: number): number;
 export function __wbindgen_free(a: number, b: number): void;
 export function __wbindgen_exn_store(a: number): void;
