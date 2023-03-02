@@ -3,7 +3,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Lovemageddon } from './';
 
 export default {
-  title: 'Lovemageddon',
   component: Lovemageddon,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof Lovemageddon>;
