@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { DatePicker } from './';
 
 const meta: Meta = {
-  title: 'DatePicker',
   component: DatePicker,
 };
 export default meta;
