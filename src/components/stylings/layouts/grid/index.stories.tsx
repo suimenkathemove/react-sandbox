@@ -3,7 +3,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Grid } from './';
 
 export default {
-  title: 'Grid',
   component: Grid,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof Grid>;
