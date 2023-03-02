@@ -4,7 +4,9 @@ import { Event } from './';
 
 import { setTime } from '@/utils/date/setTime';
 
-const meta: Meta = { title: 'WeeklyCalendar/Event', component: Event };
+const meta: Meta = {
+  component: Event,
+};
 export default meta;
 
 const Template: Story<React.ComponentProps<typeof Event>> = (args) => (
