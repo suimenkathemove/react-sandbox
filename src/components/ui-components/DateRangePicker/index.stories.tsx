@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { DateRangePicker } from './';
 
 const meta: Meta = {
-  title: 'DateRangePicker',
   component: DateRangePicker,
 };
 export default meta;
