@@ -14,6 +14,8 @@ else
   # EDIT THIS
   tmux new-session -s "$PROJECT_NAME" -d -n storybook 'yarn storybook'
   # EDIT THIS
+  tmux new-window -n wasm 'make wasm'
+  # EDIT THIS
   tmux new-window
 
   tmux attach-session -t "$PROJECT_NAME"
