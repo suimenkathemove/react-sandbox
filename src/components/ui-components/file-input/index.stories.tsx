@@ -4,7 +4,6 @@ import { useRef } from 'react';
 import { FileInput, FileInputProps } from './';
 
 export default {
-  title: 'FileInput',
   component: FileInput,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof FileInput>;
