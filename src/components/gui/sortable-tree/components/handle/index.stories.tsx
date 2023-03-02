@@ -3,7 +3,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Handle, HandleProps } from './';
 
 export default {
-  title: 'SortableTree/Handle',
   component: Handle,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof Handle>;

@@ -3,7 +3,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { SortableTreeSortableItem, SortableTreeSortableItemProps } from './';
 
 export default {
-  title: 'SortableTree/SortableTreeSortableItem',
   component: SortableTreeSortableItem,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof SortableTreeSortableItem>;
