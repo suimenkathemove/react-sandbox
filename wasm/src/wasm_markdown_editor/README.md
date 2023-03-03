@@ -7,7 +7,7 @@
 
 ## Overview
 
-Markdown WYSIWYG Editor with Rust, WebAssembly & Canvas API.
+Markdown WYSIWYG Editor using Rust, WebAssembly & Canvas API.
 
 ## TODO
 
