@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { Move } from '.';
+import { Move } from './';
 
 const meta: Meta = {
   component: Move,
