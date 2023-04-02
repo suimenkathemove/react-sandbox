@@ -1,4 +1,4 @@
-import { rangeRandom } from '@/components/ShootingGame/utils/rangeRandom';
+import { rangeRandom } from '@/components/canvas/ShootingGame/utils/rangeRandom';
 import { Position } from '@/utils/Position';
 import { range } from '@/utils/range';
 
