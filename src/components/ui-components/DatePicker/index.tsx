@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 
-import { Popover } from '@/components/Popover';
+import { Popover } from '@/components/ui-components/Popover';
 import {
   MonthlyCalendar,
   MonthlyCalendarProps,
