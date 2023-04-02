@@ -9,7 +9,10 @@ import { InputSlide, SelectSlide, Slide } from './types/slide';
 import { convertToSlide } from './utils/convert-to-slide';
 import { flattenQuestionTree } from './utils/flatten-question-tree';
 
-import { ProgressBar, ProgressBarProps } from '@/components/progress-bar';
+import {
+  ProgressBar,
+  ProgressBarProps,
+} from '@/components/ui-components/progress-bar';
 import { assertNever } from '@/utils/assertNever';
 
 export type WizardProps = {
