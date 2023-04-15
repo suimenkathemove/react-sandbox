@@ -5,7 +5,6 @@ import { questionTree } from './__mocks__/question-tree';
 import { Wizard, WizardProps } from './';
 
 export default {
-  title: 'Wizard',
   component: Wizard,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof Wizard>;

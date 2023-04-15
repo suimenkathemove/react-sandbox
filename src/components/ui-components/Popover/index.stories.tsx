@@ -5,7 +5,9 @@ import { Popover } from './';
 import { alphabets } from '@/utils/alphabets';
 import { useShow } from '@/utils/useShow';
 
-const meta: Meta = { title: 'Popover', component: Popover };
+const meta: Meta = {
+  component: Popover,
+};
 export default meta;
 
 export const Left: React.VFC = () => {

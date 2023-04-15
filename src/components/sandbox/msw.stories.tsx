@@ -15,6 +15,5 @@ export const Default: React.VFC = () => {
 };
 
 export default {
-  title: 'MSW',
   component: Default,
 } as ComponentMeta<typeof Default>;

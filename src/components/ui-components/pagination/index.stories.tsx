@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { Pagination, PaginationProps } from './';
 
 export default {
-  title: 'Pagination',
   component: Pagination,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof Pagination>;

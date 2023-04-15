@@ -5,7 +5,6 @@ import { Table, TableProps } from './';
 import { range } from '@/utils/range';
 
 export default {
-  title: 'Table',
   component: Table,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof Table>;

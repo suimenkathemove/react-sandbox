@@ -12,7 +12,9 @@ const CallWasmGreet: React.VFC = () => {
   return null;
 };
 
-const meta: Meta = { title: 'CallWasmGreet', component: CallWasmGreet };
+const meta: Meta = {
+  component: CallWasmGreet,
+};
 export default meta;
 
 const Template: Story<React.ComponentProps<typeof CallWasmGreet>> = (args) => (

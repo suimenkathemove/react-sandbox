@@ -5,7 +5,6 @@ import { tree } from './__mocks__/tree';
 import { Finder, FinderProps } from './';
 
 export default {
-  title: 'Finder',
   component: Finder,
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof Finder>;
