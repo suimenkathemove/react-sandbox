@@ -32,3 +32,6 @@ __screenshots__
 
 # typescript
 *.tsbuildinfo
+/test-results/
+/playwright-report/
+/playwright/.cache/
