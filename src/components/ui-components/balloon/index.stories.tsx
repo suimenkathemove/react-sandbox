@@ -6,6 +6,6 @@ export default {};
 
 export const Default: StoryObj = {
   render: () => {
-    return <Balloon />;
+    return <Balloon>Hello, World!</Balloon>;
   },
 };
