@@ -1,11 +1,13 @@
-import { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Balloon } from '.';
+import { Balloon, BalloonProps } from '.';
 
-export default {};
+export default {
+  component: Balloon,
+} as Meta<BalloonProps>;
 
-export const Default: StoryObj = {
-  render: () => {
-    return <Balloon>Hello, World!</Balloon>;
+export const Default: StoryObj<BalloonProps> = {
+  args: {
+    children: 'Hello, World!',
   },
 };
