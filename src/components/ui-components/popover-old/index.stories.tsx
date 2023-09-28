@@ -1,12 +1,13 @@
 import { Meta } from '@storybook/react/types-6-0';
 
-import { Popover } from './';
+import { Popover } from '.';
 
 import { alphabets } from '@/utils/alphabets';
 import { useShow } from '@/utils/useShow';
 
 const meta: Meta = {
   component: Popover,
+  title: 'components/Ui Components/PopoverOld',
 };
 export default meta;
 

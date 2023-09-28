@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
 
-import { Popover } from '@/components/ui-components/Popover';
+import { Popover } from '@/components/ui-components/popover-old';
 import { MonthlyCalendar } from '@/components/ui-components/MonthlyCalendar';
 import { endOfDate } from '@/utils/date/end-of-date';
 import { isSameDate } from '@/utils/date/isSameDate';
