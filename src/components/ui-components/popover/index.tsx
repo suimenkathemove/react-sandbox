@@ -14,7 +14,7 @@ export interface PopoverProps {
   content: React.ReactNode;
   positionType: PositionType;
   offset?: Offset;
-  frame?: DOMRect;
+  frameElement?: HTMLElement | null;
 }
 
 export const Popover: React.FC<PopoverProps> = (props) => {
@@ -41,7 +41,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
         props.positionType,
         newPosition,
         content,
-        props.frame,
+        props.frameElement?.getBoundingClientRect(),
       );
       const flippedNewPosition = calcPosition(
         trigger,
@@ -51,7 +51,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
       );
       setPosition(flippedNewPosition);
     }
-  }, [open, props.frame, props.offset, props.positionType]);
+  }, [open, props.frameElement, props.offset, props.positionType]);
 
   useEffect(() => {
     const options: AddEventListenerOptions = { capture: true };

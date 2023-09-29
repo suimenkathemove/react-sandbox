@@ -4,7 +4,7 @@ import { PositionType } from '../models/position-type';
 import { assertPositionTypeSecond } from './assert-position-type-second';
 import { splitPositionType } from './split-position-type';
 
-const OFFSET = 4;
+export const OFFSET = 4;
 
 export const calcPosition = (
   trigger: DOMRect,
