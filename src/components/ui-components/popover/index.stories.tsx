@@ -34,13 +34,17 @@ const PopoverByPositionType: React.FC<Pick<PopoverProps, 'positionType'>> = (
 const Container = styled.div`
   display: grid;
   grid-template-areas: '. top .' 'left . right' '. bottom .';
-  padding: 80px;
+  width: 800px;
+  height: 100vh;
+  margin: 0 auto;
 `;
 
 const Wrapper = styled.div<{ gridArea: PositionTypeUnit }>`
   grid-area: ${(props) => props.gridArea};
   display: flex;
   gap: 4px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Default: StoryObj<PopoverProps> = {
