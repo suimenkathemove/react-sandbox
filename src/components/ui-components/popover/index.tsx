@@ -5,6 +5,7 @@ import { Offset, Position } from './models';
 import { PositionType } from './models/position-type';
 import { ContentWrapper, TriggerWrapper } from './styles';
 import { calcPosition } from './utils/calc-position';
+import { flipPositionType } from './utils/flip-position-type';
 
 import { useBool } from '@/hooks/use-bool';
 
@@ -13,6 +14,7 @@ export interface PopoverProps {
   content: React.ReactNode;
   positionType: PositionType;
   offset?: Offset;
+  frame?: DOMRect;
 }
 
 export const Popover: React.FC<PopoverProps> = (props) => {
@@ -35,9 +37,21 @@ export const Popover: React.FC<PopoverProps> = (props) => {
         props.positionType,
         props.offset,
       );
-      setPosition(newPosition);
+      const flippedPositionType = flipPositionType(
+        props.positionType,
+        newPosition,
+        content,
+        props.frame,
+      );
+      const flippedNewPosition = calcPosition(
+        trigger,
+        content,
+        flippedPositionType,
+        props.offset,
+      );
+      setPosition(flippedNewPosition);
     }
-  }, [open, props.offset, props.positionType]);
+  }, [open, props.frame, props.offset, props.positionType]);
 
   useEffect(() => {
     const options: AddEventListenerOptions = { capture: true };
