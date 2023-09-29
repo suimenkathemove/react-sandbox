@@ -3,7 +3,9 @@ import { PositionType, PositionTypeUnit } from '../models/position-type';
 
 import { splitPositionType } from './split-position-type';
 
-const flipPositionTypeUnit = (
+import { keys } from '@/utils/keys';
+
+const reversePositionTypeUnit = (
   positionTypeUnit: PositionTypeUnit,
 ): PositionTypeUnit => {
   switch (positionTypeUnit) {
@@ -21,42 +23,66 @@ const flipPositionTypeUnit = (
   }
 };
 
-const shouldFlipPositionTypeUnit = (
-  positionTypeUnit: PositionTypeUnit,
+const createShouldFlip = (
   position: Position,
   content: DOMRect,
   frame?: DOMRect,
-): boolean => {
+): Record<PositionTypeUnit, boolean> => {
+  const edgeTop = position.top;
+  const frameTop = window.scrollY + (frame?.top ?? 0);
+  const top = edgeTop < frameTop;
+
+  const edgeBottom = position.top + content.height;
+  const frameBottom = window.scrollY + (frame?.bottom ?? window.innerHeight);
+  const bottom = edgeBottom > frameBottom;
+
+  const edgeLeft = position.left;
+  const frameLeft = window.scrollX + (frame?.left ?? 0);
+  const left = edgeLeft < frameLeft;
+
+  const edgeRight = position.left + content.width;
+  const frameRight = window.scrollY + (frame?.right ?? window.innerWidth);
+  const right = edgeRight > frameRight;
+
+  return { top, bottom, left, right };
+};
+
+type Orientation = 'horizontal' | 'vertical';
+
+const reverseOrientation = (orientation: Orientation): Orientation => {
+  switch (orientation) {
+    case 'horizontal':
+      return 'vertical';
+    case 'vertical':
+      return 'horizontal';
+    default:
+      // TODO: satisfies never
+      return orientation;
+  }
+};
+
+const orientationFromPositionTypeUnit = (
+  positionTypeUnit: PositionTypeUnit,
+): Orientation => {
   switch (positionTypeUnit) {
-    case 'top': {
-      const edgeTop = position.top;
-      const frameTop = window.scrollY + (frame?.top ?? 0);
-
-      return edgeTop < frameTop;
-    }
-    case 'bottom': {
-      const edgeBottom = position.top + content.height;
-      const frameBottom =
-        window.scrollY + (frame?.bottom ?? window.innerHeight);
-
-      return edgeBottom > frameBottom;
-    }
-    case 'left': {
-      const edgeLeft = position.left;
-      const frameLeft = window.scrollX + (frame?.left ?? 0);
-
-      return edgeLeft < frameLeft;
-    }
-    case 'right': {
-      const edgeRight = position.left + content.width;
-      const frameRight = window.scrollY + (frame?.right ?? window.innerWidth);
-
-      return edgeRight > frameRight;
-    }
+    case 'top':
+    case 'bottom':
+      return 'vertical';
+    case 'left':
+    case 'right':
+      return 'horizontal';
     default:
       // TODO: satisfies never
       return positionTypeUnit;
   }
+};
+
+const positionTypeUnitFromOrientation: Record<
+  Orientation,
+  Set<PositionTypeUnit>
+> = {
+  horizontal: new Set(['left', 'right']),
+  vertical: new Set(['top', 'bottom']),
 };
 
 export const flipPositionType = (
@@ -69,37 +95,36 @@ export const flipPositionType = (
     positionType,
   );
 
-  const newPositionTypeFirst = (() => {
-    const shouldFlip = shouldFlipPositionTypeUnit(
-      positionTypeFirst,
-      position,
-      content,
-      frame,
-    );
+  const shouldFlip = createShouldFlip(position, content, frame);
 
-    return shouldFlip
-      ? flipPositionTypeUnit(positionTypeFirst)
-      : positionTypeFirst;
-  })();
+  const newPositionTypeFirst = shouldFlip[positionTypeFirst]
+    ? reversePositionTypeUnit(positionTypeFirst)
+    : positionTypeFirst;
 
-  if (positionTypeSecond === undefined) return newPositionTypeFirst;
+  const newPositionTypeSecond = ((): PositionTypeUnit | undefined => {
+    if (positionTypeSecond === undefined) {
+      const positionTypeFirstOrientation = orientationFromPositionTypeUnit(
+        positionTypeFirst,
+      );
+      const positionTypeSecondOrientation = reverseOrientation(
+        positionTypeFirstOrientation,
+      );
+      const newPositionTypeSeconds = keys(shouldFlip).filter(
+        (key) =>
+          positionTypeUnitFromOrientation[positionTypeSecondOrientation].has(
+            key,
+          ) && shouldFlip[key],
+      );
 
-  const newPositionTypeSecond = (() => {
-    const flippedPositionTypeSecond = flipPositionTypeUnit(positionTypeSecond);
-    const shouldFlip = shouldFlipPositionTypeUnit(
-      flippedPositionTypeSecond,
-      position,
-      content,
-      frame,
-    );
+      return newPositionTypeSeconds[0];
+    }
 
-    return shouldFlip
-      ? flipPositionTypeUnit(positionTypeSecond)
+    return shouldFlip[reversePositionTypeUnit(positionTypeSecond)]
+      ? reversePositionTypeUnit(positionTypeSecond)
       : positionTypeSecond;
   })();
 
-  return newPositionTypeFirst.concat(
-    '-',
-    newPositionTypeSecond,
-  ) as PositionType;
+  return [newPositionTypeFirst, newPositionTypeSecond]
+    .filter(Boolean)
+    .join('-') as PositionType;
 };
