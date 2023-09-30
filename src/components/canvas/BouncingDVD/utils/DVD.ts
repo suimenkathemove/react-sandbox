@@ -5,8 +5,8 @@ import { Size } from '@/utils/Size';
 
 export class DVD {
   private image = new Image();
-  private readonly size = new Size(512, 261);
-  private readonly speed = 3;
+  private readonly size = new Size(512 / 3, 261 / 3);
+  private readonly speed = 2;
 
   constructor(
     private ctx: CanvasRenderingContext2D,
