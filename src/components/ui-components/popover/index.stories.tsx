@@ -17,14 +17,14 @@ const TRIGGER_HEIGHT = 16;
 const CONTENT_WIDTH = 100;
 const CONTENT_HEIGHT = 40;
 
-const SAFE_FIRST_HORIZONTAL = OFFSET + CONTENT_WIDTH - 1;
-const SAFE_FIRST_VERTICAL = OFFSET + CONTENT_HEIGHT - 1;
+const FIRST_HORIZONTAL_BOUNDARY = OFFSET + CONTENT_WIDTH - 1;
+const FIRST_VERTICAL_BOUNDARY = OFFSET + CONTENT_HEIGHT - 1;
 
-const SAFE_SECOND_HORIZONTAL = CONTENT_WIDTH - TRIGGER_WIDTH - 1;
-const SAFE_SECOND_VERTICAL = CONTENT_HEIGHT - TRIGGER_HEIGHT - 1;
+const SECOND_HORIZONTAL_BOUNDARY = CONTENT_WIDTH - TRIGGER_WIDTH - 1;
+const SECOND_VERTICAL_BOUNDARY = CONTENT_HEIGHT - TRIGGER_HEIGHT - 1;
 
-const SAFE_CENTER_HORIZONTAL = CONTENT_WIDTH / 2 - TRIGGER_WIDTH / 2 - 1;
-const SAFE_CENTER_VERTICAL = CONTENT_HEIGHT / 2 - TRIGGER_HEIGHT / 2 - 1;
+const CENTER_HORIZONTAL_BOUNDARY = CONTENT_WIDTH / 2 - TRIGGER_WIDTH / 2 - 1;
+const CENTER_VERTICAL_BOUNDARY = CONTENT_HEIGHT / 2 - TRIGGER_HEIGHT / 2 - 1;
 
 const PopoverByPositionType: React.FC<
   Pick<PopoverProps, 'positionType' | 'frameElement'>
@@ -61,8 +61,8 @@ const Container = styled.div`
   display: grid;
   grid-template-areas: '. top .' 'left . right' '. bottom .';
   width: fit-content;
-  padding-top: ${SAFE_FIRST_VERTICAL + 1}px;
-  padding-left: ${SAFE_FIRST_HORIZONTAL + 1}px;
+  padding-top: ${FIRST_VERTICAL_BOUNDARY + 1}px;
+  padding-left: ${FIRST_HORIZONTAL_BOUNDARY + 1}px;
 `;
 
 const Wrapper = styled.div<{ gridArea: PositionTypeUnit }>`
@@ -152,15 +152,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="top-left"
               style={{
-                top: SAFE_FIRST_VERTICAL,
-                right: SAFE_SECOND_HORIZONTAL,
+                top: FIRST_VERTICAL_BOUNDARY,
+                right: SECOND_HORIZONTAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="top-left"
               style={{
-                top: SAFE_FIRST_VERTICAL - 1,
-                right: SAFE_SECOND_HORIZONTAL - 1,
+                top: FIRST_VERTICAL_BOUNDARY - 1,
+                right: SECOND_HORIZONTAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -168,15 +168,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="top"
               style={{
-                top: SAFE_FIRST_VERTICAL,
-                left: SAFE_CENTER_HORIZONTAL,
+                top: FIRST_VERTICAL_BOUNDARY,
+                left: CENTER_HORIZONTAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="top"
               style={{
-                top: SAFE_FIRST_VERTICAL - 1,
-                left: SAFE_CENTER_HORIZONTAL - 1,
+                top: FIRST_VERTICAL_BOUNDARY - 1,
+                left: CENTER_HORIZONTAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -184,15 +184,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="top"
               style={{
-                top: SAFE_FIRST_VERTICAL,
-                right: SAFE_CENTER_HORIZONTAL,
+                top: FIRST_VERTICAL_BOUNDARY,
+                right: CENTER_HORIZONTAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="top"
               style={{
-                top: SAFE_FIRST_VERTICAL - 1,
-                right: SAFE_CENTER_HORIZONTAL - 1,
+                top: FIRST_VERTICAL_BOUNDARY - 1,
+                right: CENTER_HORIZONTAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -200,15 +200,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="top-right"
               style={{
-                top: SAFE_FIRST_VERTICAL,
-                left: SAFE_SECOND_HORIZONTAL,
+                top: FIRST_VERTICAL_BOUNDARY,
+                left: SECOND_HORIZONTAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="top-right"
               style={{
-                top: SAFE_FIRST_VERTICAL - 1,
-                left: SAFE_SECOND_HORIZONTAL - 1,
+                top: FIRST_VERTICAL_BOUNDARY - 1,
+                left: SECOND_HORIZONTAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -218,15 +218,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="bottom-left"
               style={{
-                bottom: SAFE_FIRST_VERTICAL,
-                right: SAFE_SECOND_HORIZONTAL,
+                bottom: FIRST_VERTICAL_BOUNDARY,
+                right: SECOND_HORIZONTAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="bottom-left"
               style={{
-                bottom: SAFE_FIRST_VERTICAL - 1,
-                right: SAFE_SECOND_HORIZONTAL - 1,
+                bottom: FIRST_VERTICAL_BOUNDARY - 1,
+                right: SECOND_HORIZONTAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -234,15 +234,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="bottom"
               style={{
-                bottom: SAFE_FIRST_VERTICAL,
-                left: SAFE_CENTER_HORIZONTAL,
+                bottom: FIRST_VERTICAL_BOUNDARY,
+                left: CENTER_HORIZONTAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="bottom"
               style={{
-                bottom: SAFE_FIRST_VERTICAL - 1,
-                left: SAFE_CENTER_HORIZONTAL - 1,
+                bottom: FIRST_VERTICAL_BOUNDARY - 1,
+                left: CENTER_HORIZONTAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -250,15 +250,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="bottom"
               style={{
-                bottom: SAFE_FIRST_VERTICAL,
-                right: SAFE_CENTER_HORIZONTAL,
+                bottom: FIRST_VERTICAL_BOUNDARY,
+                right: CENTER_HORIZONTAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="bottom"
               style={{
-                bottom: SAFE_FIRST_VERTICAL - 1,
-                right: SAFE_CENTER_HORIZONTAL - 1,
+                bottom: FIRST_VERTICAL_BOUNDARY - 1,
+                right: CENTER_HORIZONTAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -266,15 +266,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="bottom-right"
               style={{
-                bottom: SAFE_FIRST_VERTICAL,
-                left: SAFE_SECOND_HORIZONTAL,
+                bottom: FIRST_VERTICAL_BOUNDARY,
+                left: SECOND_HORIZONTAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="bottom-right"
               style={{
-                bottom: SAFE_FIRST_VERTICAL - 1,
-                left: SAFE_SECOND_HORIZONTAL - 1,
+                bottom: FIRST_VERTICAL_BOUNDARY - 1,
+                left: SECOND_HORIZONTAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -284,15 +284,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="left-top"
               style={{
-                left: SAFE_FIRST_HORIZONTAL,
-                bottom: SAFE_SECOND_VERTICAL,
+                left: FIRST_HORIZONTAL_BOUNDARY,
+                bottom: SECOND_VERTICAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="left-top"
               style={{
-                left: SAFE_FIRST_HORIZONTAL - 1,
-                bottom: SAFE_SECOND_VERTICAL - 1,
+                left: FIRST_HORIZONTAL_BOUNDARY - 1,
+                bottom: SECOND_VERTICAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -300,15 +300,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="left"
               style={{
-                left: SAFE_FIRST_HORIZONTAL,
-                top: SAFE_CENTER_VERTICAL,
+                left: FIRST_HORIZONTAL_BOUNDARY,
+                top: CENTER_VERTICAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="left"
               style={{
-                left: SAFE_FIRST_HORIZONTAL - 1,
-                top: SAFE_CENTER_VERTICAL - 1,
+                left: FIRST_HORIZONTAL_BOUNDARY - 1,
+                top: CENTER_VERTICAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -316,15 +316,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="left"
               style={{
-                left: SAFE_FIRST_HORIZONTAL,
-                bottom: SAFE_CENTER_VERTICAL,
+                left: FIRST_HORIZONTAL_BOUNDARY,
+                bottom: CENTER_VERTICAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="left"
               style={{
-                left: SAFE_FIRST_HORIZONTAL - 1,
-                bottom: SAFE_CENTER_VERTICAL - 1,
+                left: FIRST_HORIZONTAL_BOUNDARY - 1,
+                bottom: CENTER_VERTICAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -332,15 +332,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="left-bottom"
               style={{
-                left: SAFE_FIRST_HORIZONTAL,
-                top: SAFE_SECOND_VERTICAL,
+                left: FIRST_HORIZONTAL_BOUNDARY,
+                top: SECOND_VERTICAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="left-bottom"
               style={{
-                left: SAFE_FIRST_HORIZONTAL - 1,
-                top: SAFE_SECOND_VERTICAL - 1,
+                left: FIRST_HORIZONTAL_BOUNDARY - 1,
+                top: SECOND_VERTICAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -350,15 +350,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="right-top"
               style={{
-                right: SAFE_FIRST_HORIZONTAL,
-                bottom: SAFE_SECOND_VERTICAL,
+                right: FIRST_HORIZONTAL_BOUNDARY,
+                bottom: SECOND_VERTICAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="right-top"
               style={{
-                right: SAFE_FIRST_HORIZONTAL - 1,
-                bottom: SAFE_SECOND_VERTICAL - 1,
+                right: FIRST_HORIZONTAL_BOUNDARY - 1,
+                bottom: SECOND_VERTICAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -366,15 +366,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="right"
               style={{
-                right: SAFE_FIRST_HORIZONTAL,
-                top: SAFE_CENTER_VERTICAL,
+                right: FIRST_HORIZONTAL_BOUNDARY,
+                top: CENTER_VERTICAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="right"
               style={{
-                right: SAFE_FIRST_HORIZONTAL - 1,
-                top: SAFE_CENTER_VERTICAL - 1,
+                right: FIRST_HORIZONTAL_BOUNDARY - 1,
+                top: CENTER_VERTICAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -382,15 +382,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="right"
               style={{
-                right: SAFE_FIRST_HORIZONTAL,
-                bottom: SAFE_CENTER_VERTICAL,
+                right: FIRST_HORIZONTAL_BOUNDARY,
+                bottom: CENTER_VERTICAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="right"
               style={{
-                right: SAFE_FIRST_HORIZONTAL - 1,
-                bottom: SAFE_CENTER_VERTICAL - 1,
+                right: FIRST_HORIZONTAL_BOUNDARY - 1,
+                bottom: CENTER_VERTICAL_BOUNDARY - 1,
               }}
             />
           </div>
@@ -398,15 +398,15 @@ export const Flip: StoryObj = {
             <PopoverInFrame
               positionType="right-bottom"
               style={{
-                right: SAFE_FIRST_HORIZONTAL,
-                top: SAFE_SECOND_VERTICAL,
+                right: FIRST_HORIZONTAL_BOUNDARY,
+                top: SECOND_VERTICAL_BOUNDARY,
               }}
             />
             <PopoverInFrame
               positionType="right-bottom"
               style={{
-                right: SAFE_FIRST_HORIZONTAL - 1,
-                top: SAFE_SECOND_VERTICAL - 1,
+                right: FIRST_HORIZONTAL_BOUNDARY - 1,
+                top: SECOND_VERTICAL_BOUNDARY - 1,
               }}
             />
           </div>
