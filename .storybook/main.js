@@ -2,7 +2,16 @@ const path = require('path');
 
 module.exports = {
   stories: ['../src/**/*.stories.tsx'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials', 'storycap'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    'storycap',
+  ],
+  framework: {
+    name: '@storybook/react-webpack5',
+    options: {},
+  },
   webpackFinal: async (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname, '../src');
 
@@ -16,7 +25,7 @@ module.exports = {
 
     return config;
   },
-  core: {
-    builder: 'webpack5',
+  features: {
+    storyStoreV7: false,
   },
 };
