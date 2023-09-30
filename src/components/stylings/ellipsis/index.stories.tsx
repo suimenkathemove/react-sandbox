@@ -12,7 +12,7 @@ export default {
 } as Meta<EllipsisProps>;
 
 export const Default: StoryObj<EllipsisProps> = {
-  render: (props) => {
+  render: (props: EllipsisProps) => {
     return (
       <Ellipsis {...props} style={{ display: 'inline-block', width: 50 }} />
     );

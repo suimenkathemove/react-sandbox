@@ -7,7 +7,9 @@ export default {
   excludeStories: ['defaultProps'],
 } as ComponentMeta<typeof Handle>;
 
-const Template: ComponentStory<typeof Handle> = (args) => <Handle {...args} />;
+const Template: ComponentStory<typeof Handle> = (args: HandleProps) => (
+  <Handle {...args} />
+);
 
 export const defaultProps: HandleProps = {};
 
