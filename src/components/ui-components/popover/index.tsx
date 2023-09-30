@@ -4,8 +4,7 @@ import { createPortal } from 'react-dom';
 import { Offset, Position } from './models';
 import { PositionType } from './models/position-type';
 import { ContentWrapper, TriggerWrapper } from './styles';
-import { calcPosition } from './utils/calc-position';
-import { flipPositionType } from './utils/flip-position-type';
+import { resolvePosition } from './utils/resolve-position';
 
 import { useBool } from '@/hooks/use-bool';
 
@@ -31,25 +30,14 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     const trigger = triggerRef.current?.getBoundingClientRect();
     const content = contentRef.current?.getBoundingClientRect();
     if (trigger != null && content != null) {
-      const newPosition = calcPosition(
+      const newPosition = resolvePosition(
         trigger,
         content,
         props.positionType,
         props.offset,
-      );
-      const flippedPositionType = flipPositionType(
-        props.positionType,
-        newPosition,
-        content,
         props.frameElement?.getBoundingClientRect(),
       );
-      const flippedNewPosition = calcPosition(
-        trigger,
-        content,
-        flippedPositionType,
-        props.offset,
-      );
-      setPosition(flippedNewPosition);
+      setPosition(newPosition);
     }
   }, [open, props.frameElement, props.offset, props.positionType]);
 
