@@ -88,6 +88,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react-hooks/exhaustive-deps': 'error',
     'react-hooks/rules-of-hooks': 'error',
+    'testing-library/no-wait-for-multiple-assertions': 'off',
   },
   overrides: [
     {

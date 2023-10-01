@@ -14,6 +14,7 @@ export interface PopoverProps {
   positionType: PositionType;
   offset?: Offset;
   frameElement?: HTMLElement | null;
+  contentContainer?: HTMLElement;
 }
 
 export const Popover: React.FC<PopoverProps> = (props) => {
@@ -59,10 +60,14 @@ export const Popover: React.FC<PopoverProps> = (props) => {
       </TriggerWrapper>
       {open &&
         createPortal(
-          <ContentWrapper style={position} ref={contentRef}>
+          <ContentWrapper
+            style={position}
+            ref={contentRef}
+            data-testid="popover-content"
+          >
             {props.content}
           </ContentWrapper>,
-          document.body,
+          props.contentContainer ?? document.body,
         )}
     </>
   );

@@ -1,4 +1,6 @@
+import { expect } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
+import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
@@ -17,14 +19,14 @@ const TRIGGER_HEIGHT = 16;
 const CONTENT_WIDTH = 100;
 const CONTENT_HEIGHT = 40;
 
-const FIRST_HORIZONTAL_BOUNDARY = OFFSET + CONTENT_WIDTH - 1;
-const FIRST_VERTICAL_BOUNDARY = OFFSET + CONTENT_HEIGHT - 1;
+const FIRST_HORIZONTAL_BOUNDARY = OFFSET + CONTENT_WIDTH;
+const FIRST_VERTICAL_BOUNDARY = OFFSET + CONTENT_HEIGHT;
 
-const SECOND_HORIZONTAL_BOUNDARY = CONTENT_WIDTH - TRIGGER_WIDTH - 1;
-const SECOND_VERTICAL_BOUNDARY = CONTENT_HEIGHT - TRIGGER_HEIGHT - 1;
+const SECOND_HORIZONTAL_BOUNDARY = CONTENT_WIDTH - TRIGGER_WIDTH;
+const SECOND_VERTICAL_BOUNDARY = CONTENT_HEIGHT - TRIGGER_HEIGHT;
 
-const CENTER_HORIZONTAL_BOUNDARY = CONTENT_WIDTH / 2 - TRIGGER_WIDTH / 2 - 1;
-const CENTER_VERTICAL_BOUNDARY = CONTENT_HEIGHT / 2 - TRIGGER_HEIGHT / 2 - 1;
+const CENTER_HORIZONTAL_BOUNDARY = CONTENT_WIDTH / 2 - TRIGGER_WIDTH / 2;
+const CENTER_VERTICAL_BOUNDARY = CONTENT_HEIGHT / 2 - TRIGGER_HEIGHT / 2;
 
 const PopoverByPositionType: React.FC<
   Pick<PopoverProps, 'positionType' | 'frameElement'>
@@ -42,6 +44,8 @@ const PopoverByPositionType: React.FC<
       }
       positionType={props.positionType}
       frameElement={props.frameElement}
+      // eslint-disable-next-line testing-library/no-node-access
+      contentContainer={document.getElementById('storybook-root')!}
     >
       <div
         style={{
@@ -122,7 +126,7 @@ const PopoverInFrame: React.FC<PopoverInFrameProps> = (props) => {
         position: 'relative',
         width: TRIGGER_WIDTH + (OFFSET + CONTENT_WIDTH) * 2,
         height: TRIGGER_HEIGHT + (OFFSET + CONTENT_HEIGHT) * 2,
-        border: '1px solid black',
+        backgroundColor: 'gray',
       }}
       ref={frameRef}
     >
@@ -413,5 +417,36 @@ export const Flip: StoryObj = {
         </div>
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    {
+      const trigger = canvas.getAllByText('top-left' as PositionType)[0]!;
+      const triggerRect = trigger.getBoundingClientRect();
+      userEvent.click(trigger);
+
+      await waitFor(() => {
+        const content = canvas.getByTestId('popover-content');
+        const contentRect = content.getBoundingClientRect();
+
+        expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+        expect(contentRect.left).toBe(triggerRect.left);
+      });
+    }
+
+    {
+      const trigger = canvas.getAllByText('top-left' as PositionType)[1]!;
+      const triggerRect = trigger.getBoundingClientRect();
+      userEvent.click(trigger);
+
+      await waitFor(() => {
+        const content = canvas.getByTestId('popover-content');
+        const contentRect = content.getBoundingClientRect();
+
+        expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+        expect(contentRect.right).toBe(triggerRect.right);
+      });
+    }
   },
 };
