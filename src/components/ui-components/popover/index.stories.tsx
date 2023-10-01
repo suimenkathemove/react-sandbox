@@ -421,8 +421,12 @@ export const Flip: StoryObj = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    {
-      const trigger = canvas.getAllByText('top-left' as PositionType)[0]!;
+    const test = async (
+      positionType: PositionType,
+      index: number,
+      cb: (triggerRect: DOMRect, contentRect: DOMRect) => void,
+    ) => {
+      const trigger = canvas.getAllByText(positionType)[index]!;
       const triggerRect = trigger.getBoundingClientRect();
       userEvent.click(trigger);
 
@@ -430,23 +434,47 @@ export const Flip: StoryObj = {
         const content = canvas.getByTestId('popover-content');
         const contentRect = content.getBoundingClientRect();
 
-        expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
-        expect(contentRect.left).toBe(triggerRect.left);
+        cb(triggerRect, contentRect);
       });
-    }
+    };
 
-    {
-      const trigger = canvas.getAllByText('top-left' as PositionType)[1]!;
-      const triggerRect = trigger.getBoundingClientRect();
-      userEvent.click(trigger);
+    await test('top-left', 0, (triggerRect, contentRect) => {
+      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      expect(contentRect.left).toBe(triggerRect.left);
+    });
+    await test('top-left', 1, (triggerRect, contentRect) => {
+      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      expect(contentRect.right).toBe(triggerRect.right);
+    });
 
-      await waitFor(() => {
-        const content = canvas.getByTestId('popover-content');
-        const contentRect = content.getBoundingClientRect();
+    await test('top', 0, (triggerRect, contentRect) => {
+      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      expect(contentRect.left).toBe(
+        triggerRect.left - CENTER_HORIZONTAL_BOUNDARY,
+      );
+    });
+    await test('top', 1, (triggerRect, contentRect) => {
+      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      expect(contentRect.left).toBe(triggerRect.left);
+    });
+    await test('top', 2, (triggerRect, contentRect) => {
+      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      expect(contentRect.right).toBe(
+        triggerRect.right + CENTER_HORIZONTAL_BOUNDARY,
+      );
+    });
+    await test('top', 3, (triggerRect, contentRect) => {
+      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      expect(contentRect.right).toBe(triggerRect.right);
+    });
 
-        expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
-        expect(contentRect.right).toBe(triggerRect.right);
-      });
-    }
+    await test('top-right', 0, (triggerRect, contentRect) => {
+      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      expect(contentRect.right).toBe(triggerRect.right);
+    });
+    await test('top-right', 1, (triggerRect, contentRect) => {
+      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      expect(contentRect.left).toBe(triggerRect.left);
+    });
   },
 };
