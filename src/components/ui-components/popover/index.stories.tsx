@@ -40,7 +40,9 @@ const PopoverByPositionType: React.FC<
             height: CONTENT_HEIGHT,
             border: '1px solid black',
           }}
-        />
+        >
+          content
+        </div>
       }
       positionType={props.positionType}
       frameElement={props.frameElement}
@@ -65,8 +67,8 @@ const Container = styled.div`
   display: grid;
   grid-template-areas: '. top .' 'left . right' '. bottom .';
   width: fit-content;
-  padding-top: ${FIRST_VERTICAL_BOUNDARY + 1}px;
-  padding-left: ${FIRST_HORIZONTAL_BOUNDARY + 1}px;
+  padding-top: ${FIRST_VERTICAL_BOUNDARY}px;
+  padding-left: ${FIRST_HORIZONTAL_BOUNDARY}px;
 `;
 
 const Wrapper = styled.div<{ gridArea: PositionTypeUnit }>`
@@ -431,7 +433,7 @@ export const Flip: StoryObj = {
       userEvent.click(trigger);
 
       await waitFor(() => {
-        const content = canvas.getByTestId('popover-content');
+        const content = canvas.getByText('content');
         const contentRect = content.getBoundingClientRect();
 
         cb(triggerRect, contentRect);

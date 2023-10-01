@@ -60,11 +60,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
       </TriggerWrapper>
       {open &&
         createPortal(
-          <ContentWrapper
-            style={position}
-            ref={contentRef}
-            data-testid="popover-content"
-          >
+          <ContentWrapper style={position} ref={contentRef}>
             {props.content}
           </ContentWrapper>,
           props.contentContainer ?? document.body,
