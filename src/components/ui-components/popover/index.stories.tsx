@@ -552,5 +552,42 @@ export const Flip: StoryObj = {
       expect(contentRect.left).toBe(triggerRect.right + OFFSET);
       expect(contentRect.top).toBe(triggerRect.top);
     });
+
+    await test('right-top', 0, (triggerRect, contentRect) => {
+      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      expect(contentRect.top).toBe(triggerRect.top);
+    });
+    await test('right-top', 1, (triggerRect, contentRect) => {
+      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      expect(contentRect.bottom).toBe(triggerRect.bottom);
+    });
+
+    await test('right', 0, (triggerRect, contentRect) => {
+      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      expect(contentRect.top).toBe(triggerRect.top - CENTER_VERTICAL_BOUNDARY);
+    });
+    await test('right', 1, (triggerRect, contentRect) => {
+      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      expect(contentRect.top).toBe(triggerRect.top);
+    });
+    await test('right', 2, (triggerRect, contentRect) => {
+      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      expect(contentRect.bottom).toBe(
+        triggerRect.bottom + CENTER_VERTICAL_BOUNDARY,
+      );
+    });
+    await test('right', 3, (triggerRect, contentRect) => {
+      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      expect(contentRect.bottom).toBe(triggerRect.bottom);
+    });
+
+    await test('right-bottom', 0, (triggerRect, contentRect) => {
+      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      expect(contentRect.bottom).toBe(triggerRect.bottom);
+    });
+    await test('right-bottom', 1, (triggerRect, contentRect) => {
+      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      expect(contentRect.top).toBe(triggerRect.top);
+    });
   },
 };
