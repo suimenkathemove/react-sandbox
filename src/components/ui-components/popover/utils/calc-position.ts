@@ -12,13 +12,17 @@ export const calcPosition = (
   positionType: PositionType,
   offset: Offset | null,
   mountTarget: DOMRect | null,
+  isMountTargetPositionRelative: boolean,
 ): Position => {
   const [positionTypeFirst, positionTypeSecond] = splitPositionType(
     positionType,
   );
 
   const x = (() => {
-    const baseX = window.scrollX + trigger.x - (mountTarget?.x ?? 0);
+    const mountTargetOffsetX = isMountTargetPositionRelative
+      ? -(mountTarget?.x ?? 0)
+      : 0;
+    const baseX = window.scrollX + trigger.x + mountTargetOffsetX;
     switch (positionTypeFirst) {
       case 'top':
       case 'bottom':
@@ -45,7 +49,10 @@ export const calcPosition = (
   })();
 
   const y = (() => {
-    const baseY = window.scrollY + trigger.y - (mountTarget?.y ?? 0);
+    const mountTargetOffsetY = isMountTargetPositionRelative
+      ? -(mountTarget?.y ?? 0)
+      : 0;
+    const baseY = window.scrollY + trigger.y + mountTargetOffsetY;
     switch (positionTypeFirst) {
       case 'top':
         return baseY - OFFSET - content.height;

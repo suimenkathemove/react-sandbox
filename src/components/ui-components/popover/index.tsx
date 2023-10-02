@@ -15,6 +15,7 @@ export interface PopoverProps {
   offset?: Offset;
   frameElement?: HTMLElement | null;
   mountTarget?: HTMLElement;
+  isMountTargetPositionRelative?: boolean;
 }
 
 export const Popover: React.FC<PopoverProps> = (props) => {
@@ -37,6 +38,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
         props.positionType,
         props.offset ?? null,
         props.mountTarget?.getBoundingClientRect() ?? null,
+        props.isMountTargetPositionRelative ?? false,
         props.frameElement?.getBoundingClientRect() ?? null,
       );
       setPosition(newPosition);
@@ -44,6 +46,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
   }, [
     open,
     props.frameElement,
+    props.isMountTargetPositionRelative,
     props.mountTarget,
     props.offset,
     props.positionType,

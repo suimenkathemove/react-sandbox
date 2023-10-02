@@ -27,28 +27,32 @@ const createShouldFlip = (
   position: Position,
   content: DOMRect,
   mountTarget: DOMRect | null,
+  isMountTargetPositionRelative: boolean,
   frame: DOMRect | null,
 ): Record<PositionTypeUnit, boolean> => {
+  const mountTargetOffsetX = isMountTargetPositionRelative
+    ? -(mountTarget?.x ?? 0)
+    : 0;
+  const mountTargetOffsetY = isMountTargetPositionRelative
+    ? -(mountTarget?.y ?? 0)
+    : 0;
+
   const edgeTop = position.top;
-  const frameTop = window.scrollY + (frame?.top ?? 0) - (mountTarget?.y ?? 0);
+  const frameTop = window.scrollY + (frame?.top ?? 0) + mountTargetOffsetY;
   const top = edgeTop < frameTop;
 
   const edgeBottom = position.top + content.height;
   const frameBottom =
-    window.scrollY +
-    (frame?.bottom ?? window.innerHeight) -
-    (mountTarget?.y ?? 0);
+    window.scrollY + (frame?.bottom ?? window.innerHeight) + mountTargetOffsetY;
   const bottom = edgeBottom > frameBottom;
 
   const edgeLeft = position.left;
-  const frameLeft = window.scrollX + (frame?.left ?? 0) - (mountTarget?.x ?? 0);
+  const frameLeft = window.scrollX + (frame?.left ?? 0) + mountTargetOffsetX;
   const left = edgeLeft < frameLeft;
 
   const edgeRight = position.left + content.width;
   const frameRight =
-    window.scrollX +
-    (frame?.right ?? window.innerWidth) -
-    (mountTarget?.x ?? 0);
+    window.scrollX + (frame?.right ?? window.innerWidth) + mountTargetOffsetX;
   const right = edgeRight > frameRight;
 
   return { top, bottom, left, right };
@@ -97,13 +101,20 @@ export const flipPositionType = (
   position: Position,
   content: DOMRect,
   mountTarget: DOMRect | null,
+  isMountTargetPositionRelative: boolean,
   frame: DOMRect | null,
 ): PositionType => {
   const [positionTypeFirst, positionTypeSecond] = splitPositionType(
     positionType,
   );
 
-  const shouldFlip = createShouldFlip(position, content, mountTarget, frame);
+  const shouldFlip = createShouldFlip(
+    position,
+    content,
+    mountTarget,
+    isMountTargetPositionRelative,
+    frame,
+  );
 
   const newPositionTypeFirst = shouldFlip[positionTypeFirst]
     ? reversePositionTypeUnit(positionTypeFirst)
