@@ -11,13 +11,14 @@ export const calcPosition = (
   content: DOMRect,
   positionType: PositionType,
   offset?: Offset,
+  mountTarget?: DOMRect,
 ): Position => {
   const [positionTypeFirst, positionTypeSecond] = splitPositionType(
     positionType,
   );
 
   const x = (() => {
-    const baseX = window.scrollX + trigger.x;
+    const baseX = window.scrollX + trigger.x - (mountTarget?.x ?? 0);
     switch (positionTypeFirst) {
       case 'top':
       case 'bottom':
@@ -44,7 +45,7 @@ export const calcPosition = (
   })();
 
   const y = (() => {
-    const baseY = window.scrollY + trigger.y;
+    const baseY = window.scrollY + trigger.y - (mountTarget?.y ?? 0);
     switch (positionTypeFirst) {
       case 'top':
         return baseY - OFFSET - content.height;

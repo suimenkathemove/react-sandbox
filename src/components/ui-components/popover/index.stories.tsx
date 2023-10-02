@@ -47,7 +47,7 @@ const PopoverByPositionType: React.FC<
       positionType={props.positionType}
       frameElement={props.frameElement}
       // eslint-disable-next-line testing-library/no-node-access
-      contentContainer={document.getElementById('storybook-root')!}
+      mountTarget={document.getElementById('storybook-root')!}
     >
       <div
         style={{

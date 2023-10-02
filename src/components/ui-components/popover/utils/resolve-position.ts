@@ -9,13 +9,21 @@ export const resolvePosition = (
   content: DOMRect,
   positionType: PositionType,
   offset?: Offset,
+  mountTarget?: DOMRect,
   frame?: DOMRect,
 ): Position => {
-  const newPosition = calcPosition(trigger, content, positionType, offset);
+  const newPosition = calcPosition(
+    trigger,
+    content,
+    positionType,
+    offset,
+    mountTarget,
+  );
   const flippedPositionType = flipPositionType(
     positionType,
     newPosition,
     content,
+    mountTarget,
     frame,
   );
   const flippedNewPosition = calcPosition(
@@ -23,6 +31,7 @@ export const resolvePosition = (
     content,
     flippedPositionType,
     offset,
+    mountTarget,
   );
 
   return flippedNewPosition;

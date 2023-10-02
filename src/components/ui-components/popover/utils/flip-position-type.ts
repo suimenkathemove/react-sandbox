@@ -26,22 +26,29 @@ const reversePositionTypeUnit = (
 const createShouldFlip = (
   position: Position,
   content: DOMRect,
+  mountTarget?: DOMRect,
   frame?: DOMRect,
 ): Record<PositionTypeUnit, boolean> => {
   const edgeTop = position.top;
-  const frameTop = window.scrollY + (frame?.top ?? 0);
+  const frameTop = window.scrollY + (frame?.top ?? 0) - (mountTarget?.y ?? 0);
   const top = edgeTop < frameTop;
 
   const edgeBottom = position.top + content.height;
-  const frameBottom = window.scrollY + (frame?.bottom ?? window.innerHeight);
+  const frameBottom =
+    window.scrollY +
+    (frame?.bottom ?? window.innerHeight) -
+    (mountTarget?.y ?? 0);
   const bottom = edgeBottom > frameBottom;
 
   const edgeLeft = position.left;
-  const frameLeft = window.scrollX + (frame?.left ?? 0);
+  const frameLeft = window.scrollX + (frame?.left ?? 0) - (mountTarget?.x ?? 0);
   const left = edgeLeft < frameLeft;
 
   const edgeRight = position.left + content.width;
-  const frameRight = window.scrollX + (frame?.right ?? window.innerWidth);
+  const frameRight =
+    window.scrollX +
+    (frame?.right ?? window.innerWidth) -
+    (mountTarget?.x ?? 0);
   const right = edgeRight > frameRight;
 
   return { top, bottom, left, right };
@@ -89,13 +96,14 @@ export const flipPositionType = (
   positionType: PositionType,
   position: Position,
   content: DOMRect,
+  mountTarget?: DOMRect,
   frame?: DOMRect,
 ): PositionType => {
   const [positionTypeFirst, positionTypeSecond] = splitPositionType(
     positionType,
   );
 
-  const shouldFlip = createShouldFlip(position, content, frame);
+  const shouldFlip = createShouldFlip(position, content, mountTarget, frame);
 
   const newPositionTypeFirst = shouldFlip[positionTypeFirst]
     ? reversePositionTypeUnit(positionTypeFirst)

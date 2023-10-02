@@ -14,7 +14,7 @@ export interface PopoverProps {
   positionType: PositionType;
   offset?: Offset;
   frameElement?: HTMLElement | null;
-  contentContainer?: HTMLElement;
+  mountTarget?: HTMLElement;
 }
 
 export const Popover: React.FC<PopoverProps> = (props) => {
@@ -36,11 +36,18 @@ export const Popover: React.FC<PopoverProps> = (props) => {
         content,
         props.positionType,
         props.offset,
+        props.mountTarget?.getBoundingClientRect(),
         props.frameElement?.getBoundingClientRect(),
       );
       setPosition(newPosition);
     }
-  }, [open, props.frameElement, props.offset, props.positionType]);
+  }, [
+    open,
+    props.frameElement,
+    props.mountTarget,
+    props.offset,
+    props.positionType,
+  ]);
 
   useEffect(() => {
     const options: AddEventListenerOptions = { capture: true };
@@ -63,7 +70,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
           <ContentWrapper style={position} ref={contentRef}>
             {props.content}
           </ContentWrapper>,
-          props.contentContainer ?? document.body,
+          props.mountTarget ?? document.body,
         )}
     </>
   );
