@@ -41,7 +41,7 @@ const createShouldFlip = (
   const left = edgeLeft < frameLeft;
 
   const edgeRight = position.left + content.width;
-  const frameRight = window.scrollY + (frame?.right ?? window.innerWidth);
+  const frameRight = window.scrollX + (frame?.right ?? window.innerWidth);
   const right = edgeRight > frameRight;
 
   return { top, bottom, left, right };
