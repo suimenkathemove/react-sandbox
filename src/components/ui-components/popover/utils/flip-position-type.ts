@@ -26,8 +26,8 @@ const reversePositionTypeUnit = (
 const createShouldFlip = (
   position: Position,
   content: DOMRect,
-  mountTarget?: DOMRect,
-  frame?: DOMRect,
+  mountTarget: DOMRect | null,
+  frame: DOMRect | null,
 ): Record<PositionTypeUnit, boolean> => {
   const edgeTop = position.top;
   const frameTop = window.scrollY + (frame?.top ?? 0) - (mountTarget?.y ?? 0);
@@ -96,8 +96,8 @@ export const flipPositionType = (
   positionType: PositionType,
   position: Position,
   content: DOMRect,
-  mountTarget?: DOMRect,
-  frame?: DOMRect,
+  mountTarget: DOMRect | null,
+  frame: DOMRect | null,
 ): PositionType => {
   const [positionTypeFirst, positionTypeSecond] = splitPositionType(
     positionType,

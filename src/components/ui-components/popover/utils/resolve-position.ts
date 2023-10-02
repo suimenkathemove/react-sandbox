@@ -8,9 +8,9 @@ export const resolvePosition = (
   trigger: DOMRect,
   content: DOMRect,
   positionType: PositionType,
-  offset?: Offset,
-  mountTarget?: DOMRect,
-  frame?: DOMRect,
+  offset: Offset | null,
+  mountTarget: DOMRect | null,
+  frame: DOMRect | null,
 ): Position => {
   const newPosition = calcPosition(
     trigger,

@@ -35,9 +35,9 @@ export const Popover: React.FC<PopoverProps> = (props) => {
         trigger,
         content,
         props.positionType,
-        props.offset,
-        props.mountTarget?.getBoundingClientRect(),
-        props.frameElement?.getBoundingClientRect(),
+        props.offset ?? null,
+        props.mountTarget?.getBoundingClientRect() ?? null,
+        props.frameElement?.getBoundingClientRect() ?? null,
       );
       setPosition(newPosition);
     }

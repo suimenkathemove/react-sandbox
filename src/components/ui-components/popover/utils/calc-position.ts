@@ -10,8 +10,8 @@ export const calcPosition = (
   trigger: DOMRect,
   content: DOMRect,
   positionType: PositionType,
-  offset?: Offset,
-  mountTarget?: DOMRect,
+  offset: Offset | null,
+  mountTarget: DOMRect | null,
 ): Position => {
   const [positionTypeFirst, positionTypeSecond] = splitPositionType(
     positionType,
