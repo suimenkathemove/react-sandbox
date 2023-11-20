@@ -30,7 +30,9 @@ exports[`BreadcrumbList render 1`] = `
         <span>
           1
         </span>
-        &gt;
+        <span>
+          &gt;
+        </span>
       </li>
       <li
         class="c1"
@@ -38,7 +40,9 @@ exports[`BreadcrumbList render 1`] = `
         <span>
           2
         </span>
-        &gt;
+        <span>
+          &gt;
+        </span>
       </li>
       <li
         class="c1"

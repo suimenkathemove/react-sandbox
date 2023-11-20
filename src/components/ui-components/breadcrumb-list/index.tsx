@@ -1,23 +1,24 @@
 import { Li, Ol } from './styles';
 
-export type BreadcrumbListProps = {
-  ancestors: { name: string }[];
-  currentName: string;
-};
+interface Node {
+  id: string;
+  name: string;
+}
+
+export interface BreadcrumbListProps {
+  ancestors: Node[];
+}
 
 export const BreadcrumbList: React.VFC<BreadcrumbListProps> = (props) => {
   return (
     <nav>
       <Ol>
-        {props.ancestors.map(({ name }) => (
-          <Li key={name}>
-            <span>{name}</span>
-            &gt;
+        {props.ancestors.map((a, i) => (
+          <Li key={a.id}>
+            <span>{a.name}</span>
+            {i !== props.ancestors.length - 1 && <span>&gt;</span>}
           </Li>
         ))}
-        <Li key={props.currentName}>
-          <span>{props.currentName}</span>
-        </Li>
       </Ol>
     </nav>
   );

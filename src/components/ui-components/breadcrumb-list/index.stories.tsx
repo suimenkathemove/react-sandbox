@@ -12,8 +12,11 @@ const Template: ComponentStory<typeof BreadcrumbList> = (args) => (
 );
 
 export const defaultProps: BreadcrumbListProps = {
-  ancestors: [{ name: '1' }, { name: '2' }],
-  currentName: '3',
+  ancestors: [
+    { id: '1', name: '1' },
+    { id: '2', name: '2' },
+    { id: '3', name: '3' },
+  ],
 };
 
 export const Default = Template.bind({});
