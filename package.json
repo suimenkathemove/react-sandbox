@@ -109,6 +109,11 @@
     "wasm-loader": "^1.3.0",
     "webpack": "^5.89.0"
   },
+  "typesync": {
+    "ignorePackages": [
+      "wasm"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
