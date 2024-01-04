@@ -1,6 +1,4 @@
-import type { Config } from '@jest/types';
-
-const config: Config.InitialOptions = {
+module.exports = {
   moduleNameMapper: {
     '^@/(.*)': '<rootDir>/src/$1',
     '\\.(css|less|scss|sss|styl)$': '<rootDir>/node_modules/jest-css-modules',
@@ -12,5 +10,3 @@ const config: Config.InitialOptions = {
   },
   verbose: true,
 };
-
-export default config;

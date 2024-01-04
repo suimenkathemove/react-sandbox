@@ -14,5 +14,5 @@ type Push<T extends any[], V> = [...T, V];
 type TuplifyUnion<
   T,
   L = LastOf<T>,
-  N = [T] extends [never] ? true : false
+  N = [T] extends [never] ? true : false,
 > = true extends N ? [] : Push<TuplifyUnion<Exclude<T, L>>, L>;

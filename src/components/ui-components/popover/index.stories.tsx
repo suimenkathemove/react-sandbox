@@ -72,8 +72,8 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div<{ gridArea: PositionTypeUnit }>`
-  grid-area: ${(props) => props.gridArea};
   display: flex;
+  grid-area: ${(props) => props.gridArea};
   gap: 4px;
   align-items: center;
   justify-content: center;
@@ -430,7 +430,7 @@ export const Flip: StoryObj = {
     ) => {
       const trigger = canvas.getAllByText(positionType)[index]!;
       const triggerRect = trigger.getBoundingClientRect();
-      userEvent.click(trigger);
+      await userEvent.click(trigger);
 
       await waitFor(() => {
         const content = canvas.getByText('content');
@@ -441,155 +441,159 @@ export const Flip: StoryObj = {
     };
 
     await test('top-left', 0, (triggerRect, contentRect) => {
-      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
-      expect(contentRect.left).toBe(triggerRect.left);
+      void expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      void expect(contentRect.left).toBe(triggerRect.left);
     });
     await test('top-left', 1, (triggerRect, contentRect) => {
-      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
-      expect(contentRect.right).toBe(triggerRect.right);
+      void expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      void expect(contentRect.right).toBe(triggerRect.right);
     });
 
     await test('top', 0, (triggerRect, contentRect) => {
-      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
-      expect(contentRect.left).toBe(
+      void expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      void expect(contentRect.left).toBe(
         triggerRect.left - CENTER_HORIZONTAL_BOUNDARY,
       );
     });
     await test('top', 1, (triggerRect, contentRect) => {
-      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
-      expect(contentRect.left).toBe(triggerRect.left);
+      void expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      void expect(contentRect.left).toBe(triggerRect.left);
     });
     await test('top', 2, (triggerRect, contentRect) => {
-      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
-      expect(contentRect.right).toBe(
+      void expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      void expect(contentRect.right).toBe(
         triggerRect.right + CENTER_HORIZONTAL_BOUNDARY,
       );
     });
     await test('top', 3, (triggerRect, contentRect) => {
-      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
-      expect(contentRect.right).toBe(triggerRect.right);
+      void expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      void expect(contentRect.right).toBe(triggerRect.right);
     });
 
     await test('top-right', 0, (triggerRect, contentRect) => {
-      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
-      expect(contentRect.right).toBe(triggerRect.right);
+      void expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      void expect(contentRect.right).toBe(triggerRect.right);
     });
     await test('top-right', 1, (triggerRect, contentRect) => {
-      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
-      expect(contentRect.left).toBe(triggerRect.left);
+      void expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      void expect(contentRect.left).toBe(triggerRect.left);
     });
 
     await test('bottom-left', 0, (triggerRect, contentRect) => {
-      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
-      expect(contentRect.left).toBe(triggerRect.left);
+      void expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      void expect(contentRect.left).toBe(triggerRect.left);
     });
     await test('bottom-left', 1, (triggerRect, contentRect) => {
-      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
-      expect(contentRect.right).toBe(triggerRect.right);
+      void expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      void expect(contentRect.right).toBe(triggerRect.right);
     });
 
     await test('bottom', 0, (triggerRect, contentRect) => {
-      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
-      expect(contentRect.left).toBe(
+      void expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      void expect(contentRect.left).toBe(
         triggerRect.left - CENTER_HORIZONTAL_BOUNDARY,
       );
     });
     await test('bottom', 1, (triggerRect, contentRect) => {
-      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
-      expect(contentRect.left).toBe(triggerRect.left);
+      void expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      void expect(contentRect.left).toBe(triggerRect.left);
     });
     await test('bottom', 2, (triggerRect, contentRect) => {
-      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
-      expect(contentRect.right).toBe(
+      void expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      void expect(contentRect.right).toBe(
         triggerRect.right + CENTER_HORIZONTAL_BOUNDARY,
       );
     });
     await test('bottom', 3, (triggerRect, contentRect) => {
-      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
-      expect(contentRect.right).toBe(triggerRect.right);
+      void expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      void expect(contentRect.right).toBe(triggerRect.right);
     });
 
     await test('bottom-right', 0, (triggerRect, contentRect) => {
-      expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
-      expect(contentRect.right).toBe(triggerRect.right);
+      void expect(contentRect.top).toBe(triggerRect.bottom + OFFSET);
+      void expect(contentRect.right).toBe(triggerRect.right);
     });
     await test('bottom-right', 1, (triggerRect, contentRect) => {
-      expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
-      expect(contentRect.left).toBe(triggerRect.left);
+      void expect(contentRect.bottom).toBe(triggerRect.top - OFFSET);
+      void expect(contentRect.left).toBe(triggerRect.left);
     });
 
     await test('left-top', 0, (triggerRect, contentRect) => {
-      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
-      expect(contentRect.top).toBe(triggerRect.top);
+      void expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      void expect(contentRect.top).toBe(triggerRect.top);
     });
     await test('left-top', 1, (triggerRect, contentRect) => {
-      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
-      expect(contentRect.bottom).toBe(triggerRect.bottom);
+      void expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      void expect(contentRect.bottom).toBe(triggerRect.bottom);
     });
 
     await test('left', 0, (triggerRect, contentRect) => {
-      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
-      expect(contentRect.top).toBe(triggerRect.top - CENTER_VERTICAL_BOUNDARY);
+      void expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      void expect(contentRect.top).toBe(
+        triggerRect.top - CENTER_VERTICAL_BOUNDARY,
+      );
     });
     await test('left', 1, (triggerRect, contentRect) => {
-      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
-      expect(contentRect.top).toBe(triggerRect.top);
+      void expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      void expect(contentRect.top).toBe(triggerRect.top);
     });
     await test('left', 2, (triggerRect, contentRect) => {
-      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
-      expect(contentRect.bottom).toBe(
+      void expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      void expect(contentRect.bottom).toBe(
         triggerRect.bottom + CENTER_VERTICAL_BOUNDARY,
       );
     });
     await test('left', 3, (triggerRect, contentRect) => {
-      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
-      expect(contentRect.bottom).toBe(triggerRect.bottom);
+      void expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      void expect(contentRect.bottom).toBe(triggerRect.bottom);
     });
 
     await test('left-bottom', 0, (triggerRect, contentRect) => {
-      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
-      expect(contentRect.bottom).toBe(triggerRect.bottom);
+      void expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      void expect(contentRect.bottom).toBe(triggerRect.bottom);
     });
     await test('left-bottom', 1, (triggerRect, contentRect) => {
-      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
-      expect(contentRect.top).toBe(triggerRect.top);
+      void expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      void expect(contentRect.top).toBe(triggerRect.top);
     });
 
     await test('right-top', 0, (triggerRect, contentRect) => {
-      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
-      expect(contentRect.top).toBe(triggerRect.top);
+      void expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      void expect(contentRect.top).toBe(triggerRect.top);
     });
     await test('right-top', 1, (triggerRect, contentRect) => {
-      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
-      expect(contentRect.bottom).toBe(triggerRect.bottom);
+      void expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      void expect(contentRect.bottom).toBe(triggerRect.bottom);
     });
 
     await test('right', 0, (triggerRect, contentRect) => {
-      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
-      expect(contentRect.top).toBe(triggerRect.top - CENTER_VERTICAL_BOUNDARY);
+      void expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      void expect(contentRect.top).toBe(
+        triggerRect.top - CENTER_VERTICAL_BOUNDARY,
+      );
     });
     await test('right', 1, (triggerRect, contentRect) => {
-      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
-      expect(contentRect.top).toBe(triggerRect.top);
+      void expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      void expect(contentRect.top).toBe(triggerRect.top);
     });
     await test('right', 2, (triggerRect, contentRect) => {
-      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
-      expect(contentRect.bottom).toBe(
+      void expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      void expect(contentRect.bottom).toBe(
         triggerRect.bottom + CENTER_VERTICAL_BOUNDARY,
       );
     });
     await test('right', 3, (triggerRect, contentRect) => {
-      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
-      expect(contentRect.bottom).toBe(triggerRect.bottom);
+      void expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      void expect(contentRect.bottom).toBe(triggerRect.bottom);
     });
 
     await test('right-bottom', 0, (triggerRect, contentRect) => {
-      expect(contentRect.left).toBe(triggerRect.right + OFFSET);
-      expect(contentRect.bottom).toBe(triggerRect.bottom);
+      void expect(contentRect.left).toBe(triggerRect.right + OFFSET);
+      void expect(contentRect.bottom).toBe(triggerRect.bottom);
     });
     await test('right-bottom', 1, (triggerRect, contentRect) => {
-      expect(contentRect.right).toBe(triggerRect.left - OFFSET);
-      expect(contentRect.top).toBe(triggerRect.top);
+      void expect(contentRect.right).toBe(triggerRect.left - OFFSET);
+      void expect(contentRect.top).toBe(triggerRect.top);
     });
   },
 };

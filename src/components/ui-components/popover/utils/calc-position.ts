@@ -14,9 +14,8 @@ export const calcPosition = (
   mountTarget: DOMRect | null,
   isMountTargetPositionRelative: boolean,
 ): Position => {
-  const [positionTypeFirst, positionTypeSecond] = splitPositionType(
-    positionType,
-  );
+  const [positionTypeFirst, positionTypeSecond] =
+    splitPositionType(positionType);
 
   const x = (() => {
     const mountTargetOffsetX = isMountTargetPositionRelative

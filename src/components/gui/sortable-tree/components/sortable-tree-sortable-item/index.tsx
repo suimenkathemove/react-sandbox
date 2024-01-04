@@ -10,9 +10,9 @@ export type SortableTreeSortableItemProps = Pick<
 > &
   Pick<SortableTreeItemProps, 'onRemove'>;
 
-export const SortableTreeSortableItem: React.VFC<SortableTreeSortableItemProps> = (
-  props,
-) => {
+export const SortableTreeSortableItem: React.VFC<
+  SortableTreeSortableItemProps
+> = (props) => {
   const {
     attributes,
     isDragging,

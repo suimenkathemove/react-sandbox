@@ -73,8 +73,8 @@ export const SortableTree: React.VFC<SortableTreeProps> = (props) => {
   );
 
   const onDragStart: DndContextProps['onDragStart'] = ({ active: { id } }) => {
-    setActiveId(id);
-    setOverId(id);
+    setActiveId(id.toString());
+    setOverId(id.toString());
 
     document.body.style.setProperty('cursor', 'grabbing');
   };
@@ -84,7 +84,7 @@ export const SortableTree: React.VFC<SortableTreeProps> = (props) => {
   };
 
   const onDragOver: DndContextProps['onDragOver'] = ({ over }) => {
-    setOverId(over?.id ?? null);
+    setOverId(over?.id.toString() ?? null);
   };
 
   const onDragEnd: DndContextProps['onDragEnd'] = ({ active, over }) => {

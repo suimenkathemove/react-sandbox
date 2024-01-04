@@ -8,9 +8,9 @@ export type PersonCountAndPersonToPersonListInputsProps = {
   onChangePersonToPersonList: (targetMe: number, newYou: number) => void;
 };
 
-export const PersonCountAndPersonToPersonListInputs: React.VFC<PersonCountAndPersonToPersonListInputsProps> = (
-  props,
-) => {
+export const PersonCountAndPersonToPersonListInputs: React.VFC<
+  PersonCountAndPersonToPersonListInputsProps
+> = (props) => {
   const onChangeYou = (e: React.ChangeEvent<HTMLInputElement>, me: number) => {
     const value = Number(e.target.value);
 

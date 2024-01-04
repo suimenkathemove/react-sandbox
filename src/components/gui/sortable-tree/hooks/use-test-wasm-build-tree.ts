@@ -5,7 +5,7 @@ import { wasmBuildTree } from '../utils/wasm-build-tree';
 
 export const useTestWasmBuildTree = (flattenedTree: FlattenedTreeItem[]) => {
   useEffect(() => {
-    (async () => {
+    void (async () => {
       const tree = await wasmBuildTree(flattenedTree);
       // eslint-disable-next-line no-console
       console.log(tree);

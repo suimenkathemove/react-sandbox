@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test('has title', async ({ page }) => {
   await page.goto('https://playwright.dev/');
@@ -11,6 +11,8 @@ test('get started link', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
   // Click the get started link.
+  // REMOVE ME
+  // eslint-disable-next-line testing-library/prefer-screen-queries
   await page.getByRole('link', { name: 'Get started' }).click();
 
   // Expects the URL to contain intro.

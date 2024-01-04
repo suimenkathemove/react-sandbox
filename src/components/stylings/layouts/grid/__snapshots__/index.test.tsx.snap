@@ -3,16 +3,16 @@
 exports[`Grid render 1`] = `
 <DocumentFragment>
   <div
-    class="sc-bdvvtL kLkpgg"
+    class="sc-bcXGCL hBRdus"
   >
     <header
-      class="sc-gsDKAQ ijA-dTo"
+      class="sc-gswONk edmYDt"
     />
     <main
-      class="sc-dkPtRN fnGakI"
+      class="sc-dkrGBB kiJsPC"
     />
     <footer
-      class="sc-hKwDye dEtGwW"
+      class="sc-hLBatu kipbfb"
     />
   </div>
 </DocumentFragment>

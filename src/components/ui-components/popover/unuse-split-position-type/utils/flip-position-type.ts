@@ -56,53 +56,53 @@ export const flipPositionType = (
         return shouldFlip.left
           ? 'bottom-left'
           : shouldFlip.right
-          ? 'bottom-right'
-          : 'bottom';
+            ? 'bottom-right'
+            : 'bottom';
 
       return shouldFlip.left
         ? 'top-left'
         : shouldFlip.right
-        ? 'top-right'
-        : 'top';
+          ? 'top-right'
+          : 'top';
     case 'bottom':
       if (shouldFlip.bottom)
         return shouldFlip.left
           ? 'top-left'
           : shouldFlip.right
-          ? 'top-right'
-          : 'top';
+            ? 'top-right'
+            : 'top';
 
       return shouldFlip.left
         ? 'bottom-left'
         : shouldFlip.right
-        ? 'bottom-right'
-        : 'bottom';
+          ? 'bottom-right'
+          : 'bottom';
     case 'left':
       if (shouldFlip.left)
         return shouldFlip.top
           ? 'right-top'
           : shouldFlip.bottom
-          ? 'right-bottom'
-          : 'right';
+            ? 'right-bottom'
+            : 'right';
 
       return shouldFlip.top
         ? 'left-top'
         : shouldFlip.bottom
-        ? 'left-bottom'
-        : 'left';
+          ? 'left-bottom'
+          : 'left';
     case 'right':
       if (shouldFlip.right)
         return shouldFlip.top
           ? 'left-top'
           : shouldFlip.bottom
-          ? 'left-bottom'
-          : 'left';
+            ? 'left-bottom'
+            : 'left';
 
       return shouldFlip.top
         ? 'right-top'
         : shouldFlip.bottom
-        ? 'right-bottom'
-        : 'right';
+          ? 'right-bottom'
+          : 'right';
     case 'top-left':
       if (shouldFlip.top)
         return shouldFlip.right ? 'bottom-right' : 'bottom-left';
