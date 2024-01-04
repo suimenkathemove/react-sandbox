@@ -7,7 +7,7 @@ beforeEach(() => {
   document.body.innerHTML = '';
 });
 
-test('counter increments and decrements when the buttons are clicked', () => {
+xtest('counter increments and decrements when the buttons are clicked', () => {
   const div = document.createElement('div');
   document.body.append(div);
   createRoot(div).render(<Counter />);

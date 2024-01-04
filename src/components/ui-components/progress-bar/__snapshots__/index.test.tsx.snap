@@ -5,17 +5,15 @@ exports[`ProgressBar render 1`] = `
   .c0 {
   width: 100%;
   height: 8px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
 }
 
-.c0::-webkit-progress-bar {
+.c0 ::-webkit-progress-bar {
   background-color: gray;
   border-radius: 4px;
 }
 
-.c0::-webkit-progress-value {
+.c0 ::-webkit-progress-value {
   background-color: red;
   border-radius: 4px;
 }

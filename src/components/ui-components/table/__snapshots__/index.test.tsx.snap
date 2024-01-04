@@ -17,7 +17,6 @@ exports[`Table render 1`] = `
 }
 
 .c3 {
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1;
