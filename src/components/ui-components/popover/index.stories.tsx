@@ -72,8 +72,8 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div<{ gridArea: PositionTypeUnit }>`
-  grid-area: ${(props) => props.gridArea};
   display: flex;
+  grid-area: ${(props) => props.gridArea};
   gap: 4px;
   align-items: center;
   justify-content: center;
