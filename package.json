@@ -24,7 +24,8 @@
     "test": "jest",
     "test:update": "jest -u",
     "cy:sb:open": "cypress open -C cypress.storybook.json",
-    "cy:sb:run": "cypress run --headless -C cypress.storybook.json"
+    "cy:sb:run": "cypress run --headless -C cypress.storybook.json",
+    "test:playwright": "playwright test --ui"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
