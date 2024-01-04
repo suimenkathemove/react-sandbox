@@ -16,14 +16,10 @@ import { resetCanvas } from './utils/reset-canvas';
 import { onUpdateFrame } from '@/utils/onUpdateFrame';
 
 export const Lovemageddon: React.VFC = () => {
-  const {
-    personCount: maleCount,
-    onChangePersonCount: onChangeMaleCount,
-  } = usePersonCount(2);
-  const {
-    personCount: femaleCount,
-    onChangePersonCount: onChangeFemaleCount,
-  } = usePersonCount(2);
+  const { personCount: maleCount, onChangePersonCount: onChangeMaleCount } =
+    usePersonCount(2);
+  const { personCount: femaleCount, onChangePersonCount: onChangeFemaleCount } =
+    usePersonCount(2);
 
   const {
     personToPersonList: maleToFemaleList,

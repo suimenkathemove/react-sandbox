@@ -19,16 +19,12 @@ export const ShootingGame: React.VFC = () => {
   const getContext = () => canvasRef.current?.getContext('2d');
 
   const [viperImageRef, isViperImageLoaded] = useIsImageLoaded(viperImageSrc);
-  const [viperShotImageRef, isViperShotImageLoaded] = useIsImageLoaded(
-    viperShotImageSrc,
-  );
-  const [
-    viperSingleShotImageRef,
-    isViperSingleShotImageLoaded,
-  ] = useIsImageLoaded(viperSingleShotImageSrc);
-  const [enemySmallImageRef, isEnemySmallImageLoaded] = useIsImageLoaded(
-    enemySmallImageSrc,
-  );
+  const [viperShotImageRef, isViperShotImageLoaded] =
+    useIsImageLoaded(viperShotImageSrc);
+  const [viperSingleShotImageRef, isViperSingleShotImageLoaded] =
+    useIsImageLoaded(viperSingleShotImageSrc);
+  const [enemySmallImageRef, isEnemySmallImageLoaded] =
+    useIsImageLoaded(enemySmallImageSrc);
 
   const viperRef = useRef<Viper | null>(null);
   const enemySmallRef = useRef<Enemy | null>(null);

@@ -106,6 +106,9 @@ devDependencies:
   '@suimenkathemove/frontend-eslint-config':
     specifier: ^0.1.10
     version: 0.1.10(@testing-library/dom@9.3.3)(eslint@8.56.0)(typescript@5.2.2)
+  '@suimenkathemove/prettier-config':
+    specifier: ^0.1.4
+    version: 0.1.4
   '@testing-library/jest-dom':
     specifier: ^6.2.0
     version: 6.2.0(@types/jest@29.5.11)(jest@29.7.0)
@@ -136,9 +139,6 @@ devDependencies:
   '@types/node':
     specifier: ^20.10.6
     version: 20.10.6
-  '@types/prettier':
-    specifier: ^2.7.3
-    version: 2.7.3
   '@types/react':
     specifier: ^18.2.46
     version: 18.2.46
@@ -193,9 +193,6 @@ devDependencies:
   msw:
     specifier: ^2.0.11
     version: 2.0.11(typescript@5.2.2)
-  prettier:
-    specifier: ^3.1.1
-    version: 3.1.1
   react-app-rewired:
     specifier: ^2.2.1
     version: 2.2.1(react-scripts@5.0.1)
@@ -6935,6 +6932,12 @@ packages:
       typescript: 5.2.2
       typesync: 0.12.0(typescript@5.2.2)
     dev: false
+
+  /@suimenkathemove/prettier-config@0.1.4:
+    resolution: {integrity: sha512-BMgfPoIeluuq6FLRoihnwGgnnI+gwT7GeHFGp9Q0EXUUgg3xdzzhlEQc9zjQ1/a26lb/UrUR3UHgLxHudlJxlw==}
+    dependencies:
+      prettier: 3.1.1
+    dev: true
 
   /@suimenkathemove/tsconfig@0.1.17(typescript@5.2.2)(typesync@0.12.0):
     resolution: {integrity: sha512-GmwU9Ps1CngdxD9FuqaMXCVpL38rTr57Zc2BOEE0EMSMio+F7hCa0oMKKB8Kwq2/jXkN3GmDUj/mg784xxbwqw==}

@@ -13,7 +13,7 @@ export class Config {
   ] as const;
 
   static pressedKey: Record<
-    typeof Config.pressedKeyCandidates[number],
+    (typeof Config.pressedKeyCandidates)[number],
     boolean
   > = {
     ArrowUp: false,

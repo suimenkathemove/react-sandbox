@@ -104,9 +104,8 @@ export const flipPositionType = (
   isMountTargetPositionRelative: boolean,
   frame: DOMRect | null,
 ): PositionType => {
-  const [positionTypeFirst, positionTypeSecond] = splitPositionType(
-    positionType,
-  );
+  const [positionTypeFirst, positionTypeSecond] =
+    splitPositionType(positionType);
 
   const shouldFlip = createShouldFlip(
     position,
@@ -122,9 +121,8 @@ export const flipPositionType = (
 
   const newPositionTypeSecond = ((): PositionTypeUnit | undefined => {
     if (positionTypeSecond === undefined) {
-      const positionTypeFirstOrientation = orientationFromPositionTypeUnit(
-        positionTypeFirst,
-      );
+      const positionTypeFirstOrientation =
+        orientationFromPositionTypeUnit(positionTypeFirst);
       const positionTypeSecondOrientation = reverseOrientation(
         positionTypeFirstOrientation,
       );

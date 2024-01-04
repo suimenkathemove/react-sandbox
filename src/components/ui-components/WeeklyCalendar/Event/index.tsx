@@ -30,9 +30,8 @@ export const Event: React.VFC<Props> = (props) => {
         return 'resizeStart';
       }
 
-      const mouseYFromElementBottom = mouseCoordinate.yFromElementBottom(
-        mouseEvent,
-      );
+      const mouseYFromElementBottom =
+        mouseCoordinate.yFromElementBottom(mouseEvent);
       if (-mouseYFromElementBottom < RESIZE_HEIGHT) {
         return 'resizeEnd';
       }

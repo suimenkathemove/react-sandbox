@@ -40,8 +40,8 @@ export type InputFlattenedQuestionTreeItem = FlattenedQuestionTreeItemBase &
 export type SelectFlattenedQuestionTreeItem = FlattenedQuestionTreeItemBase &
   Omit<SelectQuestion, 'choices'>;
 
-export type SelectChoiceFlattenedQuestionTreeItem = FlattenedQuestionTreeItemBase &
-  Omit<SelectChoice, 'questions'>;
+export type SelectChoiceFlattenedQuestionTreeItem =
+  FlattenedQuestionTreeItemBase & Omit<SelectChoice, 'questions'>;
 
 export type QuestionFlattenedQuestionTreeItem =
   | InputFlattenedQuestionTreeItem

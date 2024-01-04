@@ -1,6 +1,6 @@
 export const deduplicateByKey = <
   D extends Record<string, any>,
-  K extends keyof D
+  K extends keyof D,
 >(
   arr: D[],
   key: K,
