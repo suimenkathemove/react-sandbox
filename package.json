@@ -52,6 +52,7 @@
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.7",
     "@babel/preset-typescript": "^7.23.3",
+    "@jest/types": "^29.6.3",
     "@playwright/test": "^1.40.1",
     "@storybook/addon-essentials": "^7.6.7",
     "@storybook/addon-interactions": "^7.6.7",
