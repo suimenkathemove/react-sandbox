@@ -1,5 +1,5 @@
 /* eslint-disable jest-dom/prefer-to-have-text-content */
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { Counter } from './';
 
@@ -10,7 +10,7 @@ beforeEach(() => {
 test('counter increments and decrements when the buttons are clicked', () => {
   const div = document.createElement('div');
   document.body.append(div);
-  ReactDOM.render(<Counter />, div);
+  createRoot(div).render(<Counter />);
 
   const [decrement, increment] = div.querySelectorAll('button');
   const count = div.querySelector('span');

@@ -4,7 +4,7 @@ import { Tree } from '../types';
 
 export const useTestWasmFlattenTree = (tree: Tree) => {
   useEffect(() => {
-    (async () => {
+    void (async () => {
       const { finder_flatten_tree } = await import('wasm');
 
       const flattenedTree = finder_flatten_tree(tree);

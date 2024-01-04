@@ -35,7 +35,7 @@ export const TextlintSandbox: React.FC = () => {
   };
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       const result = await kernel.lintText(value, options);
       // eslint-disable-next-line no-console
       console.log(result);

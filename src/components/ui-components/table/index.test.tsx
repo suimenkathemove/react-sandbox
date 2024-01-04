@@ -1,4 +1,4 @@
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { defaultProps } from './index.stories';
 
@@ -8,10 +8,6 @@ import { Table } from './';
 const setup = () => render(<Table {...defaultProps} />);
 
 describe('Table', () => {
-  afterEach(() => {
-    cleanup();
-  });
-
   test('render', () => {
     const { asFragment } = setup();
     expect(asFragment()).toMatchSnapshot();

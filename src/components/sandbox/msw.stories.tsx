@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 export const Default: React.VFC = () => {
   useEffect(() => {
-    (async () => {
+    void (async () => {
       const response = await fetch('https://example.com');
       const data = await response.json();
       // eslint-disable-next-line no-console
