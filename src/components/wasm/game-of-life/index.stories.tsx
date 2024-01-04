@@ -9,13 +9,13 @@ export default {
 
 export const defaultProps = {};
 
-export const Default: StoryObj = {
-  render: () => {
-    return <GameOfLife />;
-  },
-  parameters: {
-    screenshot: {
-      skip: true,
-    },
-  },
-};
+// export const Default: StoryObj = {
+//   render: () => {
+//     return <GameOfLife />;
+//   },
+//   parameters: {
+//     screenshot: {
+//       skip: true,
+//     },
+//   },
+// };
