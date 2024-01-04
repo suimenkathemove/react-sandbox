@@ -25,14 +25,14 @@
   },
   "scripts": {
     "postinstall": "typesync",
-    "dev": "yarn tsm:watch & yarn storybook",
+    "dev": "pnpm tsm:watch & pnpm storybook",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "eject": "react-app-rewired eject",
-    "fix": "yarn -s format && yarn -s lint:fix",
+    "fix": "pnpm -s format && pnpm -s lint:fix",
     "format": "prettier --write --loglevel=warn '**/*.{js,jsx,ts,tsx,html,gql,graphql,json}'",
-    "lint": "yarn -s lint:style; yarn -s lint:es",
-    "lint:fix": "yarn -s lint:style:fix && yarn -s lint:es:fix",
+    "lint": "pnpm -s lint:style; pnpm -s lint:es",
+    "lint:fix": "pnpm -s lint:style:fix && pnpm -s lint:es:fix",
     "lint:es": "eslint '**/*.{js,jsx,ts,tsx}'",
     "lint:es:fix": "eslint --fix '**/*.{js,jsx,ts,tsx}'",
     "lint:conflict": "eslint-config-prettier '**/*.{js,jsx,ts,tsx}'",
@@ -46,7 +46,7 @@
     "build-storybook": "storybook build -s public",
     "test": "jest",
     "test:update": "jest -u",
-    "code-check": "yarn lint & yarn tsc & yarn test:update",
+    "code-check": "pnpm lint & pnpm tsc & pnpm test:update",
     "cy:sb:open": "cypress open -C cypress.storybook.json",
     "cy:sb:run": "cypress run --headless -C cypress.storybook.json"
   },
@@ -139,10 +139,6 @@
     "typesync": "^0.11.1",
     "wasm-loader": "^1.3.0",
     "webpack": "^5.65.0"
-  },
-  "volta": {
-    "node": "16.15.1",
-    "yarn": "1.22.19"
   },
   "msw": {
     "workerDirectory": "public"

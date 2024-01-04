@@ -12,7 +12,7 @@ if tmux has-session -t "$PROJECT_NAME"; then
   tmux attach-session -t "$PROJECT_NAME"
 else
   # EDIT THIS
-  tmux new-session -s "$PROJECT_NAME" -d -n storybook 'yarn storybook'
+  tmux new-session -s "$PROJECT_NAME" -d -n storybook 'pnpm storybook'
   # EDIT THIS
   tmux new-window -n wasm 'make wasm'
   # EDIT THIS

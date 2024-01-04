@@ -1,3 +1,4 @@
+# TODO: refactor
 name: storybook deploy on comment
 
 on:
@@ -10,12 +11,13 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - uses: ./.github/actions/yarn-cache
+        uses: actions/checkout@v4
+      - name: Cache pnpm
+        uses: suimenkathemove/pnpm-cache-action@v1.0.0
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm install
       - name: Build Storybook
-        run: yarn build-storybook
+        run: pnpm build-storybook
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
