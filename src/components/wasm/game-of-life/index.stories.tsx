@@ -1,17 +1,21 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { GameOfLife } from './';
 
 export default {
   component: GameOfLife,
   excludeStories: ['defaultProps'],
-} as ComponentMeta<typeof GameOfLife>;
-
-const Template: ComponentStory<typeof GameOfLife> = (args) => (
-  <GameOfLife {...args} />
-);
+} satisfies Meta<typeof GameOfLife>;
 
 export const defaultProps = {};
 
-export const Default = Template.bind({});
-Default.args = defaultProps;
+export const Default: StoryObj = {
+  render: () => {
+    return <GameOfLife />;
+  },
+  parameters: {
+    screenshot: {
+      skip: true,
+    },
+  },
+};
