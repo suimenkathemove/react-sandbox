@@ -1,4 +1,5 @@
 [tasks.wasm]
 cwd = "./wasm"
-command = "wasm-pack"
-args = ["build"]
+script = '''
+cargo watch -s "wasm-pack build"
+'''
