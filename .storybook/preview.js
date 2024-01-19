@@ -1,5 +1,5 @@
 import 'destyle.css';
-import '@/styles/globals.scss';
+import '@/styles/global.scss';
 
 import { NextUIProvider } from '@nextui-org/react';
 import MockDate from 'mockdate';
