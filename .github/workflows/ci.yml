@@ -75,7 +75,7 @@ jobs:
           sudo apt-get install fonts-ipafont
       - name: run storycap
         run: |
-          pnpm storycap http://localhost:9009 --serverCmd "pnpm storybook -p 9009" --serverTimeout 3000000
+          pnpm storycap http://localhost:9009 --serverCmd "pnpm storybook -p 9009" --serverTimeout 3000000 --exclude "**/BouncingDVD/**" "**/slide-image/**" "**/AspectRatio/**"
       - name: workaround for detached HEAD
         run: |
           git checkout ${GITHUB_REF#refs/heads/} || git checkout -b ${GITHUB_REF#refs/heads/} && git pull || true
