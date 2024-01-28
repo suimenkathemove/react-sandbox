@@ -9,6 +9,8 @@
 
 Markdown WYSIWYG Editor using Rust, WebAssembly & Canvas API.
 
+[storybook](http://react-sandbox-storybook.s3-website-ap-northeast-1.amazonaws.com/main/?path=/story/components-wasm-wasm-markdown-editor-index--default)
+
 ## TODO
 
 - [ ] caret
