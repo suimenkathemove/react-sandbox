@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 
-import { BorderOrBackground, updateTree } from './models';
+import { BorderOrBackground, sortTree } from './models';
 import { HEIGHT_DISPLAY_BORDER, ITEM_HEIGHT, Li, Ul } from './styles';
 
 import { NodeId, Tree } from '@/components/gui/sortable-tree/types';
@@ -74,7 +74,7 @@ export const SortableTreeLikeNotion = memo(
           {
             const borderIndex = borderOrBackground.index;
             if (borderIndex === 0) {
-              const newTree = updateTree(
+              const newTree = sortTree(
                 flattenedTree,
                 fromItem,
                 'root',
@@ -92,7 +92,7 @@ export const SortableTreeLikeNotion = memo(
                 const parentItem = flattenedTree.find(
                   (item) => item.id === fromItem.parentId,
                 );
-                const newTree = updateTree(
+                const newTree = sortTree(
                   flattenedTree,
                   fromItem,
                   parentItem?.parentId ?? 'root',
@@ -105,7 +105,7 @@ export const SortableTreeLikeNotion = memo(
                   lowerItem.depth > upperItem.depth
                     ? lowerItem.parentId
                     : upperItem.parentId;
-                const newTree = updateTree(
+                const newTree = sortTree(
                   flattenedTree,
                   fromItem,
                   newParentIdOfFromItem,
@@ -133,7 +133,7 @@ export const SortableTreeLikeNotion = memo(
 
               return lastItem.parentId;
             })();
-            const newTree = updateTree(
+            const newTree = sortTree(
               flattenedTree,
               fromItem,
               newParentIdOfFromItem,
@@ -157,7 +157,7 @@ export const SortableTreeLikeNotion = memo(
 
               return siblingLeafIndexInBackgroundItemChildren + 1;
             })();
-            const newTree = updateTree(
+            const newTree = sortTree(
               flattenedTree,
               fromItem,
               backgroundItem.id,

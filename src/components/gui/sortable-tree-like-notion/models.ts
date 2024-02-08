@@ -19,7 +19,7 @@ export type BorderOrBackground =
       index: number;
     };
 
-export const updateTree = (
+export const sortTree = (
   flattenedTree: FlattenedTreeItem[],
   fromItem: FlattenedTreeItem,
   newParentIdOfFromItem: NodeId,
