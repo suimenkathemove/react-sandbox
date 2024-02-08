@@ -107,10 +107,9 @@ export const SortableTreeLikeNotion = memo(
                   lowerItem.depth > upperItem.depth
                     ? lowerItem.parentId
                     : upperItem.parentId;
-                const newTree = sortTreeWrapper(
-                  newParentIdOfFromItem,
-                  borderIndex,
-                );
+                const toIndex =
+                  borderIndex > fromIndex ? borderIndex - 1 : borderIndex;
+                const newTree = sortTreeWrapper(newParentIdOfFromItem, toIndex);
                 setTree(newTree);
               }
             }
