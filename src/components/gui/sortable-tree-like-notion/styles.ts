@@ -4,8 +4,8 @@ export const ITEM_HEIGHT = 28;
 export const HEIGHT_DISPLAY_BORDER = ITEM_HEIGHT / 5;
 const PADDING_PER_DEPTH = 24;
 
-export const Ul = styled.ul<{ bottomBorder: boolean }>`
-  border-bottom: ${(props) => (props.bottomBorder ? '1px solid blue' : 'none')};
+export const Ul = styled.ul<{ lastBorder: boolean }>`
+  border-bottom: ${(props) => (props.lastBorder ? '1px solid blue' : 'none')};
 `;
 
 export const Li = styled.li<{
