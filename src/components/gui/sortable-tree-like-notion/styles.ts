@@ -17,7 +17,7 @@ export const Li = styled.li<{
   align-items: center;
   height: ${ITEM_HEIGHT}px;
   padding-left: ${(props) => PADDING_PER_DEPTH * props.depth}px;
-  border-top: ${(props) => (props.border ? '1px solid blue' : 'none')};
-  background-color: ${(props) => (props.background ? 'blue' : 'none')};
   user-select: none;
+  background-color: ${(props) => (props.background ? 'blue' : 'none')};
+  border-top: ${(props) => (props.border ? '1px solid blue' : 'none')};
 `;
