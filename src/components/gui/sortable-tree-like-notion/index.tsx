@@ -68,19 +68,24 @@ export const SortableTreeLikeNotion = memo(
 
       const fromItem = flattenedTree[fromIndex];
       invariant(fromItem != null, 'fromItem should exist');
+      const sortTreeWrapper = (
+        newParentIdOfFromItem: NodeId,
+        toIndex: number,
+      ) =>
+        sortTree(
+          flattenedTree,
+          fromItem,
+          newParentIdOfFromItem,
+          fromIndex,
+          toIndex,
+        );
 
       switch (borderOrBackground.type) {
         case 'border':
           {
             const borderIndex = borderOrBackground.index;
             if (borderIndex === 0) {
-              const newTree = sortTree(
-                flattenedTree,
-                fromItem,
-                'root',
-                fromIndex,
-                borderIndex,
-              );
+              const newTree = sortTreeWrapper('root', borderIndex);
               setTree(newTree);
             } else {
               const upperItem = flattenedTree[borderIndex - 1];
@@ -92,11 +97,8 @@ export const SortableTreeLikeNotion = memo(
                 const parentItem = flattenedTree.find(
                   (item) => item.id === fromItem.parentId,
                 );
-                const newTree = sortTree(
-                  flattenedTree,
-                  fromItem,
+                const newTree = sortTreeWrapper(
                   parentItem?.parentId ?? 'root',
-                  fromIndex,
                   borderIndex - 1,
                 );
                 setTree(newTree);
@@ -105,11 +107,8 @@ export const SortableTreeLikeNotion = memo(
                   lowerItem.depth > upperItem.depth
                     ? lowerItem.parentId
                     : upperItem.parentId;
-                const newTree = sortTree(
-                  flattenedTree,
-                  fromItem,
+                const newTree = sortTreeWrapper(
                   newParentIdOfFromItem,
-                  fromIndex,
                   borderIndex,
                 );
                 setTree(newTree);
@@ -133,13 +132,7 @@ export const SortableTreeLikeNotion = memo(
 
               return lastItem.parentId;
             })();
-            const newTree = sortTree(
-              flattenedTree,
-              fromItem,
-              newParentIdOfFromItem,
-              fromIndex,
-              lastIndex,
-            );
+            const newTree = sortTreeWrapper(newParentIdOfFromItem, lastIndex);
             setTree(newTree);
           }
           break;
@@ -157,13 +150,7 @@ export const SortableTreeLikeNotion = memo(
 
               return siblingLeafIndexInBackgroundItemChildren + 1;
             })();
-            const newTree = sortTree(
-              flattenedTree,
-              fromItem,
-              backgroundItem.id,
-              fromIndex,
-              toIndex,
-            );
+            const newTree = sortTreeWrapper(backgroundItem.id, toIndex);
             setTree(newTree);
           }
           break;
