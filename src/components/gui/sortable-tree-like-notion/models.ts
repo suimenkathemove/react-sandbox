@@ -20,6 +20,27 @@ export type BorderOrBackground =
       index: number;
     };
 
+export const getLastDescendantIndex = (
+  flattenedTree: FlattenedTreeItem[],
+  fromIndex: number,
+): number => {
+  const fromItem = flattenedTree[fromIndex];
+  invariant(fromItem != null, 'fromItem should exist');
+
+  let lastDescendantIndex = fromIndex;
+
+  for (let i = fromIndex + 1; i < flattenedTree.length; i++) {
+    const item = flattenedTree[i];
+    invariant(item != null, 'item should exist');
+
+    if (item.depth <= fromItem.depth) break;
+
+    lastDescendantIndex = i;
+  }
+
+  return lastDescendantIndex;
+};
+
 const getDescendantIds = (
   flattenedTree: FlattenedTreeItem[],
   fromItem: FlattenedTreeItem,

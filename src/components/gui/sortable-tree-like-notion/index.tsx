@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 
-import { BorderOrBackground, sortTree } from './models';
+import { BorderOrBackground, getLastDescendantIndex, sortTree } from './models';
 import { HEIGHT_DISPLAY_BORDER, ITEM_HEIGHT, Li, Ul } from './styles';
 
 import { NodeId, Tree } from '@/components/gui/sortable-tree/types';
@@ -92,14 +92,19 @@ export const SortableTreeLikeNotion = memo(
               invariant(upperItem != null, 'upperItem should exist');
               const lowerItem = flattenedTree[borderIndex];
               invariant(lowerItem != null, 'lowerItem should exist');
-              if (borderIndex === fromIndex + 1) {
-                if (lowerItem.depth >= upperItem.depth) break;
+              const lastDescendantIndex = getLastDescendantIndex(
+                flattenedTree,
+                fromIndex,
+              );
+              const directlyLowerBorder =
+                borderIndex === lastDescendantIndex + 1;
+              if (directlyLowerBorder) {
                 const parentItem = flattenedTree.find(
                   (item) => item.id === fromItem.parentId,
                 );
                 const newTree = sortTreeWrapper(
                   parentItem?.parentId ?? 'root',
-                  borderIndex - 1,
+                  lastDescendantIndex,
                 );
                 setTree(newTree);
               } else {
@@ -121,9 +126,14 @@ export const SortableTreeLikeNotion = memo(
             const lastItem = flattenedTree[lastIndex];
             invariant(lastItem != null, 'lastItem should exist');
             const newParentIdOfFromItem = ((): NodeId => {
-              if (fromIndex === lastIndex) {
+              const lastDescendantIndex = getLastDescendantIndex(
+                flattenedTree,
+                fromIndex,
+              );
+              const directlyLowerBorder = lastIndex === lastDescendantIndex;
+              if (directlyLowerBorder) {
                 const parentItem = flattenedTree.find(
-                  (item) => item.id === lastItem.parentId,
+                  (item) => item.id === fromItem.parentId,
                 );
 
                 return parentItem?.parentId ?? 'root';
