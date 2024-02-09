@@ -96,7 +96,9 @@ export const SortableTreeLikeNotion = memo(
                 flattenedTree,
                 fromIndex,
               );
-              if (borderIndex === lastDescendantIndex + 1) {
+              const directlyLowerBorder =
+                borderIndex === lastDescendantIndex + 1;
+              if (directlyLowerBorder) {
                 const parentItem = flattenedTree.find(
                   (item) => item.id === fromItem.parentId,
                 );
@@ -128,7 +130,8 @@ export const SortableTreeLikeNotion = memo(
                 flattenedTree,
                 fromIndex,
               );
-              if (lastIndex === lastDescendantIndex) {
+              const directlyLowerBorder = lastIndex === lastDescendantIndex;
+              if (directlyLowerBorder) {
                 const parentItem = flattenedTree.find(
                   (item) => item.id === fromItem.parentId,
                 );
