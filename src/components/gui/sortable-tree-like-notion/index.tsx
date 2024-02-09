@@ -97,7 +97,6 @@ export const SortableTreeLikeNotion = memo(
                 fromIndex,
               );
               if (borderIndex === lastDescendantIndex + 1) {
-                if (lowerItem.depth >= upperItem.depth) break;
                 const parentItem = flattenedTree.find(
                   (item) => item.id === fromItem.parentId,
                 );
