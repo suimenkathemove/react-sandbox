@@ -62,6 +62,8 @@ export const Notion: StoryObj = {
             onPointerDown={props.onPointerDown}
             style={{
               ...props.style,
+              display: 'flex',
+              alignItems: 'center',
               paddingTop: 2,
               paddingBottom: 2,
               paddingLeft: 8 + props.paddingLeft,
