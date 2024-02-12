@@ -1,12 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 
-import {
-  BorderOrBackground,
-  ITEM_HEIGHT,
-  PADDING_PER_DEPTH,
-  getLastDescendantIndex,
-  sortTree,
-} from './models';
+import { BorderOrBackground, getLastDescendantIndex, sortTree } from './models';
 
 import {
   FlattenedTreeItem,
@@ -53,9 +47,9 @@ export interface ReactNotionSortableTreeProps<
 export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
   props: ReactNotionSortableTreeProps<ContainerElement>,
 ) => {
-  const itemHeight = props.itemHeight ?? ITEM_HEIGHT;
+  const itemHeight = props.itemHeight ?? 28;
   const heightDisplayBorder = itemHeight / 5;
-  const paddingPerDepth = props.paddingPerDepth ?? PADDING_PER_DEPTH;
+  const paddingPerDepth = props.paddingPerDepth ?? 24;
   const backgroundColor = props.backgroundColor ?? 'blue';
   const borderHeight = props.borderHeight ?? 1;
   const borderOffset = borderHeight / 2;
@@ -87,22 +81,22 @@ export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
         const upperItemIndex = findIndex(
           range(flattenedTree.length),
           (index) =>
-            ITEM_HEIGHT * index - heightDisplayBorder <= movingDistance &&
-            movingDistance <= ITEM_HEIGHT * index + heightDisplayBorder,
+            itemHeight * index - heightDisplayBorder <= movingDistance &&
+            movingDistance <= itemHeight * index + heightDisplayBorder,
         );
         const lastBorder =
-          ITEM_HEIGHT * flattenedTree.length - heightDisplayBorder <=
+          itemHeight * flattenedTree.length - heightDisplayBorder <=
           movingDistance;
         if (upperItemIndex != null) {
           setBorderOrBackground({ type: 'border', index: upperItemIndex });
         } else if (lastBorder) {
           setBorderOrBackground({ type: 'lastBorder' });
         } else {
-          const index = Math.floor(movingDistance / ITEM_HEIGHT);
+          const index = Math.floor(movingDistance / itemHeight);
           setBorderOrBackground({ type: 'background', index });
         }
       },
-      [flattenedTree.length, fromIndex, heightDisplayBorder],
+      [flattenedTree.length, fromIndex, heightDisplayBorder, itemHeight],
     );
 
   const onPointerUp = useCallback(() => {

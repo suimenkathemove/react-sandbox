@@ -7,9 +7,6 @@ import { buildTree } from '@/components/gui/sortable-tree/utils/build-tree';
 import { arrayMove } from '@/utils/array-move';
 import { invariant } from '@/utils/invariant';
 
-export const ITEM_HEIGHT = 28;
-export const PADDING_PER_DEPTH = 24;
-
 export type BorderOrBackground =
   | {
       type: 'border';
