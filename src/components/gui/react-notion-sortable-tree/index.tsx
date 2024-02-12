@@ -46,7 +46,8 @@ export interface ReactNotionSortableTreeProps<
   itemHeight?: number;
   paddingPerDepth?: number;
   backgroundColor?: string;
-  border?: string;
+  borderHeight?: number;
+  borderColor?: string;
 }
 
 export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
@@ -56,7 +57,9 @@ export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
   const heightDisplayBorder = itemHeight / 5;
   const paddingPerDepth = props.paddingPerDepth ?? PADDING_PER_DEPTH;
   const backgroundColor = props.backgroundColor ?? 'blue';
-  const border = props.border ?? '1px solid blue';
+  const borderHeight = props.borderHeight ?? 1;
+  const borderOffset = borderHeight / 2;
+  const borderColor = props.borderColor ?? 'blue';
 
   const [tree, setTree] = useState(() => props.tree);
 
@@ -213,13 +216,25 @@ export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
     [paddingPerDepth],
   );
 
+  const borderY = useMemo((): number | null => {
+    if (borderOrBackground == null || borderOrBackground.type === 'background')
+      return null;
+    switch (borderOrBackground.type) {
+      case 'border':
+        return itemHeight * borderOrBackground.index - borderOffset;
+      case 'lastBorder':
+        return itemHeight * flattenedTree.length - borderOffset;
+      default:
+        return borderOrBackground satisfies never;
+    }
+  }, [borderOffset, borderOrBackground, flattenedTree.length, itemHeight]);
+
   return (
     <props.Container
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       style={{
-        borderBottom:
-          borderOrBackground?.type === 'lastBorder' ? border : undefined,
+        position: 'relative',
       }}
       ref={containerElementRef}
     >
@@ -238,17 +253,23 @@ export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
               index === borderOrBackground.index
                 ? backgroundColor
                 : undefined,
-            borderTop:
-              borderOrBackground?.type === 'border' &&
-              index === borderOrBackground.index
-                ? border
-                : undefined,
           }}
           item={item}
           index={index}
           paddingLeft={paddingLeft(item.depth)}
         />
       ))}
+      {borderY != null && (
+        <div
+          style={{
+            position: 'absolute',
+            top: borderY,
+            width: '100%',
+            height: borderHeight,
+            backgroundColor: borderColor,
+          }}
+        />
+      )}
     </props.Container>
   );
 };

@@ -80,7 +80,8 @@ export const Notion: StoryObj = {
         itemHeight={28}
         paddingPerDepth={24}
         backgroundColor="rgba(35, 131, 226, 0.14)"
-        border="4px solid rgba(35, 131, 226, 0.43)"
+        borderHeight={4}
+        borderColor="rgba(35, 131, 226, 0.43)"
       />
     );
   },
