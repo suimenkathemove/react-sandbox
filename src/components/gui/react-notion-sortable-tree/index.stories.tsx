@@ -1,7 +1,7 @@
 import { StoryObj } from '@storybook/react';
 import { forwardRef } from 'react';
 
-import { ContainerProps, ReactNotionSortableTree } from '.';
+import { ContainerProps, ItemProps, ReactNotionSortableTree } from '.';
 
 import { tree } from '@/components/gui/sortable-tree/__mocks__/tree';
 
@@ -25,10 +25,16 @@ export const Default: StoryObj = {
             {props.children}
           </ul>
         ))}
-        Item={(props) => (
-          <li onPointerDown={props.onPointerDown} style={props.style}>
-            {props.item.id}
-          </li>
+        Item={forwardRef<HTMLLIElement, ItemProps<HTMLLIElement>>(
+          (props, ref) => (
+            <li
+              onPointerDown={props.onPointerDown}
+              style={props.style}
+              ref={ref}
+            >
+              {props.item.id}
+            </li>
+          ),
         )}
       />
     );
@@ -57,25 +63,28 @@ export const Notion: StoryObj = {
             {props.children}
           </ul>
         ))}
-        Item={(props) => (
-          <li
-            onPointerDown={props.onPointerDown}
-            style={{
-              ...props.style,
-              display: 'flex',
-              alignItems: 'center',
-              paddingTop: 2,
-              paddingBottom: 2,
-              paddingLeft: 8 + props.paddingLeft,
-              paddingRight: 8,
-              fontFamily: 'BlinkMacSystemFont, sans-serif',
-              fontSize: 14,
-              fontWeight: 500,
-              color: 'rgba(25, 23, 17, 0.6)',
-            }}
-          >
-            {props.item.id}
-          </li>
+        Item={forwardRef<HTMLLIElement, ItemProps<HTMLLIElement>>(
+          (props, ref) => (
+            <li
+              onPointerDown={props.onPointerDown}
+              style={{
+                ...props.style,
+                display: 'flex',
+                alignItems: 'center',
+                paddingTop: 2,
+                paddingBottom: 2,
+                paddingLeft: 8 + props.paddingLeft,
+                paddingRight: 8,
+                fontFamily: 'BlinkMacSystemFont, sans-serif',
+                fontSize: 14,
+                fontWeight: 500,
+                color: 'rgba(25, 23, 17, 0.6)',
+              }}
+              ref={ref}
+            >
+              {props.item.id}
+            </li>
+          ),
         )}
         itemHeight={28}
         paddingPerDepth={24}

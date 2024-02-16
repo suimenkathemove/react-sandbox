@@ -1,4 +1,12 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import {
+  createRef,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { createPortal } from 'react-dom';
 
 import { BorderOrBackground, getLastDescendantIndex, sortTree } from './models';
 
@@ -12,6 +20,11 @@ import { findIndex, findLastIndex } from '@/utils/find-index';
 import { invariant } from '@/utils/invariant';
 import { range } from '@/utils/range';
 
+interface Coordinate {
+  x: number;
+  y: number;
+}
+
 export interface ContainerProps<ContainerElement extends HTMLElement> {
   onPointerMove: React.PointerEventHandler<ContainerElement>;
   onPointerUp: React.PointerEventHandler<ContainerElement>;
@@ -20,23 +33,28 @@ export interface ContainerProps<ContainerElement extends HTMLElement> {
   children: React.ReactNode;
 }
 
-interface ItemProps {
-  onPointerDown: React.PointerEventHandler;
+export interface ItemProps<ItemElement extends HTMLElement> {
+  onPointerDown: React.PointerEventHandler<ItemElement>;
   style: React.CSSProperties;
   item: FlattenedTreeItem;
   index: number;
   paddingLeft: number;
+  ref: React.RefObject<ItemElement>;
 }
 
 export interface ReactNotionSortableTreeProps<
   ContainerElement extends HTMLElement,
+  ItemElement extends HTMLElement,
 > {
   tree: Tree;
   Container: React.ForwardRefExoticComponent<
     React.PropsWithoutRef<ContainerProps<ContainerElement>> &
       React.RefAttributes<ContainerElement>
   >;
-  Item: React.FC<ItemProps>;
+  Item: React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<ItemProps<ItemElement>> &
+      React.RefAttributes<ItemElement>
+  >;
   itemHeight?: number;
   paddingPerDepth?: number;
   backgroundColor?: string;
@@ -44,8 +62,11 @@ export interface ReactNotionSortableTreeProps<
   borderColor?: string;
 }
 
-export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
-  props: ReactNotionSortableTreeProps<ContainerElement>,
+export const ReactNotionSortableTree = <
+  ContainerElement extends HTMLElement,
+  ItemElement extends HTMLElement,
+>(
+  props: ReactNotionSortableTreeProps<ContainerElement, ItemElement>,
 ) => {
   const itemHeight = props.itemHeight ?? 28;
   const heightDisplayBorder = itemHeight / 5;
@@ -56,7 +77,6 @@ export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
   const borderColor = props.borderColor ?? 'blue';
 
   const [tree, setTree] = useState(() => props.tree);
-
   const flattenedTree = useMemo(() => flattenTree(tree), [tree]);
 
   const [fromIndex, setFromIndex] = useState<number | null>(null);
@@ -65,15 +85,38 @@ export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
     useState<BorderOrBackground | null>(null);
 
   const containerElementRef = useRef<ContainerElement>(null);
+  const itemElementRefMap = useRef<Map<NodeId, React.RefObject<ItemElement>>>(
+    new Map(),
+  );
+  // TODO: useIsomorphicLayoutEffect
+  useLayoutEffect(() => {
+    flattenedTree.forEach((item) => {
+      itemElementRefMap.current.set(item.id, createRef());
+    });
+  }, [flattenedTree]);
 
-  const onPointerDown = useCallback((index: number) => {
-    setFromIndex(index);
-  }, []);
+  const pointerStartPositionRef = useRef<Coordinate | null>(null);
+  const [pointerMovingDistance, setPointerMovingDistance] =
+    useState<Coordinate | null>(null);
+
+  const onPointerDown = useCallback(
+    (event: React.PointerEvent<ItemElement>, index: number) => {
+      setFromIndex(index);
+
+      pointerStartPositionRef.current = { x: event.clientX, y: event.clientY };
+    },
+    [],
+  );
 
   const onPointerMove: React.PointerEventHandler<ContainerElement> =
     useCallback(
       (event) => {
-        if (fromIndex == null || containerElementRef.current == null) return;
+        if (
+          fromIndex == null ||
+          containerElementRef.current == null ||
+          pointerStartPositionRef.current == null
+        )
+          return;
 
         const movingDistance =
           event.clientY -
@@ -95,6 +138,11 @@ export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
           const index = Math.floor(movingDistance / itemHeight);
           setBorderOrBackground({ type: 'background', index });
         }
+
+        setPointerMovingDistance({
+          x: event.clientX - pointerStartPositionRef.current.x,
+          y: event.clientY - pointerStartPositionRef.current.y,
+        });
       },
       [flattenedTree.length, fromIndex, heightDisplayBorder, itemHeight],
     );
@@ -102,6 +150,9 @@ export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
   const onPointerUp = useCallback(() => {
     setFromIndex(null);
     setBorderOrBackground(null);
+
+    pointerStartPositionRef.current = null;
+    setPointerMovingDistance(null);
 
     if (fromIndex == null || borderOrBackground == null) return;
 
@@ -223,49 +274,85 @@ export const ReactNotionSortableTree = <ContainerElement extends HTMLElement>(
     }
   }, [borderOffset, borderOrBackground, flattenedTree.length, itemHeight]);
 
+  const ghostMovingDistance = useMemo((): Coordinate | null => {
+    if (fromIndex == null || pointerMovingDistance == null) return null;
+    const fromItem = flattenedTree[fromIndex];
+    invariant(fromItem != null, 'fromItem should exist');
+    const fromElement = itemElementRefMap.current.get(fromItem.id)?.current;
+    invariant(fromElement != null, 'fromElement should exist');
+    const fromRect = fromElement.getBoundingClientRect();
+
+    return {
+      x: fromRect.x + pointerMovingDistance.x,
+      y: fromRect.y + pointerMovingDistance.y,
+    };
+  }, [flattenedTree, fromIndex, pointerMovingDistance]);
+
   return (
-    <props.Container
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      style={{
-        position: 'relative',
-      }}
-      ref={containerElementRef}
-    >
-      {flattenedTree.map((item, index) => (
-        <props.Item
-          key={item.id}
-          onPointerDown={() => {
-            onPointerDown(index);
-          }}
-          style={{
-            height: itemHeight,
-            paddingLeft: paddingLeft(item.depth),
-            cursor: fromIndex != null ? 'grabbing' : 'grab',
-            userSelect: 'none',
-            backgroundColor:
-              borderOrBackground?.type === 'background' &&
-              index === borderOrBackground.index
-                ? backgroundColor
-                : undefined,
-          }}
-          item={item}
-          index={index}
-          paddingLeft={paddingLeft(item.depth)}
-        />
-      ))}
-      {borderY != null && (
-        <div
-          style={{
-            position: 'absolute',
-            top: borderY,
-            width: '100%',
-            height: borderHeight,
-            cursor: fromIndex != null ? 'grabbing' : undefined,
-            backgroundColor: borderColor,
-          }}
-        />
-      )}
-    </props.Container>
+    <>
+      <props.Container
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        style={{
+          position: 'relative',
+        }}
+        ref={containerElementRef}
+      >
+        {flattenedTree.map((item, index) => (
+          <props.Item
+            key={item.id}
+            onPointerDown={(event) => {
+              onPointerDown(event, index);
+            }}
+            style={{
+              height: itemHeight,
+              paddingLeft: paddingLeft(item.depth),
+              cursor: fromIndex != null ? 'grabbing' : 'grab',
+              userSelect: 'none',
+              backgroundColor:
+                borderOrBackground?.type === 'background' &&
+                index === borderOrBackground.index
+                  ? backgroundColor
+                  : undefined,
+            }}
+            item={item}
+            index={index}
+            paddingLeft={paddingLeft(item.depth)}
+            ref={itemElementRefMap.current.get(item.id)}
+          />
+        ))}
+        {borderY != null && (
+          <div
+            style={{
+              position: 'absolute',
+              top: borderY,
+              width: '100%',
+              height: borderHeight,
+              cursor: fromIndex != null ? 'grabbing' : undefined,
+              backgroundColor: borderColor,
+            }}
+          />
+        )}
+      </props.Container>
+      {fromIndex != null &&
+        ghostMovingDistance != null &&
+        createPortal(
+          <props.Item
+            onPointerDown={() => {}}
+            style={{
+              position: 'absolute',
+              top: ghostMovingDistance.y,
+              left: ghostMovingDistance.x,
+              height: itemHeight,
+              paddingLeft: paddingLeft(flattenedTree[fromIndex]!.depth),
+              opacity: 0.5,
+            }}
+            item={flattenedTree[fromIndex]!}
+            index={fromIndex}
+            paddingLeft={paddingLeft(flattenedTree[fromIndex]!.depth)}
+          />,
+          document.body,
+        )}
+    </>
   );
 };
