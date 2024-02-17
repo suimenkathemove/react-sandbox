@@ -1,10 +1,10 @@
 import { StoryObj } from '@storybook/react';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { ChevronDown, ChevronRight } from 'react-feather';
 
 import { ContainerProps, ItemProps, ReactNotionSortableTree } from '.';
 
-import { tree } from '@/components/gui/sortable-tree/__mocks__/tree';
+import { tree as mockTree } from '@/components/gui/sortable-tree/__mocks__/tree';
 
 export default {};
 
@@ -25,10 +25,14 @@ const Wrapper: React.FC<{ children: React.ReactNode }> = (props) => {
 
 export const Default: StoryObj = {
   render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [tree, setTree] = useState(mockTree);
+
     return (
       <Wrapper>
         <ReactNotionSortableTree
           tree={tree}
+          setTree={setTree}
           Container={forwardRef<
             HTMLUListElement,
             ContainerProps<HTMLUListElement>
@@ -69,10 +73,14 @@ export const Default: StoryObj = {
 
 export const Notion: StoryObj = {
   render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [tree, setTree] = useState(mockTree);
+
     return (
       <Wrapper>
         <ReactNotionSortableTree
           tree={tree}
+          setTree={setTree}
           Container={forwardRef<
             HTMLUListElement,
             ContainerProps<HTMLUListElement>
