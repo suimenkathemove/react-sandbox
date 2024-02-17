@@ -1,6 +1,7 @@
 import {
   createRef,
   useCallback,
+  useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -8,13 +9,19 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 
-import { BorderOrBackground, getLastDescendantIndex, sortTree } from './models';
+import {
+  BorderOrBackground,
+  collapseFlattenTree,
+  getLastDescendantIndex,
+  sortTree,
+} from './models';
 
 import {
   FlattenedTreeItem,
   NodeId,
   Tree,
 } from '@/components/gui/sortable-tree/types';
+import { buildTree } from '@/components/gui/sortable-tree/utils/build-tree';
 import { flattenTree } from '@/components/gui/sortable-tree/utils/flatten-tree';
 import { findIndex, findLastIndex } from '@/utils/find-index';
 import { invariant } from '@/utils/invariant';
@@ -26,8 +33,6 @@ interface Coordinate {
 }
 
 export interface ContainerProps<ContainerElement extends HTMLElement> {
-  onPointerMove: React.PointerEventHandler<ContainerElement>;
-  onPointerUp: React.PointerEventHandler<ContainerElement>;
   style: React.CSSProperties;
   ref: React.RefObject<ContainerElement>;
   children: React.ReactNode;
@@ -39,6 +44,7 @@ export interface ItemProps<ItemElement extends HTMLElement> {
   item: FlattenedTreeItem;
   index: number;
   paddingLeft: number;
+  onCollapse: () => void;
   ref: React.RefObject<ItemElement>;
 }
 
@@ -78,6 +84,10 @@ export const ReactNotionSortableTree = <
 
   const [tree, setTree] = useState(() => props.tree);
   const flattenedTree = useMemo(() => flattenTree(tree), [tree]);
+  const collapsedFlattenedTree = useMemo(
+    () => collapseFlattenTree(tree),
+    [tree],
+  );
 
   const [fromIndex, setFromIndex] = useState<number | null>(null);
 
@@ -108,44 +118,42 @@ export const ReactNotionSortableTree = <
     [],
   );
 
-  const onPointerMove: React.PointerEventHandler<ContainerElement> =
-    useCallback(
-      (event) => {
-        if (
-          fromIndex == null ||
-          containerElementRef.current == null ||
-          pointerStartPositionRef.current == null
-        )
-          return;
+  const onPointerMove = useCallback(
+    (event: PointerEvent) => {
+      if (
+        fromIndex == null ||
+        containerElementRef.current == null ||
+        pointerStartPositionRef.current == null
+      )
+        return;
 
-        const movingDistance =
-          event.clientY -
-          containerElementRef.current.getBoundingClientRect().top;
-        const upperItemIndex = findIndex(
-          range(flattenedTree.length),
-          (index) =>
-            itemHeight * index - heightDisplayBorder <= movingDistance &&
-            movingDistance <= itemHeight * index + heightDisplayBorder,
-        );
-        const lastBorder =
-          itemHeight * flattenedTree.length - heightDisplayBorder <=
-          movingDistance;
-        if (upperItemIndex != null) {
-          setBorderOrBackground({ type: 'border', index: upperItemIndex });
-        } else if (lastBorder) {
-          setBorderOrBackground({ type: 'lastBorder' });
-        } else {
-          const index = Math.floor(movingDistance / itemHeight);
-          setBorderOrBackground({ type: 'background', index });
-        }
+      const movingDistance =
+        event.clientY - containerElementRef.current.getBoundingClientRect().top;
+      const upperItemIndex = findIndex(
+        range(flattenedTree.length),
+        (index) =>
+          itemHeight * index - heightDisplayBorder <= movingDistance &&
+          movingDistance <= itemHeight * index + heightDisplayBorder,
+      );
+      const lastBorder =
+        itemHeight * flattenedTree.length - heightDisplayBorder <=
+        movingDistance;
+      if (upperItemIndex != null) {
+        setBorderOrBackground({ type: 'border', index: upperItemIndex });
+      } else if (lastBorder) {
+        setBorderOrBackground({ type: 'lastBorder' });
+      } else {
+        const index = Math.floor(movingDistance / itemHeight);
+        setBorderOrBackground({ type: 'background', index });
+      }
 
-        setPointerMovingDistance({
-          x: event.clientX - pointerStartPositionRef.current.x,
-          y: event.clientY - pointerStartPositionRef.current.y,
-        });
-      },
-      [flattenedTree.length, fromIndex, heightDisplayBorder, itemHeight],
-    );
+      setPointerMovingDistance({
+        x: event.clientX - pointerStartPositionRef.current.x,
+        y: event.clientY - pointerStartPositionRef.current.y,
+      });
+    },
+    [flattenedTree.length, fromIndex, heightDisplayBorder, itemHeight],
+  );
 
   const onPointerUp = useCallback(() => {
     setFromIndex(null);
@@ -254,7 +262,15 @@ export const ReactNotionSortableTree = <
     }
   }, [borderOrBackground, flattenedTree, fromIndex]);
 
-  // TODO: onPointerMove, onPointerUp
+  useEffect(() => {
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+    };
+  }, [onPointerMove, onPointerUp]);
 
   const paddingLeft = useCallback(
     (depth: number): number => paddingPerDepth * depth,
@@ -288,17 +304,32 @@ export const ReactNotionSortableTree = <
     };
   }, [flattenedTree, fromIndex, pointerMovingDistance]);
 
+  const onCollapse = useCallback(
+    (id: NodeId) => {
+      const item = flattenedTree.find((item) => item.id === id);
+      invariant(item != null, 'item should exist');
+      const newItem: FlattenedTreeItem = {
+        ...item,
+        collapsed: !item.collapsed,
+      };
+      const newFlattenedTree = flattenedTree.map((item) =>
+        item.id === newItem.id ? newItem : item,
+      );
+      const newTree = buildTree(newFlattenedTree);
+      setTree(newTree);
+    },
+    [flattenedTree],
+  );
+
   return (
     <>
       <props.Container
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
         style={{
           position: 'relative',
         }}
         ref={containerElementRef}
       >
-        {flattenedTree.map((item, index) => (
+        {collapsedFlattenedTree.map((item, index) => (
           <props.Item
             key={item.id}
             onPointerDown={(event) => {
@@ -318,6 +349,9 @@ export const ReactNotionSortableTree = <
             item={item}
             index={index}
             paddingLeft={paddingLeft(item.depth)}
+            onCollapse={() => {
+              onCollapse(item.id);
+            }}
             ref={itemElementRefMap.current.get(item.id)}
           />
         ))}
@@ -350,6 +384,7 @@ export const ReactNotionSortableTree = <
             item={flattenedTree[fromIndex]!}
             index={fromIndex}
             paddingLeft={paddingLeft(flattenedTree[fromIndex]!.depth)}
+            onCollapse={() => {}}
           />,
           document.body,
         )}

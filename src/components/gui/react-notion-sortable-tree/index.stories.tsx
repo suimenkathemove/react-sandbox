@@ -1,5 +1,6 @@
 import { StoryObj } from '@storybook/react';
 import { forwardRef } from 'react';
+import { ChevronDown, ChevronRight } from 'react-feather';
 
 import { ContainerProps, ItemProps, ReactNotionSortableTree } from '.';
 
@@ -33,8 +34,6 @@ export const Default: StoryObj = {
             ContainerProps<HTMLUListElement>
           >((props, ref) => (
             <ul
-              onPointerMove={props.onPointerMove}
-              onPointerUp={props.onPointerUp}
               style={{
                 ...props.style,
                 width: 240,
@@ -51,6 +50,13 @@ export const Default: StoryObj = {
                 style={props.style}
                 ref={ref}
               >
+                <button
+                  onClick={() => {
+                    props.onCollapse();
+                  }}
+                >
+                  {props.item.collapsed ? '>' : 'v'}
+                </button>
                 {props.item.id}
               </li>
             ),
@@ -72,8 +78,6 @@ export const Notion: StoryObj = {
             ContainerProps<HTMLUListElement>
           >((props, ref) => (
             <ul
-              onPointerMove={props.onPointerMove}
-              onPointerUp={props.onPointerUp}
               style={{
                 ...props.style,
                 width: 240,
@@ -103,6 +107,25 @@ export const Notion: StoryObj = {
                 }}
                 ref={ref}
               >
+                <button
+                  onClick={() => {
+                    props.onCollapse();
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 22,
+                    height: 22,
+                    marginRight: 4,
+                  }}
+                >
+                  {props.item.collapsed ? (
+                    <ChevronRight size={20} />
+                  ) : (
+                    <ChevronDown size={20} />
+                  )}
+                </button>
                 {props.item.id}
               </li>
             ),
