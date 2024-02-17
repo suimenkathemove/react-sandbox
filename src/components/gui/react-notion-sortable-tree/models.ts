@@ -5,7 +5,9 @@ import {
   Tree,
 } from '@/components/gui/sortable-tree/types';
 import { buildTree } from '@/components/gui/sortable-tree/utils/build-tree';
+import { flattenTree } from '@/components/gui/sortable-tree/utils/flatten-tree';
 import { arrayMove } from '@/utils/array-move';
+import { findIndex } from '@/utils/find-index';
 import { invariant } from '@/utils/invariant';
 
 export type BorderOrBackground =
@@ -21,51 +23,52 @@ export type BorderOrBackground =
       index: number;
     };
 
-export const getLastDescendantIndex = (
+export const getDescendantIds = (
   flattenedTree: FlattenedTreeItem[],
-  fromIndex: number,
-): number => {
-  const fromItem = flattenedTree[fromIndex];
-  invariant(fromItem != null, 'fromItem should exist');
-
-  let lastDescendantIndex = fromIndex;
-
-  for (let i = fromIndex + 1; i < flattenedTree.length; i++) {
-    const item = flattenedTree[i];
-    invariant(item != null, 'item should exist');
-
-    if (item.depth <= fromItem.depth) break;
-
-    lastDescendantIndex = i;
-  }
-
-  return lastDescendantIndex;
-};
-
-const getDescendantIds = (
-  flattenedTree: FlattenedTreeItem[],
-  fromItem: FlattenedTreeItem,
-  fromIndex: number,
+  targetId: NodeId,
 ): NodeId[] => {
-  const descendantIds: NodeId[] = [fromItem.id];
-  for (let i = fromIndex + 1; i < flattenedTree.length; i++) {
+  const targetIndex = findIndex(flattenedTree, (item) => item.id === targetId);
+  invariant(targetIndex != null, 'targetIndex should exist');
+  const targetItem = flattenedTree[targetIndex];
+  invariant(targetItem != null, 'targetItem should exist');
+
+  const descendantIds: NodeId[] = [targetId];
+
+  for (let i = targetIndex + 1; i < flattenedTree.length; i++) {
     const item = flattenedTree[i];
     invariant(item != null, 'item should exist');
-    if (item.depth <= fromItem.depth) break;
+    if (item.depth <= targetItem.depth) break;
     descendantIds.push(item.id);
   }
 
   return descendantIds;
 };
 
-export const sortTree = (
+export const getLastDescendantIndex = (
   flattenedTree: FlattenedTreeItem[],
+  targetId: NodeId,
+): number => {
+  const descendantIds = getDescendantIds(flattenedTree, targetId);
+  const lastDescendantId = descendantIds[descendantIds.length - 1];
+  invariant(lastDescendantId != null, 'lastDescendantId should exist');
+  const lastDescendantIndex = findIndex(
+    flattenedTree,
+    (item) => item.id === lastDescendantId,
+  );
+  invariant(lastDescendantIndex != null, 'lastDescendantIndex should exist');
+
+  return lastDescendantIndex;
+};
+
+export const sortTree = (
+  tree: Tree,
   fromItem: FlattenedTreeItem,
   newParentIdOfFromItem: NodeId,
-  fromIndex: number,
-  toIndex: number,
+  toId: NodeId,
 ): Tree => {
-  const descendantIds = getDescendantIds(flattenedTree, fromItem, fromIndex);
+  const flattenedTree = flattenTree(tree);
+
+  const descendantIds = getDescendantIds(flattenedTree, fromItem.id);
   if (descendantIds.includes(newParentIdOfFromItem))
     return buildTree(flattenedTree);
 
@@ -76,6 +79,10 @@ export const sortTree = (
   const newFlattenedTree = flattenedTree.map((item) =>
     item.id === newFromItem.id ? newFromItem : item,
   );
+  const fromIndex = findIndex(flattenedTree, (item) => item.id === fromItem.id);
+  invariant(fromIndex != null, 'fromIndex should exist');
+  const toIndex = findIndex(flattenedTree, (item) => item.id === toId);
+  invariant(toIndex != null, 'toIndex should exist');
   const sortedFlattenedTree = arrayMove(newFlattenedTree, fromIndex, toIndex);
 
   return buildTree(sortedFlattenedTree);
