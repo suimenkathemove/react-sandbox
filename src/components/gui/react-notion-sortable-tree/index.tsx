@@ -213,12 +213,13 @@ export const ReactNotionSortableTree = <
             invariant(upperItem != null, 'upperItem should exist');
             const lowerItem = collapsedFlattenedTree[borderIndex];
             invariant(lowerItem != null, 'lowerItem should exist');
+            const isSiblingLeaf = fromItem.depth !== lowerItem.depth;
             const lastDescendantIndex = getLastDescendantIndex(
               collapsedFlattenedTree,
               fromItem.id,
             );
             const directlyLowerBorder = borderIndex === lastDescendantIndex + 1;
-            if (directlyLowerBorder) {
+            if (isSiblingLeaf && directlyLowerBorder) {
               const parentItem = collapsedFlattenedTree.find(
                 (item) => item.id === fromItem.parentId,
               );
