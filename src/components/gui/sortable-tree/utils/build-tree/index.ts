@@ -20,6 +20,7 @@ export const buildTree = (flattenedTree: FlattenedTreeItem[]): Tree => {
       map[item.id] = {
         id: item.id,
         children: [],
+        collapsed: item.collapsed,
       };
     }
     const node = map[item.id]!;

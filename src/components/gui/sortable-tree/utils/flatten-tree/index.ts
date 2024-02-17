@@ -7,11 +7,12 @@ export const flattenTree = (tree: Tree): FlattenedTreeItem[] => {
     node: Node,
     parentId: FlattenedTreeItem['parentId'],
     depth = 0,
-  ) => {
+  ): void => {
     flattenedTree.push({
       id: node.id,
       parentId,
       depth,
+      collapsed: node.collapsed,
     });
 
     node.children.forEach((c) => {
