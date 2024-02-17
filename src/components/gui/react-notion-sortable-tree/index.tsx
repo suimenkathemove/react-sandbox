@@ -132,10 +132,12 @@ export const ReactNotionSortableTree = <
     if (upperIndex != null) {
       const upperItem = collapsedFlattenedTree[upperIndex];
       invariant(upperItem != null, 'upperItem should exist');
+      const directlyUpperBorder = upperItem.id === fromItem.id;
       if (
         getDescendantIds(collapsedFlattenedTree, fromItem.id).includes(
           upperItem.id,
-        )
+        ) &&
+        !directlyUpperBorder
       )
         return null;
 
