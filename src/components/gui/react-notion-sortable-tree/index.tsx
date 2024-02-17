@@ -347,7 +347,6 @@ export const ReactNotionSortableTree = <
             style={{
               height: itemHeight,
               paddingLeft: paddingLeft(item.depth),
-              cursor: fromItem != null ? 'grabbing' : 'grab',
               userSelect: 'none',
               backgroundColor:
                 borderOrBackground?.type === 'background' &&
@@ -370,7 +369,6 @@ export const ReactNotionSortableTree = <
               top: borderY,
               width: '100%',
               height: borderHeight,
-              cursor: fromItem != null ? 'grabbing' : undefined,
               backgroundColor: borderColor,
             }}
           />
