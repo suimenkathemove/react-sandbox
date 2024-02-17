@@ -89,9 +89,6 @@ export const ReactNotionSortableTree = <
 
   const [fromItem, setFromItem] = useState<FlattenedTreeItem | null>(null);
 
-  const [borderOrBackground, setBorderOrBackground] =
-    useState<BorderOrBackground | null>(null);
-
   const containerElementRef = useRef<ContainerElement>(null);
   const itemElementRefMap = useRef<Map<NodeId, React.RefObject<ItemElement>>>(
     new Map(),
@@ -103,9 +100,45 @@ export const ReactNotionSortableTree = <
     });
   }, [collapsedFlattenedTree]);
 
+  const [pointerCoordinate, setPointerCoordinate] = useState<Coordinate | null>(
+    null,
+  );
+
   const pointerStartPositionRef = useRef<Coordinate | null>(null);
   const [pointerMovingDistance, setPointerMovingDistance] =
     useState<Coordinate | null>(null);
+
+  const borderOrBackground = useMemo((): BorderOrBackground | null => {
+    if (containerElementRef.current == null || pointerCoordinate == null)
+      return null;
+
+    const movingDistance =
+      pointerCoordinate.y -
+      containerElementRef.current.getBoundingClientRect().top;
+    const upperItemIndex = findIndex(
+      range(collapsedFlattenedTree.length),
+      (index) =>
+        itemHeight * index - heightDisplayBorder <= movingDistance &&
+        movingDistance <= itemHeight * index + heightDisplayBorder,
+    );
+    const lastBorder =
+      itemHeight * collapsedFlattenedTree.length - heightDisplayBorder <=
+      movingDistance;
+    if (upperItemIndex != null) {
+      return { type: 'border', index: upperItemIndex };
+    } else if (lastBorder) {
+      return { type: 'lastBorder' };
+    } else {
+      const index = Math.floor(movingDistance / itemHeight);
+
+      return { type: 'background', index };
+    }
+  }, [
+    collapsedFlattenedTree.length,
+    heightDisplayBorder,
+    itemHeight,
+    pointerCoordinate,
+  ]);
 
   const onPointerDown = useCallback(
     (event: React.PointerEvent<ItemElement>, item: FlattenedTreeItem) => {
@@ -116,46 +149,22 @@ export const ReactNotionSortableTree = <
     [],
   );
 
-  const onPointerMove = useCallback(
-    (event: PointerEvent) => {
-      if (
-        fromItem == null ||
-        containerElementRef.current == null ||
-        pointerStartPositionRef.current == null
-      )
-        return;
+  const onPointerMove = useCallback((event: PointerEvent) => {
+    if (pointerStartPositionRef.current == null) return;
 
-      const movingDistance =
-        event.clientY - containerElementRef.current.getBoundingClientRect().top;
-      const upperItemIndex = findIndex(
-        range(collapsedFlattenedTree.length),
-        (index) =>
-          itemHeight * index - heightDisplayBorder <= movingDistance &&
-          movingDistance <= itemHeight * index + heightDisplayBorder,
-      );
-      const lastBorder =
-        itemHeight * collapsedFlattenedTree.length - heightDisplayBorder <=
-        movingDistance;
-      if (upperItemIndex != null) {
-        setBorderOrBackground({ type: 'border', index: upperItemIndex });
-      } else if (lastBorder) {
-        setBorderOrBackground({ type: 'lastBorder' });
-      } else {
-        const index = Math.floor(movingDistance / itemHeight);
-        setBorderOrBackground({ type: 'background', index });
-      }
+    setPointerCoordinate({
+      x: event.clientX,
+      y: event.clientY,
+    });
 
-      setPointerMovingDistance({
-        x: event.clientX - pointerStartPositionRef.current.x,
-        y: event.clientY - pointerStartPositionRef.current.y,
-      });
-    },
-    [collapsedFlattenedTree.length, fromItem, heightDisplayBorder, itemHeight],
-  );
+    setPointerMovingDistance({
+      x: event.clientX - pointerStartPositionRef.current.x,
+      y: event.clientY - pointerStartPositionRef.current.y,
+    });
+  }, []);
 
   const onPointerUp = useCallback(() => {
     setFromItem(null);
-    setBorderOrBackground(null);
 
     pointerStartPositionRef.current = null;
     setPointerMovingDistance(null);
