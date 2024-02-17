@@ -58,6 +58,9 @@ export const Default: StoryObj = {
                   onClick={() => {
                     props.onCollapse();
                   }}
+                  onPointerDown={(event) => {
+                    event.stopPropagation();
+                  }}
                 >
                   {props.item.collapsed ? '>' : 'v'}
                 </button>
@@ -118,6 +121,9 @@ export const Notion: StoryObj = {
                 <button
                   onClick={() => {
                     props.onCollapse();
+                  }}
+                  onPointerDown={(event) => {
+                    event.stopPropagation();
                   }}
                   style={{
                     display: 'flex',
