@@ -12,6 +12,7 @@ import { createPortal } from 'react-dom';
 import {
   BorderOrBackground,
   collapseFlattenTree,
+  getDescendantIds,
   getLastDescendantIndex,
   sortTree,
 } from './models';
@@ -109,13 +110,17 @@ export const ReactNotionSortableTree = <
     useState<Coordinate | null>(null);
 
   const borderOrBackground = useMemo((): BorderOrBackground | null => {
-    if (containerElementRef.current == null || pointerCoordinate == null)
+    if (
+      fromItem == null ||
+      containerElementRef.current == null ||
+      pointerCoordinate == null
+    )
       return null;
 
     const movingDistance =
       pointerCoordinate.y -
       containerElementRef.current.getBoundingClientRect().top;
-    const upperItemIndex = findIndex(
+    const upperIndex = findIndex(
       range(collapsedFlattenedTree.length),
       (index) =>
         itemHeight * index - heightDisplayBorder <= movingDistance &&
@@ -124,17 +129,35 @@ export const ReactNotionSortableTree = <
     const lastBorder =
       itemHeight * collapsedFlattenedTree.length - heightDisplayBorder <=
       movingDistance;
-    if (upperItemIndex != null) {
-      return { type: 'border', index: upperItemIndex };
+    if (upperIndex != null) {
+      const upperItem = collapsedFlattenedTree[upperIndex];
+      invariant(upperItem != null, 'upperItem should exist');
+      if (
+        getDescendantIds(collapsedFlattenedTree, fromItem.id).includes(
+          upperItem.id,
+        )
+      )
+        return null;
+
+      return { type: 'border', index: upperIndex };
     } else if (lastBorder) {
       return { type: 'lastBorder' };
     } else {
-      const index = Math.floor(movingDistance / itemHeight);
+      const backgroundIndex = Math.floor(movingDistance / itemHeight);
+      const backgroundItem = collapsedFlattenedTree[backgroundIndex];
+      invariant(backgroundItem != null, 'backgroundItem should exist');
+      if (
+        getDescendantIds(collapsedFlattenedTree, fromItem.id).includes(
+          backgroundItem.id,
+        )
+      )
+        return null;
 
-      return { type: 'background', index };
+      return { type: 'background', index: backgroundIndex };
     }
   }, [
-    collapsedFlattenedTree.length,
+    collapsedFlattenedTree,
+    fromItem,
     heightDisplayBorder,
     itemHeight,
     pointerCoordinate,
