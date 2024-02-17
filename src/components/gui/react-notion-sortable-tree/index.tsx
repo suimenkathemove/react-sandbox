@@ -166,6 +166,8 @@ export const ReactNotionSortableTree = <
   const onPointerUp = useCallback(() => {
     setFromItem(null);
 
+    setPointerCoordinate(null);
+
     pointerStartPositionRef.current = null;
     setPointerMovingDistance(null);
 
