@@ -33,6 +33,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@nextui-org/react": "^2.2.9",
     "@suimenkathemove/frontend-tsconfig": "^0.1.7",
+    "@suimenkathemove/utils": "^0.1.1",
     "@textlint/kernel": "^13.4.1",
     "@textlint/module-interop": "^13.4.1",
     "@textlint/textlint-plugin-text": "^13.4.1",

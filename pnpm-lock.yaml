@@ -20,6 +20,9 @@ dependencies:
   '@suimenkathemove/frontend-tsconfig':
     specifier: ^0.1.7
     version: 0.1.7(typescript@5.2.2)(typesync@0.12.0)
+  '@suimenkathemove/utils':
+    specifier: ^0.1.1
+    version: 0.1.1
   '@textlint/kernel':
     specifier: ^13.4.1
     version: 13.4.1
@@ -6960,6 +6963,11 @@ packages:
       tsconfig-paths: 4.2.0
       typescript: 5.2.2
       typesync: 0.12.0(typescript@5.2.2)
+    dev: false
+
+  /@suimenkathemove/utils@0.1.1:
+    resolution: {integrity: sha512-rbE4Qr21Mnf0uwyowHr5JjfsG1trG4DIQegbAWXvY4Yk99Q3yc6De4/3HFV//9/sucIXZyqLo4BAfrVeBrb+nQ==}
+    engines: {node: 20.x, pnpm: '>=3'}
     dev: false
 
   /@surma/rollup-plugin-off-main-thread@2.2.3:
