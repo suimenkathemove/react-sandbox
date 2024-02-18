@@ -1,3 +1,4 @@
+import { buildTree } from '@suimenkathemove/utils';
 import {
   createRef,
   useCallback,
@@ -22,7 +23,6 @@ import {
   NodeId,
   Tree,
 } from '@/components/gui/sortable-tree/types';
-import { buildTree } from '@/components/gui/sortable-tree/utils/build-tree';
 import { flattenTree } from '@/components/gui/sortable-tree/utils/flatten-tree';
 import { findIndex, findLastIndex } from '@/utils/find-index';
 import { invariant } from '@/utils/invariant';

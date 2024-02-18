@@ -1,10 +1,11 @@
+import { buildTree } from '@suimenkathemove/utils';
+
 import {
   FlattenedTreeItem,
   Node,
   NodeId,
   Tree,
 } from '@/components/gui/sortable-tree/types';
-import { buildTree } from '@/components/gui/sortable-tree/utils/build-tree';
 import { flattenTree } from '@/components/gui/sortable-tree/utils/flatten-tree';
 import { arrayMove } from '@/utils/array-move';
 import { findIndex } from '@/utils/find-index';

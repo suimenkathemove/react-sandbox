@@ -8,6 +8,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
+import { buildTree } from '@suimenkathemove/utils';
 import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -20,7 +21,6 @@ import { useTestWasmBuildTree } from './hooks/use-test-wasm-build-tree';
 import { useTestWasmFlattenTree } from './hooks/use-test-wasm-flatten-tree';
 import { Ul } from './styles';
 import { FlattenedTreeItem, Tree } from './types';
-import { buildTree } from './utils/build-tree';
 import { flattenTree } from './utils/flatten-tree';
 import { getProjection } from './utils/get-projection';
 import { removeDescendants } from './utils/remove-descendants';
