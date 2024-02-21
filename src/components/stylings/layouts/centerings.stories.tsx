@@ -2,7 +2,9 @@ import { Meta } from '@storybook/react';
 
 import { Component } from '@/components/component';
 
-export default {} as Meta;
+export default {
+  component: Component,
+} as Meta;
 
 // for `display: block;`
 export const Margin0auto: React.FC = () => {

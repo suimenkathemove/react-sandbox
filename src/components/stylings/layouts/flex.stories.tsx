@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 import { Component } from '@/components/component';
 
-export default {} as Meta;
-
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -21,3 +19,7 @@ export const AlignContentCenter: React.FC = () => {
     </Container>
   );
 };
+
+export default {
+  component: AlignContentCenter,
+} as Meta;

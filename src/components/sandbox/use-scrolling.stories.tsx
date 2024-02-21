@@ -2,8 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { useScrolling } from '@/hooks/use-scrolling';
 
-export default {} as Meta;
-
 const Component: React.FC = () => {
   const scrolling = useScrolling();
 
@@ -16,6 +14,10 @@ const Component: React.FC = () => {
     </>
   );
 };
+
+export default {
+  component: Component,
+} as Meta;
 
 export const Default: StoryObj = {
   render: () => {

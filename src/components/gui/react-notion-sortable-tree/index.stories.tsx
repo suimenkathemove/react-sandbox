@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { forwardRef, useState } from 'react';
 import { ChevronDown, ChevronRight } from 'react-feather';
 
@@ -6,7 +6,9 @@ import { ContainerProps, ItemProps, ReactNotionSortableTree } from '.';
 
 import { tree as mockTree } from '@/components/gui/sortable-tree/__mocks__/tree';
 
-export default {};
+export default {
+  component: ReactNotionSortableTree,
+} satisfies Meta;
 
 const Wrapper: React.FC<{ children: React.ReactNode }> = (props) => {
   return (

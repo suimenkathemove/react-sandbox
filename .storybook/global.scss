@@ -1,7 +1,7 @@
 #storybook-root {
   height: 100%;
 
-  > * {
+  > div:first-child {
     height: 100%;
   }
 }

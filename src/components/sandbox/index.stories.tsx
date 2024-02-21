@@ -1,10 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-export default {} as Meta;
-
 const Sandbox: React.FC = () => {
   return <div></div>;
 };
+
+export default {
+  component: Sandbox,
+} as Meta;
 
 export const Default: StoryObj = {
   render: () => {
