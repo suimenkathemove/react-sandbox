@@ -48,6 +48,8 @@ jobs:
         uses: suimenkathemove/pnpm-cache-action@v1.0.0
       - name: Install dependencies
         run: pnpm install
+      - name: Install Playwright
+        run: npx playwright install --with-deps
       - name: Build Storybook
         run: pnpm build-storybook --quiet
       - name: Storybook Test
