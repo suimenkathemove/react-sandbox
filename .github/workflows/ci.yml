@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Storybook Test
-        run: pnpm concurrently 'pnpm storybook' 'pnpm test-storybook' -k -s first
+        run: pnpm concurrently 'pnpm storybook' 'npx wait-on tcp:6006 && pnpm test-storybook' -k -s first
 
   # TODO: refactor
   # e2e:
