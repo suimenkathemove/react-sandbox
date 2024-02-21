@@ -14,7 +14,7 @@ else
   # EDIT THIS
   tmux new-session -s "$PROJECT_NAME" -d -n storybook 'pnpm storybook'
   # EDIT THIS
-  tmux new-window -n wasm 'makers wasm'
+  # tmux new-window -n wasm 'makers wasm'
   # EDIT THIS
   tmux new-window
 
