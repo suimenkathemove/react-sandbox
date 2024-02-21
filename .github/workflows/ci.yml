@@ -39,6 +39,18 @@ jobs:
       - name: Unit Test
         run: pnpm test
 
+  storybook-test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache pnpm
+        uses: suimenkathemove/pnpm-cache-action@v1.0.0
+      - name: Install dependencies
+        run: pnpm install
+      - name: Storybook Test
+        run: pnpm concurrently 'pnpm storybook' 'pnpm test-storybook' -k -s first
+
   # TODO: refactor
   # e2e:
   #   runs-on: ubuntu-22.04

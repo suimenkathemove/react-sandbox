@@ -1,11 +1,13 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { forwardRef } from 'react';
 
 import { ContentProps, ReactSelectRectangle } from '.';
 
 import { range } from '@/utils/range';
 
-export default {};
+export default {
+  component: ReactSelectRectangle,
+} satisfies Meta;
 
 export const Default: StoryObj = {
   render: () => {
