@@ -3,14 +3,28 @@ import { createPortal } from 'react-dom';
 
 import { Offset, Position } from './models';
 import { PositionType } from './models/position-type';
-import { ContentWrapper, TriggerWrapper } from './styles';
 import { resolvePosition } from './utils/resolve-position';
 
 import { useBool } from '@/hooks/use-bool';
 
-export interface PopoverProps {
-  children: React.ReactNode; // trigger
-  content: React.ReactNode;
+export interface TriggerProps {
+  onClick: () => void;
+}
+
+export interface ContentProps {
+  style: React.CSSProperties;
+}
+
+export interface PopoverProps<
+  TriggerElement extends HTMLElement,
+  ContentElement extends HTMLElement,
+> {
+  Trigger: React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<TriggerProps> & React.RefAttributes<TriggerElement>
+  >;
+  Content: React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<ContentProps> & React.RefAttributes<ContentElement>
+  >;
   positionType: PositionType;
   offset?: Offset;
   frameElement?: HTMLElement | null;
@@ -18,13 +32,18 @@ export interface PopoverProps {
   isMountTargetPositionRelative?: boolean;
 }
 
-export const Popover: React.FC<PopoverProps> = (props) => {
+export const Popover = <
+  TriggerElement extends HTMLElement,
+  ContentElement extends HTMLElement,
+>(
+  props: PopoverProps<TriggerElement, ContentElement>,
+) => {
   const [open, onOpen, offOpen] = useBool();
 
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
 
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<TriggerElement>(null);
+  const contentRef = useRef<ContentElement>(null);
 
   useLayoutEffect(() => {
     if (!open) return;
@@ -65,14 +84,13 @@ export const Popover: React.FC<PopoverProps> = (props) => {
 
   return (
     <>
-      <TriggerWrapper onClick={onOpen} ref={triggerRef}>
-        {props.children}
-      </TriggerWrapper>
+      <props.Trigger onClick={onOpen} ref={triggerRef} />
       {open &&
         createPortal(
-          <ContentWrapper style={position} ref={contentRef}>
-            {props.content}
-          </ContentWrapper>,
+          <props.Content
+            style={{ position: 'absolute', ...position }}
+            ref={contentRef}
+          />,
           props.mountTarget ?? document.body,
         )}
     </>
