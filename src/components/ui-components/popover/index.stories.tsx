@@ -9,6 +9,8 @@ import { OFFSET } from './utils/calc-position';
 
 import { ContentProps, Popover, PopoverProps, TriggerProps } from '.';
 
+import { delay } from '@/utils/delay';
+
 export default {
   component: Popover,
 } as Meta;
@@ -30,28 +32,27 @@ const CENTER_VERTICAL_BOUNDARY = CONTENT_HEIGHT / 2 - TRIGGER_HEIGHT / 2;
 
 const PopoverByPositionType: React.FC<
   Pick<
-    PopoverProps<HTMLButtonElement, HTMLDivElement>,
+    PopoverProps<HTMLDivElement, HTMLDivElement>,
     'positionType' | 'frameElement'
   >
 > = (props) => {
   return (
     <Popover
-      Trigger={forwardRef<HTMLButtonElement, TriggerProps>(
-        (triggerProps, ref) => (
-          <button
-            onClick={triggerProps.onClick}
-            style={{
-              width: TRIGGER_WIDTH,
-              height: TRIGGER_HEIGHT,
-              border: '1px solid black',
-              fontSize: 10,
-            }}
-            ref={ref}
-          >
-            {props.positionType}
-          </button>
-        ),
-      )}
+      Trigger={forwardRef<HTMLDivElement, TriggerProps>((triggerProps, ref) => (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div
+          onClick={triggerProps.onClick}
+          style={{
+            width: TRIGGER_WIDTH,
+            height: TRIGGER_HEIGHT,
+            border: '1px solid black',
+            fontSize: 10,
+          }}
+          ref={ref}
+        >
+          {props.positionType}
+        </div>
+      ))}
       Content={forwardRef<HTMLDivElement, ContentProps>((contentProps, ref) => (
         <div
           style={{
@@ -67,7 +68,8 @@ const PopoverByPositionType: React.FC<
       ))}
       positionType={props.positionType}
       frameElement={props.frameElement}
-      mountTarget={document.body}
+      // eslint-disable-next-line testing-library/no-node-access
+      mountTarget={document.getElementById('storybook-root')!}
     />
   );
 };
@@ -431,6 +433,8 @@ export const Flip: StoryObj = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    await delay(1);
 
     const test = async (
       positionType: PositionType,
