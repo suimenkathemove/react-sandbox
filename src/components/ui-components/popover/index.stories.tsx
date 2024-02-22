@@ -1,17 +1,17 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { PositionType, PositionTypeUnit } from './models/position-type';
 import { OFFSET } from './utils/calc-position';
 
-import { Popover, PopoverProps } from '.';
+import { ContentProps, Popover, PopoverProps, TriggerProps } from '.';
 
 export default {
   component: Popover,
-} as Meta<PopoverProps>;
+} as Meta;
 
 const TRIGGER_WIDTH = 64;
 const TRIGGER_HEIGHT = 16;
@@ -29,37 +29,46 @@ const CENTER_HORIZONTAL_BOUNDARY = CONTENT_WIDTH / 2 - TRIGGER_WIDTH / 2;
 const CENTER_VERTICAL_BOUNDARY = CONTENT_HEIGHT / 2 - TRIGGER_HEIGHT / 2;
 
 const PopoverByPositionType: React.FC<
-  Pick<PopoverProps, 'positionType' | 'frameElement'>
+  Pick<
+    PopoverProps<HTMLButtonElement, HTMLDivElement>,
+    'positionType' | 'frameElement'
+  >
 > = (props) => {
   return (
     <Popover
-      content={
+      Trigger={forwardRef<HTMLButtonElement, TriggerProps>(
+        (triggerProps, ref) => (
+          <button
+            onClick={triggerProps.onClick}
+            style={{
+              width: TRIGGER_WIDTH,
+              height: TRIGGER_HEIGHT,
+              border: '1px solid black',
+              fontSize: 10,
+            }}
+            ref={ref}
+          >
+            {props.positionType}
+          </button>
+        ),
+      )}
+      Content={forwardRef<HTMLDivElement, ContentProps>((contentProps, ref) => (
         <div
           style={{
+            ...contentProps.style,
             width: CONTENT_WIDTH,
             height: CONTENT_HEIGHT,
             border: '1px solid black',
           }}
+          ref={ref}
         >
           content
         </div>
-      }
+      ))}
       positionType={props.positionType}
       frameElement={props.frameElement}
-      // eslint-disable-next-line testing-library/no-node-access
-      mountTarget={document.getElementById('storybook-root')!}
-    >
-      <div
-        style={{
-          width: TRIGGER_WIDTH,
-          height: TRIGGER_HEIGHT,
-          border: '1px solid black',
-          fontSize: 10,
-        }}
-      >
-        {props.positionType}
-      </div>
-    </Popover>
+      mountTarget={document.body}
+    />
   );
 };
 
