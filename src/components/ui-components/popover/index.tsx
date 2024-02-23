@@ -72,15 +72,22 @@ export const Popover = <
   ]);
 
   useEffect(() => {
-    const options: AddEventListenerOptions = { capture: true };
+    const onClickOutsideContent = (event: MouseEvent) => {
+      if (
+        open &&
+        event.target !== triggerRef.current &&
+        !contentRef.current?.contains(event.target as Node)
+      ) {
+        offOpen();
+      }
+    };
 
-    window.addEventListener('click', offOpen, options);
+    window.addEventListener('click', onClickOutsideContent);
 
     return () => {
-      window.removeEventListener('click', offOpen, options);
+      window.removeEventListener('click', onClickOutsideContent);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [offOpen, open]);
 
   return (
     <>
