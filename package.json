@@ -1,6 +1,6 @@
 {
   "name": "@suimenkathemove/react-library",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "keywords": [],
   "license": "MIT",
@@ -10,7 +10,6 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "postinstall": "typesync",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "eject": "react-app-rewired eject",
