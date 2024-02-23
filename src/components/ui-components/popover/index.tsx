@@ -75,7 +75,7 @@ export const Popover = <
     const onClickOutsideContent = (event: MouseEvent) => {
       if (
         open &&
-        event.target !== triggerRef.current &&
+        !triggerRef.current?.contains(event.target as Node) &&
         !contentRef.current?.contains(event.target as Node)
       ) {
         offOpen();
