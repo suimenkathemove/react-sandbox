@@ -9,7 +9,7 @@ void build({
   bundle: true,
   outfile: 'dist/index.js',
   platform: 'browser',
-  format: 'esm',
+  format: 'cjs',
   external: ['react', 'react-dom'],
   minify: true,
   sourcemap: true,
