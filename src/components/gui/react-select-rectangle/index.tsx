@@ -27,7 +27,7 @@ const checkPointIsInsideRect = (point: Coordinate, rect: Rect): boolean =>
   rect.top <= point.y &&
   point.y <= rect.bottom;
 
-export interface ContentProps<T extends HTMLElement> {
+export interface ItemProps<T extends HTMLElement> {
   id: string;
   selected: boolean;
   ref: React.RefObject<T>;
@@ -38,10 +38,10 @@ export interface ReactSelectRectangleProps<T extends HTMLElement> {
     onPointerDown: React.PointerEventHandler;
     children: React.ReactNode;
   }>;
-  Content: React.ForwardRefExoticComponent<
-    React.PropsWithoutRef<ContentProps<T>> & React.RefAttributes<T>
+  Item: React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<ItemProps<T>> & React.RefAttributes<T>
   >;
-  contents: { id: string }[];
+  items: { id: string }[];
   onSelect: (ids: string[]) => void;
   selectionStyle: React.CSSProperties;
 }
@@ -70,18 +70,18 @@ export const ReactSelectRectangle = <T extends HTMLElement>(
     };
   }, [distance, position]);
 
-  const contentRefMap = useRef<Map<string, React.RefObject<T>>>(new Map());
+  const itemRefMap = useRef<Map<string, React.RefObject<T>>>(new Map());
   // TODO: useIsomorphicLayoutEffect
   useLayoutEffect(() => {
-    props.contents.forEach((c) => {
-      contentRefMap.current.set(c.id, createRef());
+    props.items.forEach((c) => {
+      itemRefMap.current.set(c.id, createRef());
     });
-  }, [props.contents]);
+  }, [props.items]);
 
   const selected = useCallback(
     (id: string): boolean => {
       if (selectionRect == null) return false;
-      const element = contentRefMap.current.get(id)?.current;
+      const element = itemRefMap.current.get(id)?.current;
       if (element == null) return false;
       const elementRect = element.getBoundingClientRect();
       const baseX =
@@ -118,7 +118,7 @@ export const ReactSelectRectangle = <T extends HTMLElement>(
   );
 
   const onPointerUp = useCallback(() => {
-    const selectedIds = props.contents
+    const selectedIds = props.items
       .filter((c) => selected(c.id))
       .map((c) => c.id);
     props.onSelect(selectedIds);
@@ -141,12 +141,12 @@ export const ReactSelectRectangle = <T extends HTMLElement>(
   return (
     <>
       <props.Container onPointerDown={onPointerDown}>
-        {props.contents.map((c) => (
-          <props.Content
+        {props.items.map((c) => (
+          <props.Item
             key={c.id}
             id={c.id}
             selected={selected(c.id) || selectedIds.includes(c.id)}
-            ref={contentRefMap.current.get(c.id)}
+            ref={itemRefMap.current.get(c.id)}
           />
         ))}
       </props.Container>
