@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { forwardRef } from 'react';
 
-import { ContentProps, ReactSelectRectangle } from '.';
+import { ItemProps, ReactSelectRectangle } from '.';
 
 import { range } from '@/utils/range';
 
@@ -21,7 +21,7 @@ export const Default: StoryObj = {
             {props.children}
           </div>
         )}
-        Content={forwardRef<HTMLDivElement, ContentProps<HTMLDivElement>>(
+        Item={forwardRef<HTMLDivElement, ItemProps<HTMLDivElement>>(
           (props, ref) => (
             <div
               style={{
@@ -41,7 +41,7 @@ export const Default: StoryObj = {
             </div>
           ),
         )}
-        contents={range(100).map((i) => ({ id: i.toString() }))}
+        items={range(100).map((i) => ({ id: i.toString() }))}
         onSelect={(ids) => {
           // eslint-disable-next-line no-console
           console.log(ids);
