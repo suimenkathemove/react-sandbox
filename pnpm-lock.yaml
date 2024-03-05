@@ -163,6 +163,9 @@ devDependencies:
   destyle.css:
     specifier: ^4.0.0
     version: 4.0.0
+  dts-bundle-generator:
+    specifier: ^9.3.1
+    version: 9.3.1
   esbuild:
     specifier: ^0.20.1
     version: 0.20.1
@@ -11837,6 +11840,15 @@ packages:
 
   /doublearray@0.0.2:
     resolution: {integrity: sha512-aw55FtZzT6AmiamEj2kvmR6BuFqvYgKZUkfQ7teqVRNqD5UE0rw8IeW/3gieHNKQ5sPuDKlljWEn4bzv5+1bHw==}
+    dev: true
+
+  /dts-bundle-generator@9.3.1:
+    resolution: {integrity: sha512-1/nMT7LFOkXbrL1ZvLpzrjNbfX090LZ64nLIXVmet557mshFCGP/oTiQiZenafJZ6GsmRQLTYKSlQnkxK8tsTw==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      typescript: 5.2.2
+      yargs: 17.7.2
     dev: true
 
   /duplexer@0.1.2:
