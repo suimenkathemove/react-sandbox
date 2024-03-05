@@ -1,6 +1,6 @@
 {
   "name": "@suimenkathemove/react-library",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "",
   "keywords": [],
   "license": "MIT",
@@ -29,7 +29,7 @@
     "cy:sb:open": "cypress open -C cypress.storybook.json",
     "cy:sb:run": "cypress run --headless -C cypress.storybook.json",
     "test:playwright": "playwright test --ui",
-    "build:lib": "rm -rf dist && ts-node bin/build.ts && tsc --project tsconfig.build.json",
+    "build:lib": "rm -rf dist && ts-node bin/build.ts && dts-bundle-generator -o dist/index.d.ts src/index.ts --project tsconfig.build.json",
     "pub:lib": "pnpm build:lib && pnpm publish"
   },
   "dependencies": {
@@ -87,6 +87,7 @@
     "css-loader": "^6.8.1",
     "cypress": "^13.6.2",
     "destyle.css": "^4.0.0",
+    "dts-bundle-generator": "^9.3.1",
     "esbuild": "^0.20.1",
     "hygen": "^6.2.11",
     "jest": "^29.7.0",
