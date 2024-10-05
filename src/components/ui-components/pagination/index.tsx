@@ -1,5 +1,5 @@
+import { EllipsisButton } from './components/ellipsis-button';
 import { PageButton, PageButtonProps } from './components/page-button';
-import { ThreePointsReaderButton } from './components/three-points-reader-button';
 import { GAP_TO_MIDDLE_PAGES, MIDDLE_PAGES_COUNT_MAX } from './constants';
 import { Button, Container } from './styles';
 import { middlePages } from './utils/middle-pages';
@@ -11,7 +11,7 @@ export type PaginationProps = {
 };
 
 const ALL_PAGES_COUNT_MAX = 1 * 2 + 1 * 2 + MIDDLE_PAGES_COUNT_MAX;
-const THREE_HIDDEN_MAX_GAP = 1 + GAP_TO_MIDDLE_PAGES + 1;
+const ELLIPSIS_HIDDEN_MAX_GAP = 1 + GAP_TO_MIDDLE_PAGES + 1;
 
 export const Pagination: React.VFC<PaginationProps> = (props) => {
   const prevDisabled = props.currentPage === 1;
@@ -27,12 +27,12 @@ export const Pagination: React.VFC<PaginationProps> = (props) => {
     props.onClickPage(Math.min(props.currentPage + 1, props.lastPage));
   };
 
-  const isThreeRequired = props.lastPage > ALL_PAGES_COUNT_MAX;
-  const isLeftThreeShown =
-    isThreeRequired && props.currentPage > THREE_HIDDEN_MAX_GAP;
-  const isRightThreeShown =
-    isThreeRequired &&
-    props.lastPage - props.currentPage >= THREE_HIDDEN_MAX_GAP;
+  const isEllipsisRequired = props.lastPage > ALL_PAGES_COUNT_MAX;
+  const isLeftEllipsisShown =
+    isEllipsisRequired && props.currentPage > ELLIPSIS_HIDDEN_MAX_GAP;
+  const isRightEllipsisShown =
+    isEllipsisRequired &&
+    props.lastPage - props.currentPage >= ELLIPSIS_HIDDEN_MAX_GAP;
 
   const commonPageButtonProps: Omit<PageButtonProps, 'page'> = {
     currentPage: props.currentPage,
@@ -45,10 +45,10 @@ export const Pagination: React.VFC<PaginationProps> = (props) => {
         <span style={{ color: iconColor(prevDisabled) }}>{'<'}</span>
       </Button>
       <PageButton page={1} {...commonPageButtonProps} />
-      {props.lastPage >= 2 && !isLeftThreeShown && (
+      {props.lastPage >= 2 && !isLeftEllipsisShown && (
         <PageButton page={2} {...commonPageButtonProps} />
       )}
-      {isLeftThreeShown && <ThreePointsReaderButton />}
+      {isLeftEllipsisShown && <EllipsisButton />}
       {props.lastPage >= 5 &&
         middlePages(
           props.lastPage - GAP_TO_MIDDLE_PAGES,
@@ -56,8 +56,8 @@ export const Pagination: React.VFC<PaginationProps> = (props) => {
         ).map((page) => (
           <PageButton key={page} page={page} {...commonPageButtonProps} />
         ))}
-      {isRightThreeShown && <ThreePointsReaderButton />}
-      {props.lastPage >= 4 && !isRightThreeShown && (
+      {isRightEllipsisShown && <EllipsisButton />}
+      {props.lastPage >= 4 && !isRightEllipsisShown && (
         <PageButton page={props.lastPage - 1} {...commonPageButtonProps} />
       )}
       {props.lastPage >= 3 && (

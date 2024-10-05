@@ -1,6 +1,6 @@
 import { Button, Text } from '../styles';
 
-export const ThreePointsReaderButton: React.VFC = () => {
+export const EllipsisButton: React.VFC = () => {
   return (
     <Button disabled>
       <Text>...</Text>
