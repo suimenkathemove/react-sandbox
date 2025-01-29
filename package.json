@@ -130,7 +130,7 @@
     "react-dom": ">=16.8.0"
   },
   "engines": {
-    "node": "20.x",
+    "node": ">=20.x",
     "pnpm": ">=3"
   },
   "typesync": {
