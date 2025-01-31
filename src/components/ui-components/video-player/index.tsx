@@ -1,6 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import videoFile from './assets/sample-video.mp4';
+
+import { invariant } from '@/utils/invariant';
 
 type VideoPlayerProps = {};
 
@@ -10,20 +12,21 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
   // MEMO: 実際の再生状態はvideoRef.current.pausedで取得できる
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const togglePlay = async () => {
-    if (!videoRef.current) {
-      // TODO
-      return;
-    }
-
-    if (videoRef.current.paused) {
-      await videoRef.current.play();
-      setIsPlaying(true);
-    } else {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    }
+  const togglePlay = () => {
+    setIsPlaying((prev) => !prev);
   };
+
+  useEffect(() => {
+    void (async () => {
+      invariant(videoRef.current, 'videoRef.current is null');
+
+      if (isPlaying) {
+        await videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
+    })();
+  }, [isPlaying]);
 
   return (
     <div onClick={togglePlay}>
