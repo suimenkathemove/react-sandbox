@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import videoFile from './assets/sample-video.mp4';
+import { VideoControl } from './video-control';
 
 import { invariant } from '@/utils/invariant';
 
@@ -32,6 +33,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
     <div onClick={togglePlay}>
       <video src={videoFile} ref={videoRef} />
       <span>{isPlaying ? 'pause' : 'play'}</span>
+      <VideoControl />
     </div>
   );
 };
