@@ -1,9 +1,42 @@
 import { useEffect, useRef, useState } from 'react';
+import { styled } from 'styled-components';
 
 import videoFile from './assets/sample-video.mp4';
 import { VideoControl } from './video-control';
 
 import { invariant } from '@/utils/invariant';
+
+const currentTimeToProgress = (currentTime: number, duration: number): number =>
+  (currentTime / duration) * 100;
+
+const progressToCurrentTime = (progress: number, duration: number): number =>
+  duration * (progress / 100);
+
+const formatTime = (time: number): string => {
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
+
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+};
+
+const Container = styled.div`
+  position: relative;
+  width: 640px;
+  height: 480px;
+`;
+
+const Video = styled.video`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const VideoControlWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+`;
 
 type VideoPlayerProps = {
   // TODO
@@ -11,10 +44,10 @@ type VideoPlayerProps = {
 
 export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-
   // MEMO: 実際の再生状態はvideoRef.current.pausedで取得できる
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     void (async () => {
@@ -27,8 +60,6 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
     })();
   }, [isPlaying]);
 
-  const [progress, setProgress] = useState(0);
-
   const onLoadedMetadata = () => {
     invariant(videoRef.current, 'videoRef.current is null');
     setDuration(videoRef.current.duration);
@@ -36,8 +67,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
 
   const onTimeUpdate = () => {
     invariant(videoRef.current, 'videoRef.current is null');
-    const newProgress =
-      (videoRef.current.currentTime / videoRef.current.duration) * 100;
+    const newProgress = currentTimeToProgress(
+      videoRef.current.currentTime,
+      videoRef.current.duration,
+    );
     setProgress(newProgress);
   };
 
@@ -49,53 +82,50 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
     setProgress(progress);
 
     if (videoRef.current && videoRef.current.duration) {
-      videoRef.current.currentTime =
-        videoRef.current.duration * (progress / 100);
+      videoRef.current.currentTime = progressToCurrentTime(
+        progress,
+        videoRef.current.duration,
+      );
     }
   };
 
   const onChangeStartProgress = () => {
-    invariant(videoRef.current, 'videoRef.current is null');
-    videoRef.current.pause();
+    setIsPlaying(false);
   };
 
-  const onChangeEndProgress = async () => {
-    invariant(videoRef.current, 'videoRef.current is null');
-    await videoRef.current.play();
-  };
-
-  const formatTime = (time: number): string => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  const onChangeEndProgress = () => {
+    setIsPlaying(true);
   };
 
   const displayedTime = ((): string => {
-    const formattedCurrentTime = formatTime(videoRef.current?.currentTime ?? 0);
+    const currentTime = progressToCurrentTime(progress, duration);
+    const formattedCurrentTime = formatTime(currentTime);
     const formattedDuration = formatTime(duration);
 
     return `${formattedCurrentTime} / ${formattedDuration}`;
   })();
 
   return (
-    <div>
+    <Container>
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-      <video
+      <Video
         src={videoFile}
         ref={videoRef}
         onLoadedMetadata={onLoadedMetadata}
         onTimeUpdate={onTimeUpdate}
         onClick={togglePlay}
       />
-      <span>{isPlaying ? 'pause' : 'play'}</span>
-      <span>{displayedTime}</span>
-      <VideoControl
-        progress={progress}
-        onChangeProgress={onChangeProgress}
-        onChangeStartProgress={onChangeStartProgress}
-        onChangeEndProgress={onChangeEndProgress}
-      />
-    </div>
+      <VideoControlWrapper>
+        <VideoControl
+          progress={progress}
+          onChangeProgress={onChangeProgress}
+          onChangeStartProgress={onChangeStartProgress}
+          onChangeEndProgress={onChangeEndProgress}
+          isPlaying={isPlaying}
+          togglePlay={togglePlay}
+          displayedTime={displayedTime}
+        />
+      </VideoControlWrapper>
+    </Container>
   );
 };

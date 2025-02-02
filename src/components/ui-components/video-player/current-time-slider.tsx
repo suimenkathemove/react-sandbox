@@ -89,7 +89,13 @@ export const CurrentTimeSlider: React.FC<CurrentTimeSliderProps> = (props) => {
   }, [isDragging, onPointerMove, onPointerUp]);
 
   return (
-    <Track ref={trackRef} onPointerDown={onPointerDown}>
+    <Track
+      ref={trackRef}
+      onPointerDown={onPointerDown}
+      onDragStart={(e) => {
+        e.preventDefault();
+      }}
+    >
       <Fill value={props.value} />
       <Thumb value={props.value} />
     </Track>
