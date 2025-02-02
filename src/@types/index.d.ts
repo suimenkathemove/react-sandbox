@@ -8,5 +8,6 @@ type OnlyOne<T, K extends keyof T = keyof T> = K extends keyof T
 
 declare module '*.png';
 declare module '*.svg';
+declare module '*.mp4';
 
 type ComponentReturn = React.ReactElement<any, any> | null;
