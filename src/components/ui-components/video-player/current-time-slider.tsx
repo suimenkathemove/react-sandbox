@@ -28,9 +28,13 @@ const Thumb = styled.div<{ value: number }>`
   border-radius: 50%;
 `;
 
-export const CurrentTimeSlider: React.FC = () => {
+type CurrentTimeSliderProps = {
+  value: number;
+  onChangeValue: (value: number) => void;
+};
+
+export const CurrentTimeSlider: React.FC<CurrentTimeSliderProps> = (props) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [value, setValue] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const calculateValue = useCallback((clientX: number): number => {
@@ -49,7 +53,7 @@ export const CurrentTimeSlider: React.FC = () => {
     setIsDragging(true);
 
     const newValue = calculateValue(e.clientX);
-    setValue(newValue);
+    props.onChangeValue(newValue);
   };
 
   const onPointerMove = useCallback(
@@ -57,9 +61,9 @@ export const CurrentTimeSlider: React.FC = () => {
       if (!isDragging) return;
 
       const newValue = calculateValue(e.clientX);
-      setValue(newValue);
+      props.onChangeValue(newValue);
     },
-    [calculateValue, isDragging],
+    [calculateValue, isDragging, props],
   );
 
   const onPointerUp = useCallback(() => {
@@ -80,8 +84,8 @@ export const CurrentTimeSlider: React.FC = () => {
 
   return (
     <Track ref={trackRef} onPointerDown={onPointerDown}>
-      <Fill value={value} />
-      <Thumb value={value} />
+      <Fill value={props.value} />
+      <Thumb value={props.value} />
     </Track>
   );
 };

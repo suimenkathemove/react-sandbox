@@ -5,9 +5,11 @@ import { VideoControl } from './video-control';
 
 import { invariant } from '@/utils/invariant';
 
-type VideoPlayerProps = {};
+type VideoPlayerProps = {
+  // TODO
+};
 
-export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
+export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // MEMO: 実際の再生状態はvideoRef.current.pausedで取得できる
@@ -29,11 +31,35 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
     })();
   }, [isPlaying]);
 
+  const [progress, setProgress] = useState(0);
+
+  const handleTimeUpdate = () => {
+    invariant(videoRef.current, 'videoRef.current is null');
+    const newProgress =
+      (videoRef.current.currentTime / videoRef.current.duration) * 100;
+    setProgress(newProgress);
+  };
+
+  const onChangeProgress = (progress: number) => {
+    setProgress(progress);
+
+    if (videoRef.current && videoRef.current.duration) {
+      videoRef.current.currentTime =
+        videoRef.current.duration * (progress / 100);
+    }
+  };
+
   return (
-    <div onClick={togglePlay}>
-      <video src={videoFile} ref={videoRef} />
+    <div>
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+      <video
+        src={videoFile}
+        ref={videoRef}
+        onClick={togglePlay}
+        onTimeUpdate={handleTimeUpdate}
+      />
       <span>{isPlaying ? 'pause' : 'play'}</span>
-      <VideoControl />
+      <VideoControl progress={progress} onChangeProgress={onChangeProgress} />
     </div>
   );
 };

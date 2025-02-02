@@ -1,9 +1,17 @@
 import { CurrentTimeSlider } from './current-time-slider';
 
-export const VideoControl: React.FC = () => {
+type VideoControlProps = {
+  progress: number;
+  onChangeProgress: (progress: number) => void;
+};
+
+export const VideoControl: React.FC<VideoControlProps> = (props) => {
   return (
     <div>
-      <CurrentTimeSlider />
+      <CurrentTimeSlider
+        value={props.progress}
+        onChangeValue={props.onChangeProgress}
+      />
     </div>
   );
 };

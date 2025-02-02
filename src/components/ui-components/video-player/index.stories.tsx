@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 
 import { CurrentTimeSlider } from './current-time-slider';
 
@@ -18,10 +19,13 @@ export const Default: Story = {
 
 export const CurrentTimeSliderDefault: Story = {
   render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [progress, setProgress] = useState(0);
+
     return (
       <div style={{ width: '100%', height: '100%', backgroundColor: 'black' }}>
         <div style={{ padding: 16 }}>
-          <CurrentTimeSlider />
+          <CurrentTimeSlider value={progress} onChangeValue={setProgress} />
         </div>
       </div>
     );
