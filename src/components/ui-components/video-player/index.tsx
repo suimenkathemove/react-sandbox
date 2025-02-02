@@ -14,15 +14,11 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
 
   // MEMO: 実際の再生状態はvideoRef.current.pausedで取得できる
   const [isPlaying, setIsPlaying] = useState(false);
-
-  const togglePlay = () => {
-    setIsPlaying((prev) => !prev);
-  };
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     void (async () => {
       invariant(videoRef.current, 'videoRef.current is null');
-
       if (isPlaying) {
         await videoRef.current.play();
       } else {
@@ -33,11 +29,20 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
 
   const [progress, setProgress] = useState(0);
 
-  const handleTimeUpdate = () => {
+  const onLoadedMetadata = () => {
+    invariant(videoRef.current, 'videoRef.current is null');
+    setDuration(videoRef.current.duration);
+  };
+
+  const onTimeUpdate = () => {
     invariant(videoRef.current, 'videoRef.current is null');
     const newProgress =
       (videoRef.current.currentTime / videoRef.current.duration) * 100;
     setProgress(newProgress);
+  };
+
+  const togglePlay = () => {
+    setIsPlaying((prev) => !prev);
   };
 
   const onChangeProgress = (progress: number) => {
@@ -49,16 +54,32 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
     }
   };
 
+  const formatTime = (time: number): string => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const displayedTime = ((): string => {
+    const formattedCurrentTime = formatTime(videoRef.current?.currentTime ?? 0);
+    const formattedDuration = formatTime(duration);
+
+    return `${formattedCurrentTime} / ${formattedDuration}`;
+  })();
+
   return (
     <div>
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <video
         src={videoFile}
         ref={videoRef}
+        onLoadedMetadata={onLoadedMetadata}
+        onTimeUpdate={onTimeUpdate}
         onClick={togglePlay}
-        onTimeUpdate={handleTimeUpdate}
       />
       <span>{isPlaying ? 'pause' : 'play'}</span>
+      <span>{displayedTime}</span>
       <VideoControl progress={progress} onChangeProgress={onChangeProgress} />
     </div>
   );
