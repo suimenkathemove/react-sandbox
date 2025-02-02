@@ -20,7 +20,9 @@ export const CurrentTimeSliderDefault: Story = {
   render: () => {
     return (
       <div style={{ width: '100%', height: '100%', backgroundColor: 'black' }}>
-        <CurrentTimeSlider />
+        <div style={{ padding: 16 }}>
+          <CurrentTimeSlider />
+        </div>
       </div>
     );
   },
