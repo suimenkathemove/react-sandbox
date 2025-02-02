@@ -54,6 +54,16 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
     }
   };
 
+  const onChangeStartProgress = () => {
+    invariant(videoRef.current, 'videoRef.current is null');
+    videoRef.current.pause();
+  };
+
+  const onChangeEndProgress = async () => {
+    invariant(videoRef.current, 'videoRef.current is null');
+    await videoRef.current.play();
+  };
+
   const formatTime = (time: number): string => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
@@ -80,7 +90,12 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (_props) => {
       />
       <span>{isPlaying ? 'pause' : 'play'}</span>
       <span>{displayedTime}</span>
-      <VideoControl progress={progress} onChangeProgress={onChangeProgress} />
+      <VideoControl
+        progress={progress}
+        onChangeProgress={onChangeProgress}
+        onChangeStartProgress={onChangeStartProgress}
+        onChangeEndProgress={onChangeEndProgress}
+      />
     </div>
   );
 };

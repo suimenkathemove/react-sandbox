@@ -31,6 +31,8 @@ const Thumb = styled.div<{ value: number }>`
 type CurrentTimeSliderProps = {
   value: number;
   onChangeValue: (value: number) => void;
+  onChangeStart?: () => void;
+  onChangeEnd?: () => void;
 };
 
 export const CurrentTimeSlider: React.FC<CurrentTimeSliderProps> = (props) => {
@@ -54,6 +56,8 @@ export const CurrentTimeSlider: React.FC<CurrentTimeSliderProps> = (props) => {
 
     const newValue = calculateValue(e.clientX);
     props.onChangeValue(newValue);
+
+    props.onChangeStart?.();
   };
 
   const onPointerMove = useCallback(
@@ -68,7 +72,9 @@ export const CurrentTimeSlider: React.FC<CurrentTimeSliderProps> = (props) => {
 
   const onPointerUp = useCallback(() => {
     setIsDragging(false);
-  }, []);
+
+    props.onChangeEnd?.();
+  }, [props]);
 
   useEffect(() => {
     if (isDragging) {
