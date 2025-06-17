@@ -1,5 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
+import { HeaderSidebarMainLayout } from './header-sidebar-main-layout';
+
 import { Grid } from './';
 
 export default {
@@ -13,3 +15,7 @@ export const defaultProps = {};
 
 export const Default = Template.bind({});
 Default.args = defaultProps;
+
+export const HeaderSidebarMain = () => {
+  return <HeaderSidebarMainLayout />;
+};
